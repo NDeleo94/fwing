@@ -33,7 +33,9 @@ BASE_APPS = [
     "django.contrib.staticfiles",
 ]
 
-LOCAL_APPS = []
+LOCAL_APPS = [
+    "apps.fw",
+]
 
 THIRD_APPS = []
 
