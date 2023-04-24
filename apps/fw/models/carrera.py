@@ -36,3 +36,28 @@ class Carrera(models.Model):
 
     def __str__(self) -> str:
         return f"{self.carrera} ({self.facultad.acronimo if self.facultad.acronimo != None else self.facultad})"
+
+
+class Titulo(models.Model):
+    id = models.AutoField(primary_key=True)
+    titulo = models.CharField(max_length=200)
+
+    estado = models.BooleanField(
+        default=True,
+        help_text=(
+            "Indica si la actividad del titulo esta vigente. " "Por defecto esta activa"
+        ),
+    )
+
+    carrera = models.ForeignKey(
+        "Carrera",
+        related_name="titulos",
+        on_delete=models.CASCADE,
+    )
+
+    class Meta:
+        verbose_name = "Titulo Intermedio"
+        verbose_name_plural = "Titulos Intermedios"
+
+    def __str__(self) -> str:
+        return self.titulo
