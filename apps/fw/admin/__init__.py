@@ -5,3 +5,4 @@ from .carrera import *
 from .organizacion import *
 from .puesto import *
 from .actividad import *
+from .egreso import *
