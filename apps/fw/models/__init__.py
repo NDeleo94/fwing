@@ -3,3 +3,4 @@ from .universidad import *
 from .facultad import *
 from .carrera import *
 from .organizacion import *
+from .puesto import *
