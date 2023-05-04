@@ -7,6 +7,7 @@ from apps.fw.uris.TituloURLs import urlTitulo
 from apps.fw.uris.OrganizacionURLs import urlOrganizacion
 from apps.fw.uris.PuestoURLs import urlPuesto
 from apps.fw.uris.ActividadURLs import urlActividad
+from apps.fw.uris.EgresoURLs import urlEgreso
 
 urls = (
     urlUniversidad
@@ -16,6 +17,7 @@ urls = (
     + urlOrganizacion
     + urlPuesto
     + urlActividad
+    + urlEgreso
 )
 
 urlpatterns = []
