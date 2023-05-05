@@ -1,4 +1,5 @@
 from django.db import models
+from .users import FwUser
 
 
 class Carrera(models.Model):
@@ -29,6 +30,10 @@ class Carrera(models.Model):
         "Facultad",
         related_name="carreras",
         on_delete=models.CASCADE,
+    )
+
+    egresado = models.ManyToManyField(
+        FwUser, related_name="carreras", through="Egreso", blank=True
     )
 
     class Meta:

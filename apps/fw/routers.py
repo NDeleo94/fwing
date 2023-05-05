@@ -7,6 +7,7 @@ from apps.fw.api.TituloAPI import TituloAPIView
 from apps.fw.api.OrganizacionAPI import OrganizacionAPIView
 from apps.fw.api.PuestoAPI import PuestoAPIView
 from apps.fw.api.ActividadAPI import ActividadAPIView
+from apps.fw.api.EgresoAPI import EgresoAPIView
 
 router = routers.DefaultRouter()
 
@@ -17,5 +18,6 @@ router.register("titulos", TituloAPIView)  # GET (List, Retrieve)
 router.register("organizaciones", OrganizacionAPIView)  # GET (List, Retrieve), POST
 router.register("puestos", PuestoAPIView)  # GET (List, Retrieve), POST
 router.register("actividades", ActividadAPIView)  # GET (List, Retrieve), POST
+router.register("egresos", EgresoAPIView)  # GET (List, Retrieve), POST
 
 urlpatterns = router.urls
