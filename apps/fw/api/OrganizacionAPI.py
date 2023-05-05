@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from apps.fw.serializers.OrganizacionSerializers import *
+from apps.fw.serializers.organizacion_serializers import *
 
 
 class OrganizacionAPIView(viewsets.ModelViewSet):

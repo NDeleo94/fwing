@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from apps.fw.serializers.EgresoSerializers import *
+from apps.fw.serializers.egreso_serializers import *
 
 
 class EgresoAPIView(viewsets.ModelViewSet):

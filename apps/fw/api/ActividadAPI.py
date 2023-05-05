@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from apps.fw.serializers.ActividadSerializers import *
+from apps.fw.serializers.actividad_serializers import *
 
 
 class ActividadAPIView(viewsets.ModelViewSet):

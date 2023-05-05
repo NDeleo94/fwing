@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from apps.fw.serializers.FacultadSerializers import *
+from apps.fw.serializers.facultad_serializers import *
 
 
 class FacultadAPIView(viewsets.ModelViewSet):

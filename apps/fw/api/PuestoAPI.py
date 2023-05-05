@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from apps.fw.serializers.PuestoSerializers import *
+from apps.fw.serializers.puesto_serializers import *
 
 
 class PuestoAPIView(viewsets.ModelViewSet):

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from apps.fw.serializers.TituloSerializers import *
+from apps.fw.serializers.titulo_serializers import *
 
 
 class TituloAPIView(viewsets.ModelViewSet):

@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from apps.fw.serializers.CarreraSerializers import *
+from apps.fw.serializers.carrera_serializers import *
 
 
 class CarreraAPIView(viewsets.ModelViewSet):

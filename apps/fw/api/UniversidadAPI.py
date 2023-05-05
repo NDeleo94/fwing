@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 
-from apps.fw.serializers.UniversidadSerializers import *
+from apps.fw.serializers.universidad_serializers import *
 
 
 class UniversidadAPIView(viewsets.ModelViewSet):
