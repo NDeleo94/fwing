@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.fw.models import Actividad
+from apps.fw.models.actividad_model import Actividad
 
 
 class ActividadSerializer(serializers.ModelSerializer):

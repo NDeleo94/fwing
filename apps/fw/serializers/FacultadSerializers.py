@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.fw.models.facultad import Facultad
+from apps.fw.models.facultad_model import Facultad
 
 
 class FacultadSerializer(serializers.ModelSerializer):

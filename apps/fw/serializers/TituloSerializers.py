@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.fw.models.carrera import Titulo
+from apps.fw.models.carrera_model import Titulo
 
 
 class TituloSerializer(serializers.ModelSerializer):

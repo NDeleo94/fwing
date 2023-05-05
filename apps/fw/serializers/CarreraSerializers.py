@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.fw.models.carrera import Carrera
+from apps.fw.models.carrera_model import Carrera
 
 
 class CarreraSerializer(serializers.ModelSerializer):

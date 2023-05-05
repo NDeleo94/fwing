@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.fw.models.universidad import Universidad
+from apps.fw.models.universidad_model import Universidad
 
 
 class UniversidadSerializer(serializers.ModelSerializer):

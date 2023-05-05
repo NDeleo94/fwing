@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.fw.models.organizacion import Organizacion
+from apps.fw.models.organizacion_model import Organizacion
 
 
 class OrganizacionSerializer(serializers.ModelSerializer):

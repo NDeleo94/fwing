@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.fw.models.egreso import Egreso
+from apps.fw.models.egreso_model import Egreso
 
 
 class EgresoSerializer(serializers.ModelSerializer):

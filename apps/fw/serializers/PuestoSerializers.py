@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.fw.models.puesto import Puesto
+from apps.fw.models.puesto_model import Puesto
 
 
 class PuestoSerializer(serializers.ModelSerializer):

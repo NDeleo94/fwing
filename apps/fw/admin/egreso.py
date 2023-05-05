@@ -1,5 +1,5 @@
 from django.contrib import admin
 
-from apps.fw.models.egreso import Egreso
+from apps.fw.models.egreso_model import Egreso
 
 admin.site.register(Egreso)
