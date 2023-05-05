@@ -1,5 +1,5 @@
 from django.db import models
-from apps.fw.models.users_model import FwUser
+from apps.fw.models.user_model import FwUser
 
 
 class Carrera(models.Model):

@@ -1,6 +1,6 @@
 from django.db import models
 from apps.fw.models.carrera_model import Carrera
-from apps.fw.models.users_model import FwUser
+from apps.fw.models.user_model import FwUser
 
 
 class Egreso(models.Model):

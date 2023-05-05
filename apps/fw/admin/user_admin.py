@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 from django.contrib.auth.models import Group
-from apps.fw.models.users_model import FwUser
+from apps.fw.models.user_model import FwUser
 
 # Register your models here.
 # Now register the new UserAdmin...

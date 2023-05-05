@@ -1,4 +1,4 @@
-from apps.fw.models.users_model import *
+from apps.fw.models.user_model import *
 from apps.fw.models.universidad_model import *
 from apps.fw.models.facultad_model import *
 from apps.fw.models.carrera_model import *
