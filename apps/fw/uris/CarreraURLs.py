@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.fw.api.CarreraAPI import *
+from apps.fw.api.carrera_api import *
 
 urlCarrera = [
     path(

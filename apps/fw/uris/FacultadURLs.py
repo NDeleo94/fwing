@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.fw.api.FacultadAPI import *
+from apps.fw.api.facultad_api import *
 
 urlFacultad = [
     path(

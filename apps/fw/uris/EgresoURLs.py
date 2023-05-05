@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.fw.api.EgresoAPI import *
+from apps.fw.api.egreso_api import *
 
 urlEgreso = [
     path(

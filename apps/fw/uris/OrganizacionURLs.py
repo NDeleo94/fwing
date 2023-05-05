@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.fw.api.OrganizacionAPI import *
+from apps.fw.api.organizacion_api import *
 
 urlOrganizacion = [
     path(

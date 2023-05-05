@@ -1,13 +1,13 @@
 from rest_framework import routers
 
-from apps.fw.api.UniversidadAPI import UniversidadAPIView
-from apps.fw.api.FacultadAPI import FacultadAPIView
-from apps.fw.api.CarreraAPI import CarreraAPIView
-from apps.fw.api.TituloAPI import TituloAPIView
-from apps.fw.api.OrganizacionAPI import OrganizacionAPIView
-from apps.fw.api.PuestoAPI import PuestoAPIView
-from apps.fw.api.ActividadAPI import ActividadAPIView
-from apps.fw.api.EgresoAPI import EgresoAPIView
+from apps.fw.api.universidad_api import UniversidadAPIView
+from apps.fw.api.facultad_api import FacultadAPIView
+from apps.fw.api.carrera_api import CarreraAPIView
+from apps.fw.api.titulo_api import TituloAPIView
+from apps.fw.api.organizacion_api import OrganizacionAPIView
+from apps.fw.api.puesto_api import PuestoAPIView
+from apps.fw.api.actividad_api import ActividadAPIView
+from apps.fw.api.egreso_api import EgresoAPIView
 
 router = routers.DefaultRouter()
 

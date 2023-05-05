@@ -1,6 +1,6 @@
 from django.urls import path
 
-from apps.fw.api.PuestoAPI import *
+from apps.fw.api.puesto_api import *
 
 urlPuesto = [
     path(
