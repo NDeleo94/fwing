@@ -1,4 +1,5 @@
-from .base import *
+from fwing.settings.base import *
+import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -11,12 +12,12 @@ ALLOWED_HOSTS = []
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "fwingdb",
-        "USER": "postgres",
-        "PASSWORD": "admin",
-        "HOST": "127.0.0.1",
-        "PORT": "5432",
+        "ENGINE": os.environ.get("DB_DEV_ENGINE"),
+        "NAME": os.environ.get("DB_DEV_NAME"),
+        "USER": os.environ.get("DB_DEV_USER"),
+        "PASSWORD": os.environ.get("DB_DEV_PASSWORD"),
+        "HOST": os.environ.get("DB_DEV_HOST"),
+        "PORT": os.environ.get("DB_DEV_PORT"),
     }
 }
 
