@@ -3,7 +3,8 @@ from ast import literal_eval
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = literal_eval(os.environ.get("DEBUG_MODE"))
+# DEBUG = literal_eval(os.environ.get("DEBUG_MODE"))
+DEBUG = True  # Must be false
 
 ALLOWED_HOSTS = ["*"]
 
