@@ -1,8 +1,9 @@
 from fwing.settings.base import *
+from ast import literal_eval
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG_MODE")
+DEBUG = literal_eval(os.environ.get("DEBUG_MODE"))
 
 ALLOWED_HOSTS = ["*"]
 
