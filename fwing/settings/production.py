@@ -2,7 +2,7 @@ from fwing.settings.base import *
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = os.environ.get("DEBUG_MODE")
 
 ALLOWED_HOSTS = ["*"]
 
