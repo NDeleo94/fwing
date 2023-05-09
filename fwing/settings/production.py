@@ -14,12 +14,12 @@ ALLOWED_HOSTS = ["*"]
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DB_PROD_ENGINE"),
-        "NAME": os.environ.get("DB_PROD_NAME"),
-        "USER": os.environ.get("DB_PROD_USER"),  # Not works for sqlite
-        "PASSWORD": os.environ.get("DB_PROD_PASSWORD"),  # Not works for sqlite
-        "HOST": os.environ.get("DB_PROD_HOST"),  # Not works for sqlite
-        "PORT": os.environ.get("DB_PROD_PORT"),  # Not works for sqlite
+        "ENGINE": "django.db.backends.mysql",
+        "NAME": "ndeleo94$default",
+        "USER": "ndeleo94",  # Not works for sqlite
+        "PASSWORD": "adminadmin",  # Not works for sqlite
+        "HOST": "ndeleo94.mysql.pythonanywhere-services.com",  # Not works for sqlite
+        "PORT": "3306",  # Not works for sqlite
     }
 }
 
