@@ -33,3 +33,25 @@ class CarreraAdmin(admin.ModelAdmin):
     list_filter = ["estado"]
 
     search_fields = ("carrera",)
+
+
+@admin.register(Titulo)
+class TituloAdmin(admin.ModelAdmin):
+    list_display = ("titulo", "carrera", "estado")
+    search_fields = (
+        "titulo",
+        "carrera__carrera",
+    )
+    fieldsets = (
+        (
+            "Datos",
+            {
+                "fields": (
+                    "titulo",
+                    "carrera",
+                )
+            },
+        ),
+        ("Permisos", {"fields": ("estado",)}),
+    )
+    list_filter = ["estado"]
