@@ -1,3 +1,4 @@
+from apps.fw.admin.general_config_admin import *
 from apps.fw.admin.user_admin import *
 from apps.fw.admin.universidad_admin import *
 from apps.fw.admin.facultad_admin import *
