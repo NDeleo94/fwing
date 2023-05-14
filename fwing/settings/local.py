@@ -6,7 +6,7 @@ import os
 # DEBUG = literal_eval(os.environ.get("DEBUG_MODE"))
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Database
