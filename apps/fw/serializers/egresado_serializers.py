@@ -6,7 +6,17 @@ from apps.fw.models.user_model import FwUser
 class EgresadoSerializer(serializers.ModelSerializer):
     class Meta:
         model = FwUser
-        fields = "__all__"
+        fields = (
+            "id",
+            "email",
+            "apellidos",
+            "nombres",
+            "nacionalidad",
+            "fecha_nac",
+            "ciudad_natal",
+            "ciudad_actual",
+            "last_login",
+        )
 
 
 class EgresadoListSerializer(serializers.ModelSerializer):
