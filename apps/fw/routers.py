@@ -8,6 +8,7 @@ from apps.fw.api.organizacion_api import OrganizacionAPIView
 from apps.fw.api.puesto_api import PuestoAPIView
 from apps.fw.api.actividad_api import ActividadAPIView
 from apps.fw.api.egreso_api import EgresoAPIView
+from apps.fw.api.egresado_api import EgresadoAPIView
 
 router = routers.DefaultRouter()
 
@@ -19,5 +20,6 @@ router.register("organizaciones", OrganizacionAPIView)  # GET (List, Retrieve), 
 router.register("puestos", PuestoAPIView)  # GET (List, Retrieve), POST
 router.register("actividades", ActividadAPIView)  # GET (List, Retrieve), POST
 router.register("egresos", EgresoAPIView)  # GET (List, Retrieve), POST
+router.register("egresados", EgresadoAPIView)  # GET (List, Retrieve)
 
 urlpatterns = router.urls
