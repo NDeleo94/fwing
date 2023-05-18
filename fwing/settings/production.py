@@ -8,6 +8,13 @@ DEBUG = True  # Must be false
 
 ALLOWED_HOSTS = ["*"]
 
+CORS_ORIGIN_ALLOW_ALL = True
+# Si CORS_ORIGIN_ALLOW_ALL es False
+# Lista de origenes permitidos
+# CORS_ORIGIN_WHITELIST = [
+#     "http://localhost:3000",
+# ]
+
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
