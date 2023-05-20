@@ -1,37 +1,7 @@
-from rest_framework.routers import Route, DefaultRouter, DynamicRoute
-
-from apps.fw.api.egresado_api import EgresadoReadOnlyAPIView
-
-
-class EgresadoReadOnlyRouter(DefaultRouter):
-    """
-    A router for read-only APIs, which doesn't use trailing slashes.
-    """
-
-    routes = [
-        Route(
-            url=r"^{prefix}$",
-            mapping={"get": "list"},
-            name="{basename}-list",
-            detail=False,
-            initkwargs={"suffix": "List"},
-        ),
-        Route(
-            url=r"^{prefix}/{lookup}$",
-            mapping={"get": "retrieve"},
-            name="{basename}-detail",
-            detail=True,
-            initkwargs={"suffix": "Detail"},
-        ),
-        DynamicRoute(
-            url=r"^{prefix}/{lookup}/{url_path}$",
-            name="{basename}-{url_name}",
-            detail=True,
-            initkwargs={},
-        ),
-    ]
+from rest_framework import routers
+from apps.fw.api.egresado_api import EgresadoAPIView
 
 
-router_egresado = EgresadoReadOnlyRouter()
+router_egresado = routers.DefaultRouter()
 
-router_egresado.register("egresados", EgresadoReadOnlyAPIView)  # GET (List, Retrieve)
+router_egresado.register("egresados", EgresadoAPIView)  # GET (List, Retrieve)
