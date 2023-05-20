@@ -94,7 +94,7 @@ class ActividadSerializer(serializers.ModelSerializer):
         )
 
 
-# Serializer Egresado
+# Serializer de solo lectura Egresado
 class EgresadoReadOnlySerializer(serializers.ModelSerializer):
     egresos = EgresoSerializer(many=True)
     historial = ActividadSerializer(many=True)
@@ -113,4 +113,19 @@ class EgresadoReadOnlySerializer(serializers.ModelSerializer):
             "last_login",
             "egresos",
             "historial",
+        )
+
+
+# Serializer de actualizacion Egresado
+class EgresadoUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FwUser
+        fields = (
+            "email",
+            "apellidos",
+            "nombres",
+            "nacionalidad",
+            "fecha_nac",
+            "ciudad_natal",
+            "ciudad_actual",
         )
