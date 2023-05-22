@@ -40,6 +40,7 @@ LOCAL_APPS = [
 THIRD_APPS = [
     "rest_framework",
     "corsheaders",
+    "import_export",
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS

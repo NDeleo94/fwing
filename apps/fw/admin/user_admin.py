@@ -10,6 +10,9 @@ from apps.fw.models.user_model import FwUser
 from apps.fw.models.egreso_model import Egreso
 from apps.fw.models.actividad_model import Actividad
 
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
@@ -77,7 +80,22 @@ class ActividadInline(admin.TabularInline):
     )
 
 
-class UserAdmin(BaseUserAdmin):
+class FwUserResources(resources.ModelResource):
+    class Meta:
+        model = FwUser
+        fields = (
+            "id",
+            "email",
+            "apellidos",
+            "nombres",
+            "nacionalidad",
+            "fecha_nac",
+            "ciudad_natal",
+            "ciudad_actual",
+        )
+
+
+class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
     # The forms to add and change user instances
     form = UserChangeForm
     add_form = UserCreationForm
@@ -142,6 +160,7 @@ class UserAdmin(BaseUserAdmin):
     )
     ordering = ("email",)
     filter_horizontal = ("user_permissions",)
+    resource_class = FwUserResources
 
 
 # Now register the new UserAdmin...
