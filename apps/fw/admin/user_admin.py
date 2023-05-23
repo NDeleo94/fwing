@@ -9,6 +9,7 @@ from django.contrib.auth.models import Group
 from apps.fw.models.user_model import FwUser
 from apps.fw.models.egreso_model import Egreso
 from apps.fw.models.actividad_model import Actividad
+from apps.fw.models.carrera_model import Carrera
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
@@ -93,6 +94,28 @@ class FwUserResources(resources.ModelResource):
             "ciudad_natal",
             "ciudad_actual",
         )
+
+    def import_row(
+        self, row, instance_loader, using_transactions=True, dry_run=False, **kwargs
+    ):
+        # Create FwUser object
+        fwUser = super().import_row(
+            row, instance_loader, using_transactions, dry_run, **kwargs
+        )
+        usuario = FwUser.objects.get(id=fwUser.object_id)
+        # Check if the required fields for Egreso are present in the row
+        if "carrera" in row and "ciclo_egreso" in row:
+            # Retrieve or create Carrera object based on carrera
+            carrera_id = row["carrera"]
+            carrera = Carrera.objects.get(id=carrera_id)
+            # Create Egreso object and set the foreign keys
+            Egreso.objects.create(
+                usuario=usuario,
+                carrera=carrera,
+                ciclo_egreso=row["ciclo_egreso"],
+            )
+
+        return fwUser
 
 
 class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
