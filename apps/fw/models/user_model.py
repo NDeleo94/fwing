@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator
 from django.contrib.auth.models import (
     BaseUserManager,
     AbstractBaseUser,
@@ -38,22 +38,60 @@ class FwUserManager(BaseUserManager):
 
 
 class FwUser(AbstractBaseUser, PermissionsMixin):
+    dni = models.BigIntegerField(
+        verbose_name="Numero de documento",
+        unique=True,
+        validators=[
+            MinValueValidator(1000000),
+        ],
+    )
     email = models.EmailField(
         verbose_name="Correo Electronico",
         max_length=255,
         unique=True,
     )
-    nombres = models.CharField("Nombres", max_length=200, blank=True, null=True)
-    apellidos = models.CharField("Apellidos", max_length=200, blank=True, null=True)
-    nacionalidad = models.CharField(
-        "Nacionalidad", max_length=200, blank=True, null=True
+    nombres = models.CharField(
+        "Nombres",
+        max_length=200,
+        blank=False,
+        null=False,
     )
-    fecha_nac = models.DateField("Fecha de Nacimiento", blank=True, null=True)
+    apellidos = models.CharField(
+        "Apellidos",
+        max_length=200,
+        blank=False,
+        null=False,
+    )
+    fecha_nac = models.DateField(
+        "Fecha de Nacimiento",
+        blank=True,
+        null=True,
+    )
+    nacionalidad = models.CharField(
+        "Nacionalidad",
+        max_length=200,
+        blank=True,
+        null=True,
+    )
     ciudad_natal = models.CharField(
-        "Ciudad natal", max_length=200, blank=True, null=True
+        "Ciudad natal",
+        max_length=200,
+        blank=True,
+        null=True,
     )
     ciudad_actual = models.CharField(
-        "Ciudad actual", max_length=200, blank=True, null=True
+        "Ciudad actual",
+        max_length=200,
+        blank=True,
+        null=True,
+    )
+    sexo = models.CharField(
+        "Sexo",
+        max_length=1,
+        choices=(
+            ("F", "Femenino"),
+            ("M", "Masculino"),
+        ),
     )
     is_active = models.BooleanField(
         "active",
@@ -71,7 +109,7 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
 
     objects = FwUserManager()
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "dni"
     REQUIRED_FIELDS = []
 
     class Meta:
