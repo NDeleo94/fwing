@@ -93,6 +93,8 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
             ("F", "Femenino"),
             ("M", "Masculino"),
         ),
+        blank=True,
+        null=True,
     )
     is_active = models.BooleanField(
         "active",

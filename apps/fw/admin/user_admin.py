@@ -137,7 +137,10 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         "email",
         "is_active",
     )
-    list_filter = ("is_active",)
+    list_filter = (
+        "is_active",
+        "sexo",
+    )
     fieldsets = (
         # (None, {"fields": ("email", "password")}),
         (
@@ -152,6 +155,7 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
                     "fecha_nac",
                     "ciudad_natal",
                     "ciudad_actual",
+                    "sexo",
                     "password",
                 )
             },
@@ -180,6 +184,7 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
                     "fecha_nac",
                     "ciudad_natal",
                     "ciudad_actual",
+                    "sexo",
                 ),
             },
         ),
