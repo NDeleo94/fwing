@@ -130,7 +130,13 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         EgresadoCarreraInline,
         ActividadInline,
     ]
-    list_display = ("email", "apellidos", "nombres", "is_active")
+    list_display = (
+        "dni",
+        "apellidos",
+        "nombres",
+        "email",
+        "is_active",
+    )
     list_filter = ("is_active",)
     fieldsets = (
         # (None, {"fields": ("email", "password")}),
@@ -138,9 +144,10 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
             "Personal info",
             {
                 "fields": (
-                    "email",
+                    "dni",
                     "apellidos",
                     "nombres",
+                    "email",
                     "nacionalidad",
                     "fecha_nac",
                     "ciudad_natal",
@@ -163,11 +170,12 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
             {
                 "classes": ("wide",),
                 "fields": (
-                    "email",
-                    "password1",
-                    "password2",
+                    "dni",
                     "apellidos",
                     "nombres",
+                    "password1",
+                    "password2",
+                    "email",
                     "nacionalidad",
                     "fecha_nac",
                     "ciudad_natal",
@@ -177,9 +185,10 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         ),
     )
     search_fields = (
-        "email",
+        "dni",
         "apellidos",
         "nombres",
+        "email",
     )
     ordering = ("email",)
     filter_horizontal = ("user_permissions",)
