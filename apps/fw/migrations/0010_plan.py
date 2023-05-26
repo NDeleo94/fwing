@@ -10,18 +10,6 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RemoveField(
-            model_name="carrera",
-            name="acreditacion",
-        ),
-        migrations.RemoveField(
-            model_name="carrera",
-            name="acreditadora",
-        ),
-        migrations.RemoveField(
-            model_name="carrera",
-            name="plan",
-        ),
         migrations.CreateModel(
             name="Plan",
             fields=[
