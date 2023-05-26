@@ -48,8 +48,8 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name="Correo Electronico",
         max_length=255,
-        blank=False,
-        null=False,
+        blank=True,
+        null=True,
     )
     nombres = models.CharField(
         "Nombres",
