@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 (
                     "email",
                     models.EmailField(
-                        max_length=255, unique=True, verbose_name="Correo Electronico"
+                        max_length=255, verbose_name="Correo Electronico"
                     ),
                 ),
                 ("nombres", models.CharField(max_length=200, verbose_name="Nombres")),
