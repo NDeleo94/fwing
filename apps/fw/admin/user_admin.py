@@ -111,12 +111,6 @@ class FwUserResources(resources.ModelResource):
             "sexo",
         )
 
-    def skip_row(self, instance, original, row, import_validation_errors=None):
-        # Add code here
-        return super().skip_row(
-            instance, original, row, import_validation_errors=import_validation_errors
-        )
-
     def import_row(
         self, row, instance_loader, using_transactions=True, dry_run=False, **kwargs
     ):
@@ -153,10 +147,11 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         ActividadInline,
     ]
     list_display = (
-        "dni",
         "apellidos",
         "nombres",
+        "dni",
         "email",
+        "id",
         "is_active",
     )
     list_filter = (
@@ -223,7 +218,12 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         "nombres",
         "email",
     )
-    ordering = ("email",)
+    ordering = (
+        "apellidos",
+        "nombres",
+        "dni",
+        "email",
+    )
     filter_horizontal = ("user_permissions",)
     resource_class = FwUserResources
 
