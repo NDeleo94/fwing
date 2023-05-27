@@ -13,6 +13,7 @@ from apps.fw.models.carrera_model import Carrera
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
+from import_export.fields import Field
 
 
 class UserCreationForm(forms.ModelForm):
@@ -82,6 +83,18 @@ class ActividadInline(admin.TabularInline):
 
 
 class FwUserResources(resources.ModelResource):
+    id = Field(attribute="id", column_name="ID")
+    dni = Field(attribute="dni", column_name="DNI")
+    nombres = Field(attribute="nombres", column_name="NOMBRES")
+    apellidos = Field(attribute="apellidos", column_name="APELLIDOS")
+    email = Field(attribute="email", column_name="EMAIL")
+    fecha_nac = Field(attribute="fecha_nac", column_name="FECHA_NAC")
+    nacionalidad = Field(attribute="nacionalidad", column_name="NACIONALIDAD")
+    sexo = Field(attribute="sexo", column_name="SEXO")
+    ciudad_natal = Field(attribute="ciudad_natal", column_name="LOCALIDAD")
+    ciudad_actual = Field(attribute="ciudad_actual", column_name="LOCALIDAD")
+    domicilio = Field(attribute="domicilio", column_name="DOMICILIO")
+
     class Meta:
         model = FwUser
         fields = (
@@ -96,6 +109,12 @@ class FwUserResources(resources.ModelResource):
             "ciudad_actual",
             "domicilio",
             "sexo",
+        )
+
+    def skip_row(self, instance, original, row, import_validation_errors=None):
+        # Add code here
+        return super().skip_row(
+            instance, original, row, import_validation_errors=import_validation_errors
         )
 
     def import_row(
