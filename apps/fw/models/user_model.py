@@ -86,6 +86,18 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
+    domicilio = models.CharField(
+        "Domicilio",
+        max_length=200,
+        blank=True,
+        null=True,
+    )
+    certificado = models.CharField(
+        "Certificado",
+        max_length=200,
+        blank=True,
+        null=True,
+    )
     sexo = models.CharField(
         "Sexo",
         max_length=1,

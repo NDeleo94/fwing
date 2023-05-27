@@ -95,6 +95,24 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
+                    "domicilio",
+                    models.CharField(
+                        blank=True,
+                        max_length=200,
+                        null=True,
+                        verbose_name="Ciudad actual",
+                    ),
+                ),
+                (
+                    "certificado",
+                    models.CharField(
+                        blank=True,
+                        max_length=200,
+                        null=True,
+                        verbose_name="Ciudad actual",
+                    ),
+                ),
+                (
                     "sexo",
                     models.CharField(
                         choices=[("F", "Femenino"), ("M", "Masculino")],
