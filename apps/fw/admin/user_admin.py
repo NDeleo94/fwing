@@ -86,13 +86,16 @@ class FwUserResources(resources.ModelResource):
         model = FwUser
         fields = (
             "id",
-            "email",
+            "dni",
             "apellidos",
             "nombres",
-            "nacionalidad",
+            "email",
             "fecha_nac",
+            "nacionalidad",
             "ciudad_natal",
             "ciudad_actual",
+            "domicilio",
+            "sexo",
         )
 
     def import_row(
