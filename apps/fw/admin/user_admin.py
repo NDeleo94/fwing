@@ -120,15 +120,15 @@ class FwUserResources(resources.ModelResource):
         )
         usuario = FwUser.objects.get(id=fwUser.object_id)
         # Check if the required fields for Egreso are present in the row
-        if "carrera" in row and "ciclo_egreso" in row:
+        if "CARRERA" in row and "CICLO_EGRESO" in row:
             # Retrieve or create Carrera object based on carrera
-            carrera_id = row["carrera"]
+            carrera_id = row["CARRERA"]
             carrera = Carrera.objects.get(id=carrera_id)
             # Create Egreso object and set the foreign keys
             Egreso.objects.create(
                 usuario=usuario,
                 carrera=carrera,
-                ciclo_egreso=row["ciclo_egreso"],
+                ciclo_egreso=row["CICLO_EGRESO"],
             )
 
         return fwUser
