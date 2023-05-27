@@ -17,24 +17,6 @@ class Migration(migrations.Migration):
                 ("carrera", models.CharField(max_length=200)),
                 ("web", models.URLField(blank=True, null=True)),
                 (
-                    "plan",
-                    models.CharField(max_length=200, verbose_name="Plan de estudios"),
-                ),
-                (
-                    "acreditacion",
-                    models.CharField(
-                        max_length=200, verbose_name="Año de acreditación"
-                    ),
-                ),
-                (
-                    "acreditadora",
-                    models.CharField(
-                        default="CONEAU",
-                        max_length=200,
-                        verbose_name="Organizacion acreditadora",
-                    ),
-                ),
-                (
                     "estado",
                     models.BooleanField(
                         default=True,

@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.core.validators import MinValueValidator
 from django.contrib.auth.models import (
     BaseUserManager,
     AbstractBaseUser,
@@ -8,27 +8,27 @@ from django.contrib.auth.models import (
 
 
 class FwUserManager(BaseUserManager):
-    def create_user(self, email, password=None):
+    def create_user(self, dni, password=None):
         """
-        Creates and saves a User with the given email and password.
+        Creates and saves a User with the given dni and password.
         """
-        if not email:
-            raise ValueError("Users must have an email address")
+        if not dni:
+            raise ValueError("Users must have an dni")
 
         user = self.model(
-            email=self.normalize_email(email),
+            dni=dni,
         )
 
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, password=None):
+    def create_superuser(self, dni, password=None):
         """
-        Creates and saves a superuser with the given email and password.
+        Creates and saves a superuser with the given dni and password.
         """
         user = self.create_user(
-            email,
+            dni,
             password=password,
         )
         user.is_admin = True
@@ -38,22 +38,81 @@ class FwUserManager(BaseUserManager):
 
 
 class FwUser(AbstractBaseUser, PermissionsMixin):
+    dni = models.BigIntegerField(
+        verbose_name="Numero de documento",
+        unique=True,
+        validators=[
+            MinValueValidator(1000000),
+        ],
+    )
     email = models.EmailField(
         verbose_name="Correo Electronico",
         max_length=255,
-        unique=True,
+        blank=True,
+        null=True,
     )
-    nombres = models.CharField("Nombres", max_length=200, blank=True, null=True)
-    apellidos = models.CharField("Apellidos", max_length=200, blank=True, null=True)
+    nombres = models.CharField(
+        "Nombres",
+        max_length=200,
+        blank=False,
+        null=False,
+    )
+    apellidos = models.CharField(
+        "Apellidos",
+        max_length=200,
+        blank=False,
+        null=False,
+    )
+    fecha_nac = models.DateField(
+        "Fecha de Nacimiento",
+        blank=True,
+        null=True,
+    )
     nacionalidad = models.CharField(
-        "Nacionalidad", max_length=200, blank=True, null=True
+        "Nacionalidad",
+        max_length=200,
+        blank=True,
+        null=True,
     )
-    fecha_nac = models.DateField("Fecha de Nacimiento", blank=True, null=True)
     ciudad_natal = models.CharField(
-        "Ciudad natal", max_length=200, blank=True, null=True
+        "Ciudad natal",
+        max_length=200,
+        blank=True,
+        null=True,
     )
     ciudad_actual = models.CharField(
-        "Ciudad actual", max_length=200, blank=True, null=True
+        "Ciudad actual",
+        max_length=200,
+        blank=True,
+        null=True,
+    )
+    domicilio = models.CharField(
+        "Domicilio",
+        max_length=200,
+        blank=True,
+        null=True,
+    )
+    certificado = models.CharField(
+        "Certificado",
+        max_length=200,
+        blank=True,
+        null=True,
+    )
+    sexo = models.CharField(
+        "Sexo",
+        max_length=1,
+        choices=(
+            ("F", "Femenino"),
+            ("M", "Masculino"),
+        ),
+        blank=True,
+        null=True,
+    )
+    imagen = models.ImageField(
+        "Imagen Perfil",
+        upload_to="images/",
+        blank=True,
+        null=True,
     )
     is_active = models.BooleanField(
         "active",
@@ -71,7 +130,7 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
 
     objects = FwUserManager()
 
-    USERNAME_FIELD = "email"
+    USERNAME_FIELD = "dni"
     REQUIRED_FIELDS = []
 
     class Meta:

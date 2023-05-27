@@ -26,7 +26,7 @@ class UserCreationForm(forms.ModelForm):
 
     class Meta:
         model = FwUser
-        fields = ("email",)
+        fields = ("dni",)
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -62,7 +62,7 @@ class UserChangeForm(forms.ModelForm):
 
     class Meta:
         model = FwUser
-        fields = ("email", "password", "is_active", "is_admin")
+        fields = ("dni", "password", "is_active", "is_admin")
 
 
 class EgresadoCarreraInline(admin.TabularInline):
@@ -130,21 +130,35 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         EgresadoCarreraInline,
         ActividadInline,
     ]
-    list_display = ("email", "apellidos", "nombres", "is_active")
-    list_filter = ("is_active",)
+    list_display = (
+        "dni",
+        "apellidos",
+        "nombres",
+        "email",
+        "is_active",
+    )
+    list_filter = (
+        "is_active",
+        "sexo",
+    )
     fieldsets = (
         # (None, {"fields": ("email", "password")}),
         (
             "Personal info",
             {
                 "fields": (
-                    "email",
+                    "dni",
                     "apellidos",
                     "nombres",
+                    "email",
                     "nacionalidad",
                     "fecha_nac",
                     "ciudad_natal",
                     "ciudad_actual",
+                    "domicilio",
+                    "certificado",
+                    "imagen",
+                    "sexo",
                     "password",
                 )
             },
@@ -163,23 +177,29 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
             {
                 "classes": ("wide",),
                 "fields": (
-                    "email",
-                    "password1",
-                    "password2",
+                    "dni",
                     "apellidos",
                     "nombres",
+                    "password1",
+                    "password2",
+                    "email",
                     "nacionalidad",
                     "fecha_nac",
                     "ciudad_natal",
                     "ciudad_actual",
+                    "domicilio",
+                    "certificado",
+                    "imagen",
+                    "sexo",
                 ),
             },
         ),
     )
     search_fields = (
-        "email",
+        "dni",
         "apellidos",
         "nombres",
+        "email",
     )
     ordering = ("email",)
     filter_horizontal = ("user_permissions",)

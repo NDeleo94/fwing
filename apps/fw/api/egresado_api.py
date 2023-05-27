@@ -4,6 +4,7 @@ from apps.fw.serializers.egresado_serializers import *
 
 
 class EgresadoViewSet(
+    mixins.CreateModelMixin,
     mixins.UpdateModelMixin,
     mixins.ListModelMixin,
     mixins.RetrieveModelMixin,
@@ -23,6 +24,6 @@ class EgresadoAPIView(EgresadoViewSet):
     queryset = FwUser.objects.filter(is_active=True)
 
     def get_serializer_class(self):
-        if self.action == "update":
+        if self.action in ["create", "update"]:
             return EgresadoUpdateSerializer
         return EgresadoReadOnlySerializer
