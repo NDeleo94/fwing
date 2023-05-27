@@ -103,13 +103,18 @@ class EgresadoReadOnlySerializer(serializers.ModelSerializer):
         model = FwUser
         fields = (
             "id",
-            "email",
+            "dni",
             "apellidos",
             "nombres",
+            "email",
             "nacionalidad",
             "fecha_nac",
             "ciudad_natal",
             "ciudad_actual",
+            "domicilio",
+            "certificado",
+            "sexo",
+            "imagen",
             "last_login",
             "egresos",
             "historial",
@@ -121,11 +126,16 @@ class EgresadoUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = FwUser
         fields = (
-            "email",
+            "dni",
             "apellidos",
             "nombres",
+            "email",
             "nacionalidad",
             "fecha_nac",
             "ciudad_natal",
             "ciudad_actual",
+            "domicilio",
+            "certificado",
+            "sexo",
+            "imagen",
         )
