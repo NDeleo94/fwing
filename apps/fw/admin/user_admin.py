@@ -13,6 +13,7 @@ from apps.fw.models.carrera_model import Carrera
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
+from import_export.fields import Field
 
 
 class UserCreationForm(forms.ModelForm):
@@ -82,17 +83,32 @@ class ActividadInline(admin.TabularInline):
 
 
 class FwUserResources(resources.ModelResource):
+    id = Field(attribute="id", column_name="ID")
+    dni = Field(attribute="dni", column_name="DNI")
+    nombres = Field(attribute="nombres", column_name="NOMBRES")
+    apellidos = Field(attribute="apellidos", column_name="APELLIDOS")
+    email = Field(attribute="email", column_name="EMAIL")
+    fecha_nac = Field(attribute="fecha_nac", column_name="FECHA_NAC")
+    nacionalidad = Field(attribute="nacionalidad", column_name="NACIONALIDAD")
+    sexo = Field(attribute="sexo", column_name="SEXO")
+    ciudad_natal = Field(attribute="ciudad_natal", column_name="LOCALIDAD")
+    ciudad_actual = Field(attribute="ciudad_actual", column_name="LOCALIDAD")
+    domicilio = Field(attribute="domicilio", column_name="DOMICILIO")
+
     class Meta:
         model = FwUser
         fields = (
             "id",
-            "email",
+            "dni",
             "apellidos",
             "nombres",
-            "nacionalidad",
+            "email",
             "fecha_nac",
+            "nacionalidad",
             "ciudad_natal",
             "ciudad_actual",
+            "domicilio",
+            "sexo",
         )
 
     def import_row(
@@ -104,15 +120,15 @@ class FwUserResources(resources.ModelResource):
         )
         usuario = FwUser.objects.get(id=fwUser.object_id)
         # Check if the required fields for Egreso are present in the row
-        if "carrera" in row and "ciclo_egreso" in row:
+        if "CARRERA" in row and "CICLO_EGRESO" in row:
             # Retrieve or create Carrera object based on carrera
-            carrera_id = row["carrera"]
+            carrera_id = row["CARRERA"]
             carrera = Carrera.objects.get(id=carrera_id)
             # Create Egreso object and set the foreign keys
             Egreso.objects.create(
                 usuario=usuario,
                 carrera=carrera,
-                ciclo_egreso=row["ciclo_egreso"],
+                ciclo_egreso=row["CICLO_EGRESO"],
             )
 
         return fwUser
@@ -131,10 +147,11 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         ActividadInline,
     ]
     list_display = (
-        "dni",
         "apellidos",
         "nombres",
+        "dni",
         "email",
+        "id",
         "is_active",
     )
     list_filter = (
@@ -201,7 +218,12 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         "nombres",
         "email",
     )
-    ordering = ("email",)
+    ordering = (
+        "apellidos",
+        "nombres",
+        "dni",
+        "email",
+    )
     filter_horizontal = ("user_permissions",)
     resource_class = FwUserResources
 
