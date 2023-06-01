@@ -10,6 +10,7 @@ from apps.fw.uris.actividad_urls import urlActividad
 from apps.fw.uris.egreso_urls import urlEgreso
 from apps.fw.uris.egresado_urls import urlEgresado
 from apps.fw.uris.auth_urls import urlAuth
+from apps.fw.uris.siu_urls import urlSIU
 
 urls = (
     urlUniversidad
@@ -23,4 +24,4 @@ urls = (
     + urlEgresado
 )
 
-urlpatterns = urlAuth
+urlpatterns = urlAuth + urlSIU
