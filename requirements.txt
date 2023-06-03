@@ -5,3 +5,4 @@ psycopg2-binary==2.9.6
 django-cors-headers==3.13.0
 django-import-export==3.2.0
 Pillow==9.0.1
+requests==2.25.1
