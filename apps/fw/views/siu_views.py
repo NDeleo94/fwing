@@ -10,6 +10,13 @@ from apps.fw.models.egreso_model import Egreso
 
 
 class EgresadosSIU(APIView):
+    def titleCase(self, objeto, atributo):
+        return (
+            objeto.get(atributo).title()
+            if objeto.get(atributo) != None
+            else objeto.get(atributo)
+        )
+
     def getEgresados(self):
         response = requests.get("https://guarani.unt.edu.ar/rest/ws_facet.php").json()
         egresados = response.get("data")
@@ -17,16 +24,16 @@ class EgresadosSIU(APIView):
         return result
 
     def crearEgresado(self, dni, carrera, egresado):
-        apellidos_nuevo_egresado = egresado.get("apellido").title()
-        nombres_nuevo_egresado = egresado.get("nombres").title()
-        email_nuevo_egresado = egresado.get("email")
-        fecha_nac_nuevo_egresado = egresado.get("fecha_nacimiento")
-        nacionalidad_nuevo_egresado = egresado.get("nacionalidad").title()
-        ciudad_natal_nuevo_egresado = egresado.get("localidadnac").title()
-        ciudad_actual_nuevo_egresado = egresado.get("localidad").title()
-        domicilio_nuevo_egresado = egresado.get("domicilio").title()
-        certificado_nuevo_egresado = egresado.get("certificado").title()
-        sexo_nuevo_egresado = egresado.get("sexo")
+        apellidos_nuevo_egresado = self.titleCase(egresado, "apellido")
+        nombres_nuevo_egresado = self.titleCase(egresado, "nombres")
+        email_nuevo_egresado = self.titleCase(egresado, "email")
+        fecha_nac_nuevo_egresado = self.titleCase(egresado, "fecha_nacimiento")
+        nacionalidad_nuevo_egresado = self.titleCase(egresado, "nacionalidad")
+        ciudad_natal_nuevo_egresado = self.titleCase(egresado, "localidadnac")
+        ciudad_actual_nuevo_egresado = self.titleCase(egresado, "localidad")
+        domicilio_nuevo_egresado = self.titleCase(egresado, "domicilio")
+        certificado_nuevo_egresado = self.titleCase(egresado, "certificado")
+        sexo_nuevo_egresado = self.titleCase(egresado, "sexo")
 
         nuevo_egresado = FwUser.objects.create(
             dni=dni,
