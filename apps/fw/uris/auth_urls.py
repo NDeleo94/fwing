@@ -9,6 +9,11 @@ urlAuth = [
         name="login",
     ),
     path(
+        "api/google/",
+        LoginGoogleView.as_view(),
+        name="google_login",
+    ),
+    path(
         "api/logout/",
         LogoutView.as_view(),
         name="logout",

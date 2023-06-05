@@ -8,12 +8,22 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
 from apps.fw.models.user_model import FwUser
+from google.auth import jwt
 
 
 class LoginGoogleView(APIView):
-    def post(self, request):
-        google_email = request.data.get("email")
+    def getGoogleEmail(self, token):
+        try:
+            decoded_token = jwt.decode(token, verify=False)
+            google_email = decoded_token.get("email")
+            return google_email
+        except jwt.exceptions.DecodeError as e:
+            print(f"Error decoding Google token: {e}")
+            return None
 
+    def post(self, request):
+        token = request.data
+        google_email = self.getGoogleEmail(token)
         if google_email:
             user = FwUser.objects.filter(email=google_email).first()
 
