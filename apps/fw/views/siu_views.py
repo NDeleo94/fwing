@@ -10,30 +10,30 @@ from apps.fw.models.egreso_model import Egreso
 
 
 class EgresadosSIU(APIView):
-    def titleCase(self, objeto, atributo):
+    def title_case(self, objeto, atributo):
         return (
             objeto.get(atributo).title()
             if objeto.get(atributo) != None
             else objeto.get(atributo)
         )
 
-    def getEgresados(self):
+    def get_egresados(self):
         response = requests.get("https://guarani.unt.edu.ar/rest/ws_facet.php").json()
         egresados = response.get("data")
         result = [egresado["post"] for egresado in egresados]
         return result
 
-    def crearEgresado(self, dni, carrera, egresado):
-        apellidos_nuevo_egresado = self.titleCase(egresado, "apellido")
-        nombres_nuevo_egresado = self.titleCase(egresado, "nombres")
-        email_nuevo_egresado = self.titleCase(egresado, "email")
-        fecha_nac_nuevo_egresado = self.titleCase(egresado, "fecha_nacimiento")
-        nacionalidad_nuevo_egresado = self.titleCase(egresado, "nacionalidad")
-        ciudad_natal_nuevo_egresado = self.titleCase(egresado, "localidadnac")
-        ciudad_actual_nuevo_egresado = self.titleCase(egresado, "localidad")
-        domicilio_nuevo_egresado = self.titleCase(egresado, "domicilio")
-        certificado_nuevo_egresado = self.titleCase(egresado, "certificado")
-        sexo_nuevo_egresado = self.titleCase(egresado, "sexo")
+    def crear_egresado(self, dni, carrera, egresado):
+        apellidos_nuevo_egresado = self.title_case(egresado, "apellido")
+        nombres_nuevo_egresado = self.title_case(egresado, "nombres")
+        email_nuevo_egresado = self.title_case(egresado, "email")
+        fecha_nac_nuevo_egresado = self.title_case(egresado, "fecha_nacimiento")
+        nacionalidad_nuevo_egresado = self.title_case(egresado, "nacionalidad")
+        ciudad_natal_nuevo_egresado = self.title_case(egresado, "localidadnac")
+        ciudad_actual_nuevo_egresado = self.title_case(egresado, "localidad")
+        domicilio_nuevo_egresado = self.title_case(egresado, "domicilio")
+        certificado_nuevo_egresado = self.title_case(egresado, "certificado")
+        sexo_nuevo_egresado = self.title_case(egresado, "sexo")
 
         nuevo_egresado = FwUser.objects.create(
             dni=dni,
@@ -58,7 +58,7 @@ class EgresadosSIU(APIView):
         )
 
     def post(self, request):
-        egresados = self.getEgresados()
+        egresados = self.get_egresados()
         contador_nuevos_egresados = 0
 
         for egresado in egresados:
@@ -73,7 +73,7 @@ class EgresadosSIU(APIView):
                 usuario = FwUser.objects.filter(dni=dni_nuevo_egresado).exists()
 
                 if not usuario:
-                    self.crearEgresado(
+                    self.crear_egresado(
                         dni=dni_nuevo_egresado,
                         carrera=carrera,
                         egresado=egresado,
