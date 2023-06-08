@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
 from apps.fw.models.user_model import FwUser
+from apps.fw.serializers.egresado_serializers import EgresadoLoginSerializer
 from google.auth import jwt
 
 
@@ -44,15 +45,25 @@ class LoginView(APIView):
 
         if username and password:
             if "@" in username:
-                user_finded = FwUser.objects.get(email=username)
+                user_finded = FwUser.objects.filter(email=username).first()
                 if user_finded:
                     username = user_finded.dni
+                else:
+                    return Response({"error": "Invalid credentials"}, status=400)
+
             user = authenticate(username=username, password=password)
 
             if user:
                 # Generate or retrieve the token for the user
                 token, _ = Token.objects.get_or_create(user=user)
-                return Response({"token": token.key})
+                user_serializer = EgresadoLoginSerializer(user)
+
+                return Response(
+                    {
+                        "token": token.key,
+                        "user": user_serializer.data,
+                    }
+                )
             else:
                 return Response({"error": "Invalid credentials"}, status=400)
         else:

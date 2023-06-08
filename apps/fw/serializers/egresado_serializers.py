@@ -139,3 +139,24 @@ class EgresadoUpdateSerializer(serializers.ModelSerializer):
             "sexo",
             "imagen",
         )
+
+
+class EgresadoLoginSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = FwUser
+        fields = (
+            "id",
+            "dni",
+            "apellidos",
+            "nombres",
+            "email",
+            "nacionalidad",
+            "fecha_nac",
+            "ciudad_natal",
+            "ciudad_actual",
+            "domicilio",
+            "certificado",
+            "sexo",
+            "imagen",
+            "last_login",
+        )
