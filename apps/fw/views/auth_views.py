@@ -12,7 +12,7 @@ from google.auth import jwt
 
 
 class LoginGoogleView(APIView):
-    def getGoogleEmail(self, token):
+    def get_google_email(self, token):
         try:
             decoded_token = jwt.decode(token, verify=False)
             google_email = decoded_token.get("email")
@@ -23,7 +23,7 @@ class LoginGoogleView(APIView):
 
     def post(self, request):
         token = request.data
-        google_email = self.getGoogleEmail(token)
+        google_email = self.get_google_email(token)
         if google_email:
             user = FwUser.objects.filter(email=google_email).first()
 
@@ -43,6 +43,10 @@ class LoginView(APIView):
         password = request.data.get("password")
 
         if username and password:
+            if "@" in username:
+                user_finded = FwUser.objects.get(email=username)
+                if user_finded:
+                    username = user_finded.dni
             user = authenticate(username=username, password=password)
 
             if user:
