@@ -158,5 +158,6 @@ class EgresadoLoginSerializer(serializers.ModelSerializer):
             "certificado",
             "sexo",
             "imagen",
+            "is_admin",
             "last_login",
         )
