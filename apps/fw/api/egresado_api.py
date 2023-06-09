@@ -1,4 +1,5 @@
 from rest_framework import viewsets, mixins
+from rest_framework.pagination import PageNumberPagination
 
 from apps.fw.serializers.egresado_serializers import *
 
@@ -20,8 +21,16 @@ class EgresadoViewSet(
     pass
 
 
+class EgresadosPagination(PageNumberPagination):
+    page_size = 50
+
+
 class EgresadoAPIView(EgresadoViewSet):
-    queryset = FwUser.objects.filter(is_active=True)
+    queryset = FwUser.objects.filter(is_active=True).order_by(
+        "apellidos",
+        "nombres",
+    )
+    pagination_class = EgresadosPagination
 
     def get_serializer_class(self):
         if self.action in ["create", "update"]:
