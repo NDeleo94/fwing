@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from django.utils import timezone
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -54,6 +55,8 @@ class LoginView(APIView):
             user = authenticate(username=username, password=password)
 
             if user:
+                user.last_login = timezone.now()
+                user.save()
                 # Generate or retrieve the token for the user
                 token, _ = Token.objects.get_or_create(user=user)
                 user_serializer = EgresadoLoginSerializer(user)
