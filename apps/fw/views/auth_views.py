@@ -30,9 +30,17 @@ class LoginGoogleView(APIView):
             user = FwUser.objects.filter(email=google_email).first()
 
             if user:
+                user.last_login = timezone.now()
+                user.save()
                 # Generate or retrieve the token for the user
                 token, _ = Token.objects.get_or_create(user=user)
-                return Response({"token": token.key})
+                user_serializer = EgresadoLoginSerializer(user)
+                return Response(
+                    {
+                        "token": token.key,
+                        "user": user_serializer.data,
+                    }
+                )
             else:
                 return Response({"error": "Invalid credentials"}, status=400)
         else:
