@@ -14,10 +14,10 @@ from google.auth import jwt
 
 
 class LoginGoogleView(APIView):
-    def get_google_email(self, token):
+    def get_google_property(self, token, property):
         try:
             decoded_token = jwt.decode(token, verify=False)
-            google_email = decoded_token.get("email")
+            google_email = decoded_token.get(property)
             return google_email
         except jwt.exceptions.DecodeError as e:
             print(f"Error decoding Google token: {e}")
@@ -25,11 +25,13 @@ class LoginGoogleView(APIView):
 
     def post(self, request):
         token = request.data
-        google_email = self.get_google_email(token)
+        google_email = self.get_google_property(token, "email")
         if google_email:
             user = FwUser.objects.filter(email=google_email).first()
 
             if user:
+                if not user.last_login:
+                    user.imagen = self.get_google_property(token, "picture")
                 user.last_login = timezone.now()
                 user.save()
                 # Generate or retrieve the token for the user
