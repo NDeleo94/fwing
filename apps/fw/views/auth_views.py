@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from django.utils import timezone
 from django.contrib.auth import authenticate
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -8,14 +9,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
 from apps.fw.models.user_model import FwUser
+from apps.fw.serializers.egresado_serializers import EgresadoLoginSerializer
 from google.auth import jwt
 
 
 class LoginGoogleView(APIView):
-    def getGoogleEmail(self, token):
+    def get_google_property(self, token, property):
         try:
             decoded_token = jwt.decode(token, verify=False)
-            google_email = decoded_token.get("email")
+            google_email = decoded_token.get(property)
             return google_email
         except jwt.exceptions.DecodeError as e:
             print(f"Error decoding Google token: {e}")
@@ -23,14 +25,24 @@ class LoginGoogleView(APIView):
 
     def post(self, request):
         token = request.data
-        google_email = self.getGoogleEmail(token)
+        google_email = self.get_google_property(token, "email")
         if google_email:
             user = FwUser.objects.filter(email=google_email).first()
 
             if user:
+                if not user.last_login:
+                    user.imagen = self.get_google_property(token, "picture")
+                user.last_login = timezone.now()
+                user.save()
                 # Generate or retrieve the token for the user
                 token, _ = Token.objects.get_or_create(user=user)
-                return Response({"token": token.key})
+                user_serializer = EgresadoLoginSerializer(user)
+                return Response(
+                    {
+                        "token": token.key,
+                        "user": user_serializer.data,
+                    }
+                )
             else:
                 return Response({"error": "Invalid credentials"}, status=400)
         else:
@@ -43,12 +55,28 @@ class LoginView(APIView):
         password = request.data.get("password")
 
         if username and password:
+            if "@" in username:
+                user_finded = FwUser.objects.filter(email=username).first()
+                if user_finded:
+                    username = user_finded.dni
+                else:
+                    return Response({"error": "Invalid credentials"}, status=400)
+
             user = authenticate(username=username, password=password)
 
             if user:
+                user.last_login = timezone.now()
+                user.save()
                 # Generate or retrieve the token for the user
                 token, _ = Token.objects.get_or_create(user=user)
-                return Response({"token": token.key})
+                user_serializer = EgresadoLoginSerializer(user)
+
+                return Response(
+                    {
+                        "token": token.key,
+                        "user": user_serializer.data,
+                    }
+                )
             else:
                 return Response({"error": "Invalid credentials"}, status=400)
         else:
