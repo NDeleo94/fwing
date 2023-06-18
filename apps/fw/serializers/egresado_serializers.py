@@ -126,18 +126,13 @@ class EgresadoUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = FwUser
         fields = (
-            "dni",
-            "apellidos",
-            "nombres",
             "email",
             "nacionalidad",
             "fecha_nac",
             "ciudad_natal",
             "ciudad_actual",
             "domicilio",
-            "certificado",
             "sexo",
-            "imagen",
         )
 
 
