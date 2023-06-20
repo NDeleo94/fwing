@@ -93,8 +93,8 @@ class Migration(migrations.Migration):
                 ),
             ],
             options={
-                "verbose_name": "Privacidad",
-                "verbose_name_plural": "Privacidades",
+                "verbose_name": "Configuracion de Privacidad",
+                "verbose_name_plural": "Configuraciones de Privacidad",
             },
         ),
     ]
