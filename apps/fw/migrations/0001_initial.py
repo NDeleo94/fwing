@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         max_length=200,
                         null=True,
-                        verbose_name="Ciudad actual",
+                        verbose_name="Domicilio",
                     ),
                 ),
                 (
@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         max_length=200,
                         null=True,
-                        verbose_name="Ciudad actual",
+                        verbose_name="Certificado",
                     ),
                 ),
                 (
