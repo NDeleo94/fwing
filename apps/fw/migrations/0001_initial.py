@@ -123,15 +123,6 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    "imagen",
-                    models.ImageField(
-                        blank=True,
-                        null=True,
-                        upload_to="images/",
-                        verbose_name="Imagen Perfil",
-                    ),
-                ),
-                (
                     "is_active",
                     models.BooleanField(
                         default=True,

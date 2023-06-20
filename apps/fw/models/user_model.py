@@ -108,12 +108,6 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
-    imagen = models.ImageField(
-        "Imagen Perfil",
-        upload_to="images/",
-        blank=True,
-        null=True,
-    )
     is_active = models.BooleanField(
         "active",
         default=True,
