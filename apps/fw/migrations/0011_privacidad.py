@@ -84,8 +84,8 @@ class Migration(migrations.Migration):
                     models.BooleanField(default=True, verbose_name="Mostrar sexo"),
                 ),
                 (
-                    "egresado",
-                    models.ForeignKey(
+                    "usuario",
+                    models.OneToOneField(
                         on_delete=django.db.models.deletion.CASCADE,
                         related_name="privacidad",
                         to=settings.AUTH_USER_MODEL,

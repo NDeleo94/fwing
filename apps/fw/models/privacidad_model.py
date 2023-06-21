@@ -46,10 +46,13 @@ class Privacidad(models.Model):
         verbose_name="Mostrar sexo",
         default=True,
     )
-    egresado = models.ForeignKey(
+    usuario = models.OneToOneField(
         "FwUser", related_name="privacidad", on_delete=models.CASCADE
     )
 
     class Meta:
         verbose_name = "Configuracion de Privacidad"
         verbose_name_plural = "Configuraciones de Privacidad"
+
+    def __str__(self) -> str:
+        return f"Configuracion de Privacidad"
