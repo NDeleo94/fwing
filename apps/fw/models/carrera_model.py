@@ -16,6 +16,10 @@ class Carrera(models.Model):
         null=True,
         blank=True,
     )
+    following = models.BooleanField(
+        default=False,
+        help_text="Indica si el sistema realiza seguimiento de la carrera. Por defecto esta inactiva",
+    )
 
     estado = models.BooleanField(
         default=True,

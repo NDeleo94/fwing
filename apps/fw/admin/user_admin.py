@@ -174,7 +174,6 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
                     "ciudad_actual",
                     "domicilio",
                     "certificado",
-                    "imagen",
                     "sexo",
                     "password",
                 )
@@ -206,7 +205,6 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
                     "ciudad_actual",
                     "domicilio",
                     "certificado",
-                    "imagen",
                     "sexo",
                 ),
             },

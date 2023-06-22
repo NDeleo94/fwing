@@ -100,7 +100,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         max_length=200,
                         null=True,
-                        verbose_name="Ciudad actual",
+                        verbose_name="Domicilio",
                     ),
                 ),
                 (
@@ -109,7 +109,7 @@ class Migration(migrations.Migration):
                         blank=True,
                         max_length=200,
                         null=True,
-                        verbose_name="Ciudad actual",
+                        verbose_name="Certificado",
                     ),
                 ),
                 (
@@ -120,15 +120,6 @@ class Migration(migrations.Migration):
                         verbose_name="Sexo",
                         blank=True,
                         null=True,
-                    ),
-                ),
-                (
-                    "imagen",
-                    models.ImageField(
-                        blank=True,
-                        null=True,
-                        upload_to="images/",
-                        verbose_name="Imagen Perfil",
                     ),
                 ),
                 (

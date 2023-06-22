@@ -17,6 +17,13 @@ class Migration(migrations.Migration):
                 ("carrera", models.CharField(max_length=200)),
                 ("web", models.URLField(blank=True, null=True)),
                 (
+                    "following",
+                    models.BooleanField(
+                        default=True,
+                        help_text="Indica si el sistema realiza seguimiento de la carrera. Por defecto esta inactiva",
+                    ),
+                ),
+                (
                     "estado",
                     models.BooleanField(
                         default=True,

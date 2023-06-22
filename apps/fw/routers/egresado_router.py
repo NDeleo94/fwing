@@ -1,6 +1,6 @@
 from rest_framework import routers
-from apps.fw.api.egresado_api import EgresadoAPIView
 
+from apps.fw.api.egresado_api import EgresadoAPIView
 
 router_egresado = routers.DefaultRouter()
 

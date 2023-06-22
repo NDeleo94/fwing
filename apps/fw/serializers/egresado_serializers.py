@@ -114,7 +114,6 @@ class EgresadoReadOnlySerializer(serializers.ModelSerializer):
             "domicilio",
             "certificado",
             "sexo",
-            "imagen",
             "last_login",
             "egresos",
             "historial",
@@ -137,7 +136,6 @@ class EgresadoUpdateSerializer(serializers.ModelSerializer):
             "domicilio",
             "certificado",
             "sexo",
-            "imagen",
         )
 
 
@@ -157,7 +155,6 @@ class EgresadoLoginSerializer(serializers.ModelSerializer):
             "domicilio",
             "certificado",
             "sexo",
-            "imagen",
             "is_admin",
             "last_login",
         )

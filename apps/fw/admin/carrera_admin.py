@@ -19,7 +19,7 @@ class CarreraAdmin(admin.ModelAdmin):
         TituloInline,
         PlanInline,
     ]
-    list_display = ("carrera", "facultad", "estado")
+    list_display = ("carrera", "facultad", "following", "estado")
     fieldsets = (
         (
             "Datos",
@@ -28,12 +28,16 @@ class CarreraAdmin(admin.ModelAdmin):
                     "carrera",
                     "facultad",
                     "web",
+                    "following",
                     "estado",
                 )
             },
         ),
     )
-    list_filter = ["estado"]
+    list_filter = [
+        "following",
+        "estado",
+    ]
 
     search_fields = ("carrera",)
 
