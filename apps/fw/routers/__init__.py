@@ -9,6 +9,7 @@ from apps.fw.routers.actividad_router import router_actividad
 from apps.fw.routers.egreso_router import router_egreso
 from apps.fw.routers.egresado_router import router_egresado
 from apps.fw.routers.privacidad_router import router_privacidad
+from apps.fw.routers.imagen_router import router_imagen
 
 router = routers.DefaultRouter()
 
@@ -22,5 +23,6 @@ router.registry.extend(router_actividad.registry)
 router.registry.extend(router_egreso.registry)
 router.registry.extend(router_egresado.registry)
 router.registry.extend(router_privacidad.registry)
+router.registry.extend(router_imagen.registry)
 
 urlpatterns = router.urls
