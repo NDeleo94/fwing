@@ -14,17 +14,17 @@ urlEgresado = [
         name="egresado_detail",
     ),
     path(
-        "api/egresados/",
+        "api/crear/egresados/",
         EgresadoUpdateAPIView.as_view({"post": "create"}),
         name="egresado_create",
     ),
     path(
-        "api/egresados/<int:pk>/",
+        "api/editar/egresados/<int:pk>/",
         EgresadoUpdateAPIView.as_view({"put": "update"}),
         name="egresado_update",
     ),
     path(
-        "api/egresados/<int:pk>/",
+        "api/eliminar/egresados/<int:pk>/",
         EgresadoUpdateAPIView.as_view({"delete": "destroy"}),
         name="egresado_delete",
     ),
