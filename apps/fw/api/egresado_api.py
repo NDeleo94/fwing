@@ -2,6 +2,31 @@ from rest_framework import viewsets, mixins
 
 from apps.fw.serializers.egresado_serializers import *
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+
+
+class EgresadoUpdateAPIView(
+    mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
+):
+    queryset = FwUser.objects.all()
+    serializer_class = EgresadoUpdateSerializer
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+
+class EgresadoReadOnlyAPIView(
+    viewsets.ReadOnlyModelViewSet,
+):
+    queryset = FwUser.objects.filter(is_active=True).order_by(
+        "apellidos",
+        "nombres",
+    )
+    serializer_class = EgresadoReadOnlySerializer
+
 
 class EgresadoViewSet(
     mixins.CreateModelMixin,
