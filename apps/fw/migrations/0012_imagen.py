@@ -38,6 +38,12 @@ class Migration(migrations.Migration):
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
+                (
+                    "estado",
+                    models.BooleanField(
+                        default=True,
+                    ),
+                ),
             ],
             options={
                 "verbose_name": "Imagen",

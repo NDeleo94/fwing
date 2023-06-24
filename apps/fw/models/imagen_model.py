@@ -19,6 +19,9 @@ class Imagen(models.Model):
         related_name="imagen",
         on_delete=models.CASCADE,
     )
+    estado = models.BooleanField(
+        default=True,
+    )
 
     class Meta:
         verbose_name = "Imagen"
