@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 (
                     "following",
                     models.BooleanField(
-                        default=True,
+                        default=False,
                         help_text="Indica si el sistema realiza seguimiento de la carrera. Por defecto esta inactiva",
                     ),
                 ),
