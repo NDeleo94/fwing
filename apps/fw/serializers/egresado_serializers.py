@@ -133,8 +133,6 @@ class EgresadoUpdateSerializer(serializers.ModelSerializer):
             "fecha_nac",
             "ciudad_natal",
             "ciudad_actual",
-            "domicilio",
-            "certificado",
             "sexo",
         )
 
