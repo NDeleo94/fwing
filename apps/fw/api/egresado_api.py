@@ -2,6 +2,8 @@ from rest_framework import viewsets, mixins
 
 from apps.fw.serializers.egresado_serializers import *
 
+from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
@@ -16,6 +18,15 @@ class EgresadoUpdateAPIView(
     serializer_class = EgresadoUpdateSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.is_active = False
+        instance.save()
+        return Response(
+            {"message": "Egresado deleted"},
+            status=status.HTTP_200_OK,
+        )
 
 
 class EgresadoReadOnlyAPIView(
