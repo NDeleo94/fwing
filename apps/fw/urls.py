@@ -23,8 +23,7 @@ urls = (
     + urlPuesto
     + urlActividad
     + urlEgreso
-    + urlEgresado
     + urlPrivacidad
 )
 
-urlpatterns = urlAuth + urlSIU + urlImage
+urlpatterns = urlAuth + urlSIU + urlImage + urlEgresado
