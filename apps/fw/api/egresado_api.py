@@ -19,6 +19,37 @@ class EgresadoUpdateAPIView(
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
+    def get_separated_data(self, data):
+        egresado = {
+            "dni": data["dni"],
+            "nombres": data["nombres"],
+            "apellidos": data["apellidos"],
+            "email": data["email"],
+            "fecha_nac": data["fecha_nac"],
+            "nacionalidad": data["nacionalidad"],
+            "ciudad_natal": data["ciudad_natal"],
+            "ciudad_actual": data["ciudad_actual"],
+            "sexo": data["sexo"],
+        }
+
+        egreso = {
+            "carrera": data["carrera"],
+            "ciclo_egreso": data["ciclo_egreso"],
+        }
+        return egresado, egreso
+
+    def create(self, request, *args, **kwargs):
+        egresado, egreso = self.get_separated_data(request.data)
+        serializer = self.get_serializer(data=egresado)
+        serializer.is_valid(raise_exception=True)
+        # self.perform_create(serializer)
+        headers = self.get_success_headers(serializer.data)
+        return Response(
+            serializer.data,
+            status=status.HTTP_201_CREATED,
+            headers=headers,
+        )
+
     def destroy(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.is_active = False
