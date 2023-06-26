@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
                 (
                     "ciclo_egreso",
                     models.DateField(
-                        blank=True, null=True, verbose_name="Año de Egreso"
+                        blank=False, null=False, verbose_name="Año de Egreso"
                     ),
                 ),
                 (
@@ -58,8 +58,8 @@ class Migration(migrations.Migration):
             model_name="egreso",
             name="carrera",
             field=models.ForeignKey(
-                blank=True,
-                null=True,
+                blank=False,
+                null=False,
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="carreras",
                 to="fw.carrera",
@@ -69,8 +69,8 @@ class Migration(migrations.Migration):
             model_name="egreso",
             name="usuario",
             field=models.ForeignKey(
-                blank=True,
-                null=True,
+                blank=False,
+                null=False,
                 on_delete=django.db.models.deletion.CASCADE,
                 related_name="egresos",
                 to=settings.AUTH_USER_MODEL,
