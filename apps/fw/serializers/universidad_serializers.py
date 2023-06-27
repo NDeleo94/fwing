@@ -9,17 +9,13 @@ class UniversidadSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class UniversidadListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Universidad
-        fields = (
-            "id",
-            "universidad",
-            "acronimo",
-        )
-
-
-class UniversidadDetailSerializer(serializers.ModelSerializer):
+class UniversidadReadOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Universidad
         exclude = ("estado",)
+
+
+class UniversidadUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Universidad
+        fields = ("universidad",)
