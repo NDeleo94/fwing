@@ -29,4 +29,8 @@ class Facultad(models.Model):
         ordering = ["facultad", "-universidad"]
 
     def __str__(self) -> str:
-        return f"{self.facultad} ({self.universidad.acronimo})"
+        return (
+            f"{self.facultad} ({self.universidad.acronimo})"
+            if self.universidad.acronimo != None
+            else f"{self.facultad} ({self.universidad.universidad})"
+        )
