@@ -31,7 +31,9 @@ class UniversidadUpdateAPIView(
 
 class UniversidadReadOnlyAPIView(viewsets.ReadOnlyModelViewSet):
     serializer_class = UniversidadReadOnlySerializer
-    queryset = serializer_class.Meta.model.objects.filter(estado=True)
+    queryset = serializer_class.Meta.model.objects.filter(estado=True).order_by(
+        "universidad",
+    )
 
 
 class UniversidadAPIView(viewsets.ModelViewSet):
