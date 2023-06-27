@@ -8,18 +8,18 @@ class Egreso(models.Model):
         Carrera,
         related_name="carreras",
         on_delete=models.CASCADE,
-        blank=True,
-        null=True,
+        blank=False,
+        null=False,
     )
     usuario = models.ForeignKey(
         FwUser,
         related_name="egresos",
         on_delete=models.CASCADE,
-        blank=True,
-        null=True,
+        blank=False,
+        null=False,
     )
 
-    ciclo_egreso = models.DateField("Año de Egreso", blank=True, null=True)
+    ciclo_egreso = models.DateField("Año de Egreso", blank=False, null=False)
     matricula = models.CharField("Matricula", max_length=50, blank=True, null=True)
     estado = models.BooleanField(
         default=True,
