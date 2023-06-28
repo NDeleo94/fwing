@@ -52,6 +52,7 @@ class CarreraUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Carrera
         fields = (
+            "id",
             "carrera",
             "following",
             "facultad",

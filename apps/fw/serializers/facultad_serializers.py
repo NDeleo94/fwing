@@ -41,6 +41,7 @@ class FacultadUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Facultad
         fields = (
+            "id",
             "facultad",
             "universidad",
         )

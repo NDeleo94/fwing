@@ -18,4 +18,7 @@ class UniversidadReadOnlySerializer(serializers.ModelSerializer):
 class UniversidadUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Universidad
-        fields = ("universidad",)
+        fields = (
+            "id",
+            "universidad",
+        )

@@ -23,8 +23,9 @@ class ActividadUpdateAPIView(
 
     def get_or_create_organizacion(self, data):
         if type(data) is str:
+            data_cased = data.title()
             data_organizacion = {
-                "organizacion": data,
+                "organizacion": data_cased,
             }
             serializer = OrganizacionUpdateSerializer(data=data_organizacion)
             serializer.is_valid(raise_exception=True)
@@ -36,8 +37,9 @@ class ActividadUpdateAPIView(
 
     def get_or_create_puesto(self, data):
         if type(data) is str:
+            data_cased = data.title()
             data_puesto = {
-                "puesto": data,
+                "puesto": data_cased,
             }
             serializer = PuestoUpdateSerializer(data=data_puesto)
             serializer.is_valid(raise_exception=True)
