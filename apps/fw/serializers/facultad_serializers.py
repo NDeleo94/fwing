@@ -1,6 +1,7 @@
 from rest_framework import serializers
 
 from apps.fw.models.facultad_model import Facultad
+from apps.fw.models.universidad_model import Universidad
 
 
 class FacultadSerializer(serializers.ModelSerializer):
@@ -9,19 +10,37 @@ class FacultadSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class FacultadListSerializer(serializers.ModelSerializer):
+class UniversidadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Universidad
+        fields = (
+            "id",
+            "universidad",
+            "acronimo",
+        )
+
+
+class FacultadReadOnlySerializer(serializers.ModelSerializer):
+    universidad = UniversidadSerializer()
+
     class Meta:
         model = Facultad
         fields = (
             "id",
             "facultad",
             "acronimo",
+            "domicilio",
+            "web",
+            "email",
+            "telefono",
+            "universidad",
         )
 
 
-class FacultadDetailSerializer(serializers.ModelSerializer):
-    universidad = serializers.StringRelatedField()
-
+class FacultadUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Facultad
-        exclude = ("estado",)
+        fields = (
+            "facultad",
+            "universidad",
+        )

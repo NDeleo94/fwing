@@ -6,26 +6,26 @@ urlUniversidad = [
     path(
         "api/universidades/",
         UniversidadReadOnlyAPIView.as_view({"get": "list"}),
-        name="egreso_list",
+        name="universidad_list",
     ),
     path(
         "api/universidades/<int:pk>/",
         UniversidadReadOnlyAPIView.as_view({"get": "retrieve"}),
-        name="egreso_detail",
+        name="universidad_detail",
     ),
     path(
         "api/crear/universidades/",
         UniversidadUpdateAPIView.as_view({"post": "create"}),
-        name="egreso_create",
+        name="universidad_create",
     ),
     path(
         "api/editar/universidades/<int:pk>/",
         UniversidadUpdateAPIView.as_view({"put": "update"}),
-        name="egreso_update",
+        name="universidad_update",
     ),
     path(
         "api/eliminar/universidades/<int:pk>/",
         UniversidadUpdateAPIView.as_view({"delete": "destroy"}),
-        name="egreso_delete",
+        name="universidad_delete",
     ),
 ]

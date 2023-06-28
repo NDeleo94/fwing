@@ -14,7 +14,7 @@ from apps.fw.routers.imagen_router import router_imagen
 router = routers.DefaultRouter()
 
 # router.registry.extend(router_universidad.registry)
-router.registry.extend(router_facultad.registry)
+# router.registry.extend(router_facultad.registry)
 router.registry.extend(router_carrera.registry)
 router.registry.extend(router_titulo.registry)
 router.registry.extend(router_organizacion.registry)
