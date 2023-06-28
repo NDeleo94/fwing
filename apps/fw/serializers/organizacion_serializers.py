@@ -9,16 +9,13 @@ class OrganizacionSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class OrganizacionListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Organizacion
-        fields = (
-            "id",
-            "organizacion",
-        )
-
-
-class OrganizacionDetailSerializer(serializers.ModelSerializer):
+class OrganizacionReadOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Organizacion
         exclude = ("estado",)
+
+
+class OrganizacionUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Organizacion
+        fields = ("organizacion",)
