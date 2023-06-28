@@ -30,8 +30,8 @@ class LoginGoogleView(APIView):
             user = FwUser.objects.filter(email=google_email).first()
 
             if user:
-                if not user.last_login:
-                    user.imagen = self.get_google_property(token, "picture")
+                # if not user.last_login:
+                #     user.imagen = self.get_google_property(token, "picture")
                 user.last_login = timezone.now()
                 user.save()
                 # Generate or retrieve the token for the user
