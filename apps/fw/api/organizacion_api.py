@@ -31,7 +31,9 @@ class OrganizacionUpdateAPIView(
 
 class OrganizacionReadOnlyAPIView(viewsets.ReadOnlyModelViewSet):
     serializer_class = OrganizacionReadOnlySerializer
-    queryset = serializer_class.Meta.model.objects.filter(estado=True)
+    queryset = serializer_class.Meta.model.objects.filter(estado=True).order_by(
+        "organizacion",
+    )
 
 
 class OrganizacionAPIView(viewsets.ModelViewSet):
