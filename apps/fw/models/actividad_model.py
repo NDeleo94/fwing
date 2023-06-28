@@ -14,7 +14,7 @@ class Actividad(models.Model):
         "Puesto", related_name="actividades", on_delete=models.CASCADE
     )
 
-    inicio = models.DateField("Inicio de actividad", blank=True, null=True)
+    inicio = models.DateField("Inicio de actividad", blank=False, null=False)
     fin = models.DateField("Fin de actividad", blank=True, null=True)
     estado = models.BooleanField(
         default=True,

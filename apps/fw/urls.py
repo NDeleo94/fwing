@@ -14,7 +14,7 @@ from apps.fw.uris.auth_urls import urlAuth
 from apps.fw.uris.siu_urls import urlSIU
 from apps.fw.uris.image_urls import urlImage
 
-urls = urlTitulo + urlActividad + urlPrivacidad
+urls = urlTitulo + urlPrivacidad
 
 urlpatterns = (
     urlAuth
@@ -27,4 +27,5 @@ urlpatterns = (
     + urlCarrera
     + urlOrganizacion
     + urlPuesto
+    + urlActividad
 )
