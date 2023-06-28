@@ -18,7 +18,7 @@ class Migration(migrations.Migration):
                 (
                     "inicio",
                     models.DateField(
-                        blank=True, null=True, verbose_name="Inicio de actividad"
+                        blank=False, null=False, verbose_name="Inicio de actividad"
                     ),
                 ),
                 (
