@@ -77,6 +77,7 @@ class EgresoUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Egreso
         fields = (
+            "id",
             "matricula",
             "ciclo_egreso",
             "usuario",
