@@ -14,10 +14,15 @@ from apps.fw.uris.auth_urls import urlAuth
 from apps.fw.uris.siu_urls import urlSIU
 from apps.fw.uris.image_urls import urlImage
 
-urls = (
-    urlCarrera + urlTitulo + urlOrganizacion + urlPuesto + urlActividad + urlPrivacidad
-)
+urls = urlTitulo + urlOrganizacion + urlPuesto + urlActividad + urlPrivacidad
 
 urlpatterns = (
-    urlAuth + urlSIU + urlImage + urlEgresado + urlEgreso + urlUniversidad + urlFacultad
+    urlAuth
+    + urlSIU
+    + urlImage
+    + urlEgresado
+    + urlEgreso
+    + urlUniversidad
+    + urlFacultad
+    + urlCarrera
 )
