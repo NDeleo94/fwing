@@ -1,18 +1,43 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, mixins
 
 from apps.fw.serializers.carrera_serializers import *
 
 
+from rest_framework import status
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
+
+
+class CarreraUpdateAPIView(
+    mixins.CreateModelMixin,
+    mixins.UpdateModelMixin,
+    mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
+):
+    serializer_class = CarreraUpdateSerializer
+    queryset = serializer_class.Meta.model.objects.filter(estado=True)
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.estado = False
+        instance.save()
+        return Response(
+            {"message": "Carrera deleted"},
+            status=status.HTTP_200_OK,
+        )
+
+
+class CarreraReadOnlyAPIView(viewsets.ReadOnlyModelViewSet):
+    serializer_class = CarreraReadOnlySerializer
+    queryset = serializer_class.Meta.model.objects.filter(estado=True).order_by(
+        "carrera",
+        "facultad",
+    )
+
+
 class CarreraAPIView(viewsets.ModelViewSet):
     serializer_class = CarreraSerializer
-    queryset = serializer_class.Meta.model.objects.filter(estado=True)
-
-
-class CarreraListAPIView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = CarreraListSerializer
-    queryset = serializer_class.Meta.model.objects.filter(estado=True)
-
-
-class CarreraDetailAPIView(viewsets.ReadOnlyModelViewSet):
-    serializer_class = CarreraDetailSerializer
     queryset = serializer_class.Meta.model.objects.filter(estado=True)

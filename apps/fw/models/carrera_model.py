@@ -46,7 +46,11 @@ class Carrera(models.Model):
         ordering = ["carrera", "facultad"]
 
     def __str__(self) -> str:
-        return f"{self.carrera} ({self.facultad.acronimo if self.facultad.acronimo != None else self.facultad})"
+        return (
+            f"{self.carrera} ({self.facultad.acronimo})"
+            if self.facultad.acronimo != None
+            else f"{self.carrera} ({self.facultad.facultad})"
+        )
 
 
 class Titulo(models.Model):
