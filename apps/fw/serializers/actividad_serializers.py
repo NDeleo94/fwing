@@ -64,6 +64,7 @@ class ActividadUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Actividad
         fields = (
+            "id",
             "inicio",
             "fin",
             "usuario",
