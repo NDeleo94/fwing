@@ -9,16 +9,13 @@ class PuestoSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
-class PuestoListSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Puesto
-        fields = (
-            "id",
-            "puesto",
-        )
-
-
-class PuestoDetailSerializer(serializers.ModelSerializer):
+class PuestoReadOnlySerializer(serializers.ModelSerializer):
     class Meta:
         model = Puesto
         exclude = ("estado",)
+
+
+class PuestoUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Puesto
+        fields = ("puesto",)
