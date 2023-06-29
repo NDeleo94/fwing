@@ -1,10 +1,8 @@
 from fwing.settings.base import *
-from ast import literal_eval
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = literal_eval(os.environ.get("DEBUG_MODE"))
-DEBUG = True  # Must be false
+DEBUG = config("DEBUG_MODE")  # Must be false
 
 ALLOWED_HOSTS = ["*"]
 
@@ -21,12 +19,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "ndeleo94$default",
-        "USER": "ndeleo94",  # Not works for sqlite
-        "PASSWORD": "adminadmin",  # Not works for sqlite
-        "HOST": "ndeleo94.mysql.pythonanywhere-services.com",  # Not works for sqlite
-        "PORT": "3306",  # Not works for sqlite
+        "ENGINE": config("DB_PROD_ENGINE"),
+        "NAME": config("DB_PROD_NAME"),
+        "USER": config("DB_PROD_USER"),  # Not works for sqlite
+        "PASSWORD": config("DB_PROD_PASSWORD"),  # Not works for sqlite
+        "HOST": config("DB_PROD_HOST"),  # Not works for sqlite
+        "PORT": config("DB_PROD_PORT"),  # Not works for sqlite
     }
 }
 

@@ -1,10 +1,8 @@
 from fwing.settings.base import *
-from ast import literal_eval
 import os
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = literal_eval(os.environ.get("DEBUG_MODE"))
-DEBUG = True
+DEBUG = config("DEBUG_MODE")
 
 ALLOWED_HOSTS = ["*"]
 
@@ -20,12 +18,12 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DB_DEV_ENGINE"),
-        "NAME": os.environ.get("DB_DEV_NAME"),
-        "USER": os.environ.get("DB_DEV_USER"),
-        "PASSWORD": os.environ.get("DB_DEV_PASSWORD"),
-        "HOST": os.environ.get("DB_DEV_HOST"),
-        "PORT": os.environ.get("DB_DEV_PORT"),
+        "ENGINE": config("DB_DEV_ENGINE"),
+        "NAME": config("DB_DEV_NAME"),
+        "USER": config("DB_DEV_USER"),
+        "PASSWORD": config("DB_DEV_PASSWORD"),
+        "HOST": config("DB_DEV_HOST"),
+        "PORT": config("DB_DEV_PORT"),
     }
 }
 
