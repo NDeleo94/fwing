@@ -1,5 +1,6 @@
 from fwing.settings.base import *
 import os
+from decouple import config
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG_MODE")
