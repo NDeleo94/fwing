@@ -9,7 +9,9 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 
 from apps.fw.models.user_model import FwUser
+from apps.fw.models.imagen_model import Imagen
 from apps.fw.serializers.egresado_serializers import EgresadoLoginSerializer
+from apps.fw.serializers.imagen_serializers import ImagenSerializer
 from google.auth import jwt
 
 
@@ -23,6 +25,22 @@ class LoginGoogleView(APIView):
             print(f"Error decoding Google token: {e}")
             return None
 
+    def set_google_profile_picture(self, usuario, token):
+        imagen = Imagen.objects.filter(usuario=usuario).first()
+        if imagen:
+            imagen.url = self.get_google_property(token, "picture")
+            imagen.file = None
+            imagen.save()
+        else:
+            data_imagen = {
+                "usuario": usuario.id,
+                "file": None,
+                "url": self.get_google_property(token, "picture"),
+            }
+            serializer = ImagenSerializer(data=data_imagen)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
     def post(self, request):
         token = request.data
         google_email = self.get_google_property(token, "email")
@@ -30,8 +48,8 @@ class LoginGoogleView(APIView):
             user = FwUser.objects.filter(email=google_email).first()
 
             if user:
-                # if not user.last_login:
-                #     user.imagen = self.get_google_property(token, "picture")
+                if not user.last_login:
+                    self.set_google_profile_picture(usuario=user, token=token)
                 user.last_login = timezone.now()
                 user.save()
                 # Generate or retrieve the token for the user
