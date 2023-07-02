@@ -19,6 +19,9 @@ class Imagen(models.Model):
         related_name="imagen",
         on_delete=models.CASCADE,
     )
+    perfil = models.BooleanField(
+        default=False,
+    )
     estado = models.BooleanField(
         default=True,
     )

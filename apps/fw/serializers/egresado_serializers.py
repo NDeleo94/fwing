@@ -8,6 +8,7 @@ from apps.fw.models.universidad_model import Universidad
 from apps.fw.models.actividad_model import Actividad
 from apps.fw.models.organizacion_model import Organizacion
 from apps.fw.models.puesto_model import Puesto
+from apps.fw.models.imagen_model import Imagen
 
 
 # Serializers base para lista de egresos
@@ -94,10 +95,22 @@ class ActividadSerializer(serializers.ModelSerializer):
         )
 
 
+# Serializers base para lista de imagenes
+class ImagenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Imagen
+        fields = (
+            "id",
+            "file",
+            "url",
+        )
+
+
 # Serializer de solo lectura Egresado
 class EgresadoReadOnlySerializer(serializers.ModelSerializer):
     egresos = EgresoSerializer(many=True)
     historial = ActividadSerializer(many=True)
+    imagen = ImagenSerializer(many=True)
 
     class Meta:
         model = FwUser
@@ -117,6 +130,7 @@ class EgresadoReadOnlySerializer(serializers.ModelSerializer):
             "last_login",
             "egresos",
             "historial",
+            "imagen",
         )
 
 
