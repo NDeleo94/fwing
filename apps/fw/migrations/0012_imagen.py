@@ -39,6 +39,12 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
+                    "perfil",
+                    models.BooleanField(
+                        default=False,
+                    ),
+                ),
+                (
                     "estado",
                     models.BooleanField(
                         default=True,
