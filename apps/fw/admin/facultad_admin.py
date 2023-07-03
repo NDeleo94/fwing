@@ -27,7 +27,7 @@ class FacultadImportExportAdmin(ImportExportModelAdmin):
 
 
 @admin.register(Facultad)
-class FacultadAdmin(admin.ModelAdmin):
+class FacultadAdmin(FacultadImportExportAdmin):
     list_display = (
         "id",
         "facultad",
