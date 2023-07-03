@@ -181,9 +181,21 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         ),
         (
             "Permissions",
-            {"fields": ("is_active", "is_admin", "is_superuser", "user_permissions")},
+            {
+                "fields": (
+                    "is_active",
+                    "is_admin",
+                    "is_superuser",
+                    "user_permissions",
+                ),
+            },
         ),
-        ("Important dates", {"fields": ("last_login",)}),
+        (
+            "Important dates",
+            {
+                "fields": ("last_login",),
+            },
+        ),
     )
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.

@@ -6,10 +6,19 @@ from apps.fw.models.organizacion_model import Organizacion
 @admin.register(Organizacion)
 class OrganizacionAdmin(admin.ModelAdmin):
     list_display = (
+        "id",
         "organizacion",
         "tipo",
         "estado",
     )
+
+    ordering = [
+        "-estado",
+        "-tipo",
+        "organizacion",
+        "id",
+    ]
+
     fieldsets = (
         (
             "Datos",
@@ -30,8 +39,14 @@ class OrganizacionAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("Permisos", {"fields": ("estado",)}),
+        (
+            "Permisos",
+            {
+                "fields": ("estado",),
+            },
+        ),
     )
+
     search_fields = ("organizacion",)
 
     list_filter = [

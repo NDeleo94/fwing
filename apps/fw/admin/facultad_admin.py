@@ -5,7 +5,20 @@ from apps.fw.models.facultad_model import Facultad
 
 @admin.register(Facultad)
 class FacultadAdmin(admin.ModelAdmin):
-    list_display = ("facultad", "universidad", "estado")
+    list_display = (
+        "id",
+        "facultad",
+        "universidad",
+        "estado",
+    )
+
+    ordering = [
+        "-estado",
+        "-universidad",
+        "facultad",
+        "id",
+    ]
+
     fieldsets = (
         (
             "Datos",
@@ -28,9 +41,17 @@ class FacultadAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("Permisos", {"fields": ("estado",)}),
+        (
+            "Permisos",
+            {
+                "fields": ("estado",),
+            },
+        ),
     )
-    list_filter = ["estado"]
+
+    list_filter = [
+        "estado",
+    ]
 
     search_fields = (
         "facultad",

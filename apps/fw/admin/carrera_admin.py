@@ -19,7 +19,23 @@ class CarreraAdmin(admin.ModelAdmin):
         TituloInline,
         PlanInline,
     ]
-    list_display = ("carrera", "facultad", "following", "estado")
+
+    list_display = (
+        "id",
+        "carrera",
+        "facultad",
+        "following",
+        "estado",
+    )
+
+    ordering = [
+        "-estado",
+        "-following",
+        "facultad",
+        "carrera",
+        "id",
+    ]
+
     fieldsets = (
         (
             "Datos",
@@ -34,6 +50,7 @@ class CarreraAdmin(admin.ModelAdmin):
             },
         ),
     )
+
     list_filter = [
         "following",
         "estado",
@@ -44,11 +61,23 @@ class CarreraAdmin(admin.ModelAdmin):
 
 @admin.register(Titulo)
 class TituloAdmin(admin.ModelAdmin):
-    list_display = ("titulo", "carrera", "estado")
+    list_display = (
+        "titulo",
+        "carrera",
+        "estado",
+    )
+
+    ordering = [
+        "-estado",
+        "carrera",
+        "titulo",
+    ]
+
     search_fields = (
         "titulo",
         "carrera__carrera",
     )
+
     fieldsets = (
         (
             "Datos",
@@ -59,18 +88,38 @@ class TituloAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("Permisos", {"fields": ("estado",)}),
+        (
+            "Permisos",
+            {
+                "fields": ("estado",),
+            },
+        ),
     )
-    list_filter = ["estado"]
+
+    list_filter = [
+        "estado",
+    ]
 
 
 @admin.register(Plan)
 class PlanAdmin(admin.ModelAdmin):
-    list_display = ("plan", "carrera", "estado")
+    list_display = (
+        "plan",
+        "carrera",
+        "estado",
+    )
+
+    ordering = [
+        "-estado",
+        "carrera",
+        "plan",
+    ]
+
     search_fields = (
         "plan",
         "carrera__carrera",
     )
+
     fieldsets = (
         (
             "Datos",
@@ -83,6 +132,14 @@ class PlanAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("Permisos", {"fields": ("estado",)}),
+        (
+            "Permisos",
+            {
+                "fields": ("estado",),
+            },
+        ),
     )
-    list_filter = ["estado"]
+
+    list_filter = [
+        "estado",
+    ]

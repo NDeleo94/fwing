@@ -6,9 +6,17 @@ from apps.fw.models.puesto_model import Puesto
 @admin.register(Puesto)
 class PuestoAdmin(admin.ModelAdmin):
     list_display = (
+        "id",
         "puesto",
         "estado",
     )
+
+    ordering = [
+        "-estado",
+        "puesto",
+        "id",
+    ]
+
     fieldsets = (
         (
             "Datos",
@@ -19,7 +27,12 @@ class PuestoAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("Permisos", {"fields": ("estado",)}),
+        (
+            "Permisos",
+            {
+                "fields": ("estado",),
+            },
+        ),
     )
 
     list_filter = [

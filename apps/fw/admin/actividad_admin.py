@@ -9,7 +9,15 @@ class ActividadAdmin(admin.ModelAdmin):
         "usuario",
         "organizacion",
         "puesto",
+        "estado",
     )
+
+    ordering = [
+        "-estado",
+        "organizacion",
+        "puesto",
+        "usuario",
+    ]
 
     list_filter = [
         "estado",

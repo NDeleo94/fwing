@@ -5,7 +5,20 @@ from apps.fw.models.universidad_model import Universidad
 
 @admin.register(Universidad)
 class UniversidadAdmin(admin.ModelAdmin):
-    list_display = ("universidad", "estado")
+    list_display = (
+        "id",
+        "universidad",
+        "acronimo",
+        "estado",
+    )
+
+    ordering = [
+        "-estado",
+        "acronimo",
+        "universidad",
+        "id",
+    ]
+
     fieldsets = (
         (
             "Datos",
@@ -18,10 +31,25 @@ class UniversidadAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("Contacto", {"fields": ("email", "telefono")}),
-        ("Permisos", {"fields": ("estado",)}),
+        (
+            "Contacto",
+            {
+                "fields": (
+                    "email",
+                    "telefono",
+                )
+            },
+        ),
+        (
+            "Permisos",
+            {
+                "fields": ("estado",),
+            },
+        ),
     )
-    list_filter = ["estado"]
+    list_filter = [
+        "estado",
+    ]
 
     search_fields = (
         "universidad",
