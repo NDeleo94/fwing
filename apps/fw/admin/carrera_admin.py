@@ -2,6 +2,9 @@ from django.contrib import admin
 
 from apps.fw.models.carrera_model import Carrera, Titulo, Plan
 
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
 
 class TituloInline(admin.TabularInline):
     model = Titulo
@@ -13,13 +16,47 @@ class PlanInline(admin.TabularInline):
     extra = 1
 
 
+class CarreraResources(resources.ModelResource):
+    class Meta:
+        model = Carrera
+        fields = (
+            "id",
+            "carrera",
+            "web",
+            "following",
+            "facultad",
+            # "estado",
+        )
+
+
+# Esta clase hereda de admin.ModelAdmin
+class CarreraImportExportAdmin(ImportExportModelAdmin):
+    resource_classes = [CarreraResources]
+
+
 @admin.register(Carrera)
-class CarreraAdmin(admin.ModelAdmin):
+class CarreraAdmin(CarreraImportExportAdmin):
     inlines = [
         TituloInline,
         PlanInline,
     ]
-    list_display = ("carrera", "facultad", "following", "estado")
+
+    list_display = (
+        "id",
+        "carrera",
+        "facultad",
+        "following",
+        "estado",
+    )
+
+    ordering = [
+        "-estado",
+        "-following",
+        "facultad",
+        "carrera",
+        "id",
+    ]
+
     fieldsets = (
         (
             "Datos",
@@ -34,6 +71,7 @@ class CarreraAdmin(admin.ModelAdmin):
             },
         ),
     )
+
     list_filter = [
         "following",
         "estado",
@@ -42,13 +80,41 @@ class CarreraAdmin(admin.ModelAdmin):
     search_fields = ("carrera",)
 
 
+class TituloResources(resources.ModelResource):
+    class Meta:
+        model = Titulo
+        fields = (
+            "id",
+            "titulo",
+            "carrera",
+            # "estado",
+        )
+
+
+# Esta clase hereda de admin.ModelAdmin
+class TituloImportExportAdmin(ImportExportModelAdmin):
+    resource_classes = [TituloResources]
+
+
 @admin.register(Titulo)
-class TituloAdmin(admin.ModelAdmin):
-    list_display = ("titulo", "carrera", "estado")
+class TituloAdmin(TituloImportExportAdmin):
+    list_display = (
+        "titulo",
+        "carrera",
+        "estado",
+    )
+
+    ordering = [
+        "-estado",
+        "carrera",
+        "titulo",
+    ]
+
     search_fields = (
         "titulo",
         "carrera__carrera",
     )
+
     fieldsets = (
         (
             "Datos",
@@ -59,18 +125,56 @@ class TituloAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("Permisos", {"fields": ("estado",)}),
+        (
+            "Permisos",
+            {
+                "fields": ("estado",),
+            },
+        ),
     )
-    list_filter = ["estado"]
+
+    list_filter = [
+        "estado",
+    ]
+
+
+class PlanResources(resources.ModelResource):
+    class Meta:
+        model = Plan
+        fields = (
+            "id",
+            "plan",
+            "acreditacion",
+            "acreditadora",
+            "carrera",
+            # "estado",
+        )
+
+
+# Esta clase hereda de admin.ModelAdmin
+class PlanImportExportAdmin(ImportExportModelAdmin):
+    resource_classes = [PlanResources]
 
 
 @admin.register(Plan)
-class PlanAdmin(admin.ModelAdmin):
-    list_display = ("plan", "carrera", "estado")
+class PlanAdmin(PlanImportExportAdmin):
+    list_display = (
+        "plan",
+        "carrera",
+        "estado",
+    )
+
+    ordering = [
+        "-estado",
+        "carrera",
+        "plan",
+    ]
+
     search_fields = (
         "plan",
         "carrera__carrera",
     )
+
     fieldsets = (
         (
             "Datos",
@@ -83,6 +187,14 @@ class PlanAdmin(admin.ModelAdmin):
                 )
             },
         ),
-        ("Permisos", {"fields": ("estado",)}),
+        (
+            "Permisos",
+            {
+                "fields": ("estado",),
+            },
+        ),
     )
-    list_filter = ["estado"]
+
+    list_filter = [
+        "estado",
+    ]
