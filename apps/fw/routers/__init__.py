@@ -22,7 +22,7 @@ router.registry.extend(router_titulo.registry)
 # router.registry.extend(router_actividad.registry)
 # router.registry.extend(router_egreso.registry)
 # router.registry.extend(router_egresado.registry)
-router.registry.extend(router_privacidad.registry)
+# router.registry.extend(router_privacidad.registry)
 router.registry.extend(router_imagen.registry)
 
 urlpatterns = router.urls
