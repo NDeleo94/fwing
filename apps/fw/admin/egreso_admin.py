@@ -2,9 +2,30 @@ from django.contrib import admin
 
 from apps.fw.models.egreso_model import Egreso
 
+from import_export import resources
+from import_export.admin import ImportExportModelAdmin
+
+
+class EgresoResources(resources.ModelResource):
+    class Meta:
+        model = Egreso
+        fields = (
+            "id",
+            "usuario",
+            "carrera",
+            "ciclo_egreso",
+            "matricula",
+            # "estado",
+        )
+
+
+# Esta clase hereda de admin.ModelAdmin
+class EgresoImportExportAdmin(ImportExportModelAdmin):
+    resource_classes = [EgresoResources]
+
 
 @admin.register(Egreso)
-class EgresoAdmin(admin.ModelAdmin):
+class EgresoAdmin(EgresoImportExportAdmin):
     list_display = (
         "usuario",
         "ciclo_egreso",
