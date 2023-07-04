@@ -17,6 +17,7 @@ class FacultadResources(resources.ModelResource):
             "web",
             "email",
             "telefono",
+            "universidad",
             # "estado",
         )
 
