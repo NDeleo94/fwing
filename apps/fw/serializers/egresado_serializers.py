@@ -117,9 +117,9 @@ class PrivacidadSerializer(serializers.ModelSerializer):
 
 # Serializer de solo lectura Egresado
 class EgresadoReadOnlySerializer(serializers.ModelSerializer):
-    egresos = EgresoSerializer(many=True)
-    historial = ActividadSerializer(many=True)
-    imagen = ImagenSerializer(many=True)
+    egresos = serializers.SerializerMethodField(method_name="get_egresos")
+    historial = serializers.SerializerMethodField(method_name="get_historial")
+    imagen = serializers.SerializerMethodField(method_name="get_profile_picture")
     privacidad = PrivacidadSerializer()
 
     class Meta:
@@ -138,11 +138,33 @@ class EgresadoReadOnlySerializer(serializers.ModelSerializer):
             "certificado",
             "sexo",
             "last_login",
+            "is_admin",
             "egresos",
             "historial",
             "imagen",
             "privacidad",
         )
+
+    def get_egresos(self, obj):
+        egresos_queryset = obj.egresos.filter(estado=True)
+
+        egreso_serializer = EgresoSerializer(egresos_queryset, many=True)
+
+        return egreso_serializer.data
+
+    def get_historial(self, obj):
+        actividades_queryset = obj.historial.filter(estado=True)
+
+        actividad_serializer = ActividadSerializer(actividades_queryset, many=True)
+
+        return actividad_serializer.data
+
+    def get_profile_picture(self, obj):
+        imagenes_queryset = obj.imagen.filter(estado=True, perfil=True)
+
+        imagen_serializer = ImagenSerializer(imagenes_queryset, many=True)
+
+        return imagen_serializer.data
 
 
 # Serializer de actualizacion Egresado
@@ -159,6 +181,7 @@ class EgresadoUpdateSerializer(serializers.ModelSerializer):
             "ciudad_natal",
             "ciudad_actual",
             "sexo",
+            "is_admin",
         )
 
 
