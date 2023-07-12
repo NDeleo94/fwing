@@ -13,6 +13,7 @@ class ActividadResources(resources.ModelResource):
             "id",
             "usuario",
             "organizacion",
+            "ciudad",
             "puesto",
             "inicio",
             "fin",
@@ -31,6 +32,7 @@ class ActividadAdmin(ActividadImportExportAdmin):
         "usuario",
         "organizacion",
         "puesto",
+        "ciudad",
         "estado",
     )
 
@@ -38,6 +40,7 @@ class ActividadAdmin(ActividadImportExportAdmin):
         "-estado",
         "organizacion",
         "puesto",
+        "ciudad",
         "usuario",
     ]
 
@@ -48,6 +51,7 @@ class ActividadAdmin(ActividadImportExportAdmin):
     search_fields = (
         "organizacion__organizacion",
         "puesto__puesto",
+        "ciudad__ciudad",
         "usuario__apellidos",
         "usuario__nombres",
     )

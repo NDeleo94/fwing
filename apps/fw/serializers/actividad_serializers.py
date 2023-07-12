@@ -4,6 +4,7 @@ from apps.fw.models.actividad_model import Actividad
 from apps.fw.models.user_model import FwUser
 from apps.fw.models.organizacion_model import Organizacion
 from apps.fw.models.puesto_model import Puesto
+from apps.fw.models.ciudad_model import Ciudad
 
 
 class ActividadSerializer(serializers.ModelSerializer):
@@ -30,13 +31,12 @@ class OrganizacionSerializer(serializers.ModelSerializer):
         )
 
 
-class EgresadoSerializer(serializers.ModelSerializer):
+class CiudadSerializer(serializers.ModelSerializer):
     class Meta:
-        model = FwUser
+        model = Ciudad
         fields = (
             "id",
-            "apellidos",
-            "nombres",
+            "ciudad",
         )
 
 
@@ -54,6 +54,7 @@ class ActividadReadOnlySerializer(serializers.ModelSerializer):
     usuario = EgresadoSerializer()
     organizacion = OrganizacionSerializer()
     puesto = PuestoSerializer()
+    ciudad = CiudadSerializer()
 
     class Meta:
         model = Actividad
@@ -70,4 +71,5 @@ class ActividadUpdateSerializer(serializers.ModelSerializer):
             "usuario",
             "organizacion",
             "puesto",
+            "ciudad",
         )
