@@ -13,6 +13,13 @@ class Actividad(models.Model):
     puesto = models.ForeignKey(
         "Puesto", related_name="actividades", on_delete=models.CASCADE
     )
+    ciudad = models.ForeignKey(
+        "Ciudad",
+        related_name="actividades",
+        on_delete=models.SET_NULL,
+        blank=True,
+        null=True,
+    )
 
     inicio = models.DateField("Inicio de actividad", blank=False, null=False)
     fin = models.DateField("Fin de actividad", blank=True, null=True)
