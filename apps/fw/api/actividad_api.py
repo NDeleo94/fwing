@@ -3,6 +3,7 @@ from rest_framework import viewsets, mixins
 from apps.fw.serializers.actividad_serializers import *
 from apps.fw.serializers.organizacion_serializers import *
 from apps.fw.serializers.puesto_serializers import *
+from apps.fw.serializers.ciudad_serializers import *
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -49,11 +50,29 @@ class ActividadUpdateAPIView(
 
         return puesto
 
+    def get_or_create_ciudad(self, data):
+        if not data:
+            ciudad = None
+        elif type(data) is str:
+            data_cased = data.title()
+            data_ciudad = {
+                "ciudad": data_cased,
+            }
+            serializer = CiudadUpdateSerializer(data=data_ciudad)
+            serializer.is_valid(raise_exception=True)
+            ciudad = serializer.save()
+        else:
+            ciudad = Ciudad.objects.get(id=data)
+
+        return ciudad
+
     def check_or_transform_data(self, data):
         # Checkear organizacion
         organizacion = self.get_or_create_organizacion(data=data["organizacion"])
         # Checkear puesto
         puesto = self.get_or_create_puesto(data=data["puesto"])
+
+        ciudad = self.get_or_create_ciudad(data=data["ciudad"])
 
         # Devolver actividad completo
         data_transformed = {
@@ -62,6 +81,7 @@ class ActividadUpdateAPIView(
             "usuario": data["usuario"],
             "organizacion": organizacion.id,
             "puesto": puesto.id,
+            "ciudad": ciudad.id if ciudad else None,
         }
         return data_transformed
 
