@@ -1,0 +1,182 @@
+[
+  {
+    "model": "fw.Carrera",
+    "pk": 1,
+    "fields": {
+      "carrera": "Ingeniería en Computación",
+      "facultad": 1,
+      "following": true
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 2,
+    "fields": {
+      "carrera": "Ingeniería Electrónica",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 3,
+    "fields": {
+      "carrera": "Ingeniería Eléctrica",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 4,
+    "fields": {
+      "carrera": "Ingeniería Biomédica",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 5,
+    "fields": {
+      "carrera": "Ingeniería Azucarera",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 6,
+    "fields": {
+      "carrera": "Ingeniería Civil",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 7,
+    "fields": {
+      "carrera": "Ingeniería en Agrimensura",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 8,
+    "fields": {
+      "carrera": "Ingeniería Geodésica y Geofísica",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 9,
+    "fields": {
+      "carrera": "Ingeniería Industrial",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 10,
+    "fields": {
+      "carrera": "Ingeniería Mecánica",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 11,
+    "fields": {
+      "carrera": "Ingeniería Química",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 12,
+    "fields": {
+      "carrera": "Licenciatura en Física",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 13,
+    "fields": {
+      "carrera": "Licenciatura en Informática",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 14,
+    "fields": {
+      "carrera": "Licenciatura en Matemática",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 15,
+    "fields": {
+      "carrera": "Diseñador de Iluminación",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 16,
+    "fields": {
+      "carrera": "Programador Universitario",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 17,
+    "fields": {
+      "carrera": "Tecnicatura Universitaria en Física",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 18,
+    "fields": {
+      "carrera": "Tecnicatura Universitaria en Física Ambiental",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 19,
+    "fields": {
+      "carrera": "Tecnicatura Universitaria en Tecnología Azucarera e Industrias Derivadas",
+      "facultad": 1,
+      "following": false
+    }
+  },
+  {
+    "model": "fw.Carrera",
+    "pk": 20,
+    "fields": {
+      "carrera": "Bachiller Universitario en Física",
+      "facultad": 1,
+      "following": false
+    }
+  }
+]

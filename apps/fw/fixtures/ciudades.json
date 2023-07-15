@@ -1,0 +1,246 @@
+[
+  { "model": "fw.Ciudad", "pk": 1, "fields": { "ciudad": "Aguilares" } },
+  { "model": "fw.Ciudad", "pk": 2, "fields": { "ciudad": "Alderetes" } },
+  { "model": "fw.Ciudad", "pk": 3, "fields": { "ciudad": "Alijilan" } },
+  { "model": "fw.Ciudad", "pk": 4, "fields": { "ciudad": "Almafuerte" } },
+  { "model": "fw.Ciudad", "pk": 5, "fields": { "ciudad": "Alto Comedero" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 6,
+    "fields": { "ciudad": "Amaicha Del Valle" }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 7,
+    "fields": { "ciudad": "Apolinario Saravia" }
+  },
+  { "model": "fw.Ciudad", "pk": 8, "fields": { "ciudad": "Arequipa" } },
+  { "model": "fw.Ciudad", "pk": 9, "fields": { "ciudad": "Ate" } },
+  { "model": "fw.Ciudad", "pk": 10, "fields": { "ciudad": "Avellaneda" } },
+  { "model": "fw.Ciudad", "pk": 11, "fields": { "ciudad": "Ayacucho" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 12,
+    "fields": { "ciudad": "Banda Del Rio Sali" }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 13,
+    "fields": { "ciudad": "Barrio Juan Bautista Alberdi" }
+  },
+  { "model": "fw.Ciudad", "pk": 14, "fields": { "ciudad": "Belén De Urmiri" } },
+  { "model": "fw.Ciudad", "pk": 15, "fields": { "ciudad": "Bella Vista" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 16,
+    "fields": {
+      "ciudad": "Bella Vista (Las Saladas-Dpto. Rosario De La Frontera)"
+    }
+  },
+  { "model": "fw.Ciudad", "pk": 17, "fields": { "ciudad": "Berazategui" } },
+  { "model": "fw.Ciudad", "pk": 18, "fields": { "ciudad": "Burruyacu" } },
+  { "model": "fw.Ciudad", "pk": 19, "fields": { "ciudad": "Camino Del Peru" } },
+  { "model": "fw.Ciudad", "pk": 20, "fields": { "ciudad": "Campinas" } },
+  { "model": "fw.Ciudad", "pk": 21, "fields": { "ciudad": "Cartagena" } },
+  { "model": "fw.Ciudad", "pk": 22, "fields": { "ciudad": "Ceres" } },
+  { "model": "fw.Ciudad", "pk": 23, "fields": { "ciudad": "Cerrillos" } },
+  { "model": "fw.Ciudad", "pk": 24, "fields": { "ciudad": "Cevil Pozo" } },
+  { "model": "fw.Ciudad", "pk": 25, "fields": { "ciudad": "Cevil Redondo" } },
+  { "model": "fw.Ciudad", "pk": 26, "fields": { "ciudad": "Charata" } },
+  { "model": "fw.Ciudad", "pk": 27, "fields": { "ciudad": "Chicoana" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 28,
+    "fields": { "ciudad": "Ciudad Autónoma De Buenos Aires" }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 29,
+    "fields": { "ciudad": "Colonia Santa Rosa" }
+  },
+  { "model": "fw.Ciudad", "pk": 30, "fields": { "ciudad": "Concepcion" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 31,
+    "fields": { "ciudad": "Concepcion Del Uruguay" }
+  },
+  { "model": "fw.Ciudad", "pk": 32, "fields": { "ciudad": "Cordoba" } },
+  { "model": "fw.Ciudad", "pk": 33, "fields": { "ciudad": "El Aguilar" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 34,
+    "fields": { "ciudad": "El Cerrito (Santa Maria-Dpto. Santa Maria)" }
+  },
+  { "model": "fw.Ciudad", "pk": 35, "fields": { "ciudad": "El Cevilar" } },
+  { "model": "fw.Ciudad", "pk": 36, "fields": { "ciudad": "El Manantial" } },
+  { "model": "fw.Ciudad", "pk": 37, "fields": { "ciudad": "Embarcacion" } },
+  { "model": "fw.Ciudad", "pk": 38, "fields": { "ciudad": "Famailla" } },
+  { "model": "fw.Ciudad", "pk": 39, "fields": { "ciudad": "Fernandez" } },
+  { "model": "fw.Ciudad", "pk": 40, "fields": { "ciudad": "Formosa" } },
+  { "model": "fw.Ciudad", "pk": 41, "fields": { "ciudad": "Fraile Pintado" } },
+  { "model": "fw.Ciudad", "pk": 42, "fields": { "ciudad": "Frias" } },
+  { "model": "fw.Ciudad", "pk": 43, "fields": { "ciudad": "General Güemes" } },
+  { "model": "fw.Ciudad", "pk": 44, "fields": { "ciudad": "General Mosconi" } },
+  { "model": "fw.Ciudad", "pk": 45, "fields": { "ciudad": "Guasayan" } },
+  { "model": "fw.Ciudad", "pk": 46, "fields": { "ciudad": "Humahuaca" } },
+  { "model": "fw.Ciudad", "pk": 47, "fields": { "ciudad": "Indeterminada" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 48,
+    "fields": { "ciudad": "Ingenio Cruz Alta" }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 49,
+    "fields": { "ciudad": "Ingenio La Florida" }
+  },
+  { "model": "fw.Ciudad", "pk": 50, "fields": { "ciudad": "Ingenio Ledesma" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 51,
+    "fields": { "ciudad": "Ingenio San Juan" }
+  },
+  { "model": "fw.Ciudad", "pk": 52, "fields": { "ciudad": "Jesus Maria" } },
+  { "model": "fw.Ciudad", "pk": 53, "fields": { "ciudad": "Jujuy" } },
+  { "model": "fw.Ciudad", "pk": 54, "fields": { "ciudad": "La Banda" } },
+  { "model": "fw.Ciudad", "pk": 55, "fields": { "ciudad": "La Cocha" } },
+  { "model": "fw.Ciudad", "pk": 56, "fields": { "ciudad": "La Florida" } },
+  { "model": "fw.Ciudad", "pk": 57, "fields": { "ciudad": "La Mendieta" } },
+  { "model": "fw.Ciudad", "pk": 58, "fields": { "ciudad": "La Plata" } },
+  { "model": "fw.Ciudad", "pk": 59, "fields": { "ciudad": "La Quiaca" } },
+  { "model": "fw.Ciudad", "pk": 60, "fields": { "ciudad": "La Ramada" } },
+  { "model": "fw.Ciudad", "pk": 61, "fields": { "ciudad": "La Reduccion" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 62,
+    "fields": { "ciudad": "La Viña (Campo Santo-Dpto. Gral. M. M. De Guemes)" }
+  },
+  { "model": "fw.Ciudad", "pk": 63, "fields": { "ciudad": "Las Talitas" } },
+  { "model": "fw.Ciudad", "pk": 64, "fields": { "ciudad": "Lastenia" } },
+  { "model": "fw.Ciudad", "pk": 65, "fields": { "ciudad": "Leales" } },
+  { "model": "fw.Ciudad", "pk": 66, "fields": { "ciudad": "Ledesma" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 67,
+    "fields": { "ciudad": "Libertador General San Martin" }
+  },
+  { "model": "fw.Ciudad", "pk": 68, "fields": { "ciudad": "Livonia" } },
+  { "model": "fw.Ciudad", "pk": 69, "fields": { "ciudad": "Los Nogales" } },
+  { "model": "fw.Ciudad", "pk": 70, "fields": { "ciudad": "Los Pocitos" } },
+  { "model": "fw.Ciudad", "pk": 71, "fields": { "ciudad": "Los Sarmientos" } },
+  { "model": "fw.Ciudad", "pk": 72, "fields": { "ciudad": "Lules" } },
+  { "model": "fw.Ciudad", "pk": 73, "fields": { "ciudad": "Mar Del Plata" } },
+  { "model": "fw.Ciudad", "pk": 74, "fields": { "ciudad": "Marcos Paz" } },
+  { "model": "fw.Ciudad", "pk": 75, "fields": { "ciudad": "Metan" } },
+  { "model": "fw.Ciudad", "pk": 76, "fields": { "ciudad": "Monteros" } },
+  { "model": "fw.Ciudad", "pk": 77, "fields": { "ciudad": "New York" } },
+  { "model": "fw.Ciudad", "pk": 78, "fields": { "ciudad": "Palpala" } },
+  { "model": "fw.Ciudad", "pk": 79, "fields": { "ciudad": "Perico" } },
+  { "model": "fw.Ciudad", "pk": 80, "fields": { "ciudad": "Pocitos" } },
+  { "model": "fw.Ciudad", "pk": 81, "fields": { "ciudad": "Quilmes" } },
+  { "model": "fw.Ciudad", "pk": 82, "fields": { "ciudad": "Quimili" } },
+  { "model": "fw.Ciudad", "pk": 83, "fields": { "ciudad": "Rafaela" } },
+  { "model": "fw.Ciudad", "pk": 84, "fields": { "ciudad": "Ranchillos" } },
+  { "model": "fw.Ciudad", "pk": 85, "fields": { "ciudad": "Rapelli" } },
+  { "model": "fw.Ciudad", "pk": 86, "fields": { "ciudad": "Rejovot" } },
+  { "model": "fw.Ciudad", "pk": 87, "fields": { "ciudad": "Rio Grande" } },
+  { "model": "fw.Ciudad", "pk": 88, "fields": { "ciudad": "Rio Turbio" } },
+  { "model": "fw.Ciudad", "pk": 89, "fields": { "ciudad": "Rosario" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 90,
+    "fields": { "ciudad": "Rosario De La Frontera" }
+  },
+  { "model": "fw.Ciudad", "pk": 91, "fields": { "ciudad": "Salta" } },
+  { "model": "fw.Ciudad", "pk": 92, "fields": { "ciudad": "Salvador Mazza" } },
+  { "model": "fw.Ciudad", "pk": 93, "fields": { "ciudad": "San Andres" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 94,
+    "fields": {
+      "ciudad": "San Antonio (San Ramon De La Nueva Oran-Dpto. Oran)"
+    }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 95,
+    "fields": { "ciudad": "San Fernando Del Valle De Catamarca" }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 96,
+    "fields": {
+      "ciudad": "San Isidro (Gral. Guemes-Dpto. General M. M. De Guemes)"
+    }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 97,
+    "fields": { "ciudad": "San Jose (Bandera Bajada-Dpto. Figueroa)" }
+  },
+  { "model": "fw.Ciudad", "pk": 98, "fields": { "ciudad": "San Justo" } },
+  { "model": "fw.Ciudad", "pk": 99, "fields": { "ciudad": "San Miguel" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 100,
+    "fields": { "ciudad": "San Miguel De Tucumán" }
+  },
+  { "model": "fw.Ciudad", "pk": 101, "fields": { "ciudad": "San Nicolas" } },
+  { "model": "fw.Ciudad", "pk": 102, "fields": { "ciudad": "San Pablo" } },
+  { "model": "fw.Ciudad", "pk": 103, "fields": { "ciudad": "San Pedro" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 104,
+    "fields": { "ciudad": "San Pedro De Colalao" }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 105,
+    "fields": { "ciudad": "San Pedro De Jujuy" }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 106,
+    "fields": { "ciudad": "San Ramon De La Nueva Oran" }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 107,
+    "fields": { "ciudad": "San Salvador De Jujuy" }
+  },
+  { "model": "fw.Ciudad", "pk": 108, "fields": { "ciudad": "Santa Maria" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 109,
+    "fields": { "ciudad": "Santa Rosa De Leales" }
+  },
+  {
+    "model": "fw.Ciudad",
+    "pk": 110,
+    "fields": { "ciudad": "Santiago Del Estero" }
+  },
+  { "model": "fw.Ciudad", "pk": 111, "fields": { "ciudad": "Santo Domingo" } },
+  { "model": "fw.Ciudad", "pk": 112, "fields": { "ciudad": "Sargento Moya" } },
+  { "model": "fw.Ciudad", "pk": 113, "fields": { "ciudad": "Simoca" } },
+  { "model": "fw.Ciudad", "pk": 114, "fields": { "ciudad": "Tafi Del Valle" } },
+  { "model": "fw.Ciudad", "pk": 115, "fields": { "ciudad": "Tafi Viejo" } },
+  { "model": "fw.Ciudad", "pk": 116, "fields": { "ciudad": "Tala" } },
+  { "model": "fw.Ciudad", "pk": 117, "fields": { "ciudad": "Tartagal" } },
+  { "model": "fw.Ciudad", "pk": 118, "fields": { "ciudad": "Tostado" } },
+  { "model": "fw.Ciudad", "pk": 119, "fields": { "ciudad": "Trancas" } },
+  { "model": "fw.Ciudad", "pk": 120, "fields": { "ciudad": "Tres Arroyos" } },
+  { "model": "fw.Ciudad", "pk": 121, "fields": { "ciudad": "Valle Viejo" } },
+  { "model": "fw.Ciudad", "pk": 122, "fields": { "ciudad": "Villa Alberdi" } },
+  { "model": "fw.Ciudad", "pk": 123, "fields": { "ciudad": "Villa Carmela" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 124,
+    "fields": { "ciudad": "Villa Marcos Paz" }
+  },
+  { "model": "fw.Ciudad", "pk": 125, "fields": { "ciudad": "Yerba Buena" } },
+  {
+    "model": "fw.Ciudad",
+    "pk": 126,
+    "fields": { "ciudad": "Yerba Buena (Dpto. Tafi-Estafeta N' 1)" }
+  }
+]

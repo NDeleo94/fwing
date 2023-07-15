@@ -1,0 +1,26 @@
+[
+  {
+    "model": "fw.Plan",
+    "pk": 1,
+    "fields": {
+      "plan": "1991",
+      "carrera": 1
+    }
+  },
+  {
+    "model": "fw.Plan",
+    "pk": 2,
+    "fields": {
+      "plan": "2004",
+      "carrera": 1
+    }
+  },
+  {
+    "model": "fw.Plan",
+    "pk": 3,
+    "fields": {
+      "plan": "2014",
+      "carrera": 1
+    }
+  }
+]

@@ -1,0 +1,11 @@
+[
+  {
+    "model": "fw.Facultad",
+    "pk": 1,
+    "fields": {
+      "facultad": "Facultad de Ciencias Exactas y Tecnología",
+      "acronimo": "FACET",
+      "universidad": 1
+    }
+  }
+]

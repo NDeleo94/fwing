@@ -1,0 +1,15 @@
+[
+  {
+    "model": "fw.FwUser",
+    "pk": 1,
+    "fields": {
+      "apellidos": "root",
+      "nombres": "root",
+      "dni": 1000000,
+      "email": "egresados.computacion@herrera.unt.edu.ar",
+      "fecha_nac": "2023-01-01",
+      "nacionalidad": "Argentina",
+      "password": "pbkdf2_sha256$390000$XG3swkuIIndZccm0vPpjBN$NpohFQDZN0bJ8kKbNsV6SzUTK/+6H65QZFMOc3IeMKk="
+    }
+  }
+]
