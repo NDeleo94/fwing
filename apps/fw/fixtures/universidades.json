@@ -1,0 +1,10 @@
+[
+  {
+    "model": "fw.Universidad",
+    "pk": 1,
+    "fields": {
+      "universidad": "Universidad Nacional de Tucumán",
+      "acronimo": "UNT"
+    }
+  }
+]

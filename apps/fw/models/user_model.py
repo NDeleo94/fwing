@@ -74,15 +74,17 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
-    ciudad_natal = models.CharField(
-        "Ciudad natal",
-        max_length=200,
+    ciudad_natal = models.ForeignKey(
+        "Ciudad",
+        related_name="ciudad_natal",
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
     )
-    ciudad_actual = models.CharField(
-        "Ciudad actual",
-        max_length=200,
+    ciudad_actual = models.ForeignKey(
+        "Ciudad",
+        related_name="ciudad_actual",
+        on_delete=models.SET_NULL,
         blank=True,
         null=True,
     )

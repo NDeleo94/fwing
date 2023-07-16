@@ -35,6 +35,11 @@ class PrivacidadImportExportAdmin(ImportExportModelAdmin):
 class PrivacidadAdmin(PrivacidadImportExportAdmin):
     list_display = ("usuario",)
 
+    ordering = [
+        "usuario__apellidos",
+        "usuario__nombres",
+    ]
+
     search_fields = (
         "usuario__apellidos",
         "usuario__nombres",
