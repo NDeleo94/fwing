@@ -10,10 +10,13 @@ from apps.fw.models.user_model import FwUser
 from apps.fw.models.egreso_model import Egreso
 from apps.fw.models.actividad_model import Actividad
 from apps.fw.models.carrera_model import Carrera
+from apps.fw.models.ciudad_model import Ciudad
+from apps.fw.models.privacidad_model import Privacidad
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
+from import_export.widgets import ForeignKeyWidget
 
 
 class UserCreationForm(forms.ModelForm):
@@ -91,9 +94,22 @@ class FwUserResources(resources.ModelResource):
     fecha_nac = Field(attribute="fecha_nac", column_name="FECHA_NAC")
     nacionalidad = Field(attribute="nacionalidad", column_name="NACIONALIDAD")
     sexo = Field(attribute="sexo", column_name="SEXO")
-    ciudad_natal = Field(attribute="ciudad_natal", column_name="LOCALIDAD")
-    ciudad_actual = Field(attribute="ciudad_actual", column_name="LOCALIDAD")
-    domicilio = Field(attribute="domicilio", column_name="DOMICILIO")
+    # ciudad_natal = Field(attribute="ciudad_natal", column_name="LOCALIDAD")
+    # ciudad_actual = Field(attribute="ciudad_actual", column_name="LOCALIDAD")
+    # domicilio = Field(attribute="domicilio", column_name="DOMICILIO")
+    carrera = Field(attribute="carrera", column_name="CARRERA")
+    ciclo_egreso = Field(attribute="ciclo_egreso", column_name="EGRESO")
+
+    ciudad_natal = Field(
+        column_name="LOCALIDAD",
+        attribute="ciudad_natal",
+        widget=ForeignKeyWidget(Ciudad, field="ciudad"),
+    )
+    ciudad_actual = Field(
+        column_name="LOCALIDAD",
+        attribute="ciudad_actual",
+        widget=ForeignKeyWidget(Ciudad, field="ciudad"),
+    )
 
     class Meta:
         model = FwUser
@@ -111,27 +127,47 @@ class FwUserResources(resources.ModelResource):
             "sexo",
         )
 
-    def import_row(
-        self, row, instance_loader, using_transactions=True, dry_run=False, **kwargs
-    ):
-        # Create FwUser object
-        fwUser = super().import_row(
-            row, instance_loader, using_transactions, dry_run, **kwargs
+    def before_import_row(self, row, **kwargs):
+        try:
+            # for key, value in row.items():
+            #     if isinstance(value, str):
+            #         row[key] = value.title()
+            row["NOMBRES"] = row["NOMBRES"].title()
+            row["APELLIDOS"] = row["APELLIDOS"].title()
+            row["NACIONALIDAD"] = row["NACIONALIDAD"].title()
+        except Exception as e:
+            print(e)
+
+        return row
+
+    def skip_row(self, instance, original, row, import_validation_errors=None):
+        return (
+            True
+            if FwUser.objects.filter(
+                dni=instance.dni,
+            ).exists()
+            else False
         )
-        usuario = FwUser.objects.get(id=fwUser.object_id)
-        # Check if the required fields for Egreso are present in the row
-        if "CARRERA" in row and "CICLO_EGRESO" in row:
-            # Retrieve or create Carrera object based on carrera
-            carrera_id = row["CARRERA"]
-            carrera = Carrera.objects.get(id=carrera_id)
-            # Create Egreso object and set the foreign keys
+
+    def after_import_row(self, row, row_result, row_number=None, **kwargs):
+        dni = row["DNI"]
+        carrera_id = row["CARRERA"]
+
+        egreso = row["EGRESO"]
+
+        try:
+            usuario = FwUser.objects.filter(dni=dni).first()
+            carrera = Carrera.objects.filter(id=carrera_id).first()
+
+            Privacidad.objects.create(usuario=usuario)
+
             Egreso.objects.create(
                 usuario=usuario,
                 carrera=carrera,
-                ciclo_egreso=row["CICLO_EGRESO"],
+                ciclo_egreso=egreso,
             )
-
-        return fwUser
+        except Exception as e:
+            print(e)
 
 
 class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
@@ -147,11 +183,11 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         ActividadInline,
     ]
     list_display = (
+        "id",
         "apellidos",
         "nombres",
         "dni",
         "email",
-        "id",
         "is_active",
     )
     list_filter = (
