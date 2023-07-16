@@ -128,6 +128,7 @@ class FwUserResources(resources.ModelResource):
         )
 
     def before_import_row(self, row, **kwargs):
+        print(1)
         try:
             # for key, value in row.items():
             #     if isinstance(value, str):
@@ -138,9 +139,19 @@ class FwUserResources(resources.ModelResource):
         except Exception as e:
             print(e)
 
+        try:
+            ciudad = Ciudad.objects.filter(ciudad__icontains=row["LOCALIDAD"]).first()
+            if ciudad:
+                row["LOCALIDAD"] = ciudad
+            else:
+                row["LOCALIDAD"] = None
+        except Exception as e:
+            print(e)
+
         return row
 
     def skip_row(self, instance, original, row, import_validation_errors=None):
+        print(2)
         return (
             True
             if FwUser.objects.filter(
@@ -150,6 +161,7 @@ class FwUserResources(resources.ModelResource):
         )
 
     def after_import_row(self, row, row_result, row_number=None, **kwargs):
+        print(3)
         dni = row["DNI"]
         carrera_id = row["CARRERA"]
 

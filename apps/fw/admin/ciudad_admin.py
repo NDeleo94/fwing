@@ -34,3 +34,9 @@ class UniversidadAdmin(CiudadImportExportAdmin):
         "ciudad",
         "id",
     ]
+
+    list_filter = [
+        "estado",
+    ]
+
+    search_fields = ("ciudad",)
