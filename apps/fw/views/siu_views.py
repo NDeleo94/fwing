@@ -30,23 +30,25 @@ class EgresadosSIU(APIView):
     def get_or_create_ciudad(self, data):
         if not data:
             ciudad = None
-        elif type(data) is str:
-            data_cased = data.title()
-            data_ciudad = {
-                "ciudad": data_cased,
-            }
-            serializer = CiudadUpdateSerializer(data=data_ciudad)
-            serializer.is_valid(raise_exception=True)
-            ciudad = serializer.save()
         else:
-            ciudad = Ciudad.objects.get(id=data)
+            ciudad = Ciudad.objects.filter(ciudad__iexact=data).first()
 
-        return ciudad
+            if ciudad:
+                return ciudad
+            else:
+                data_cased = data.title()
+                data_ciudad = {
+                    "ciudad": data_cased,
+                }
+                serializer = CiudadUpdateSerializer(data=data_ciudad)
+                serializer.is_valid(raise_exception=True)
+                ciudad = serializer.save()
+                return ciudad
 
     def crear_egresado(self, dni, carrera, egresado):
         apellidos_nuevo_egresado = self.title_case(egresado, "apellido")
         nombres_nuevo_egresado = self.title_case(egresado, "nombres")
-        email_nuevo_egresado = self.title_case(egresado, "email")
+        email_nuevo_egresado = egresado.get("email")
         fecha_nac_nuevo_egresado = self.title_case(egresado, "fecha_nacimiento")
         nacionalidad_nuevo_egresado = self.title_case(egresado, "nacionalidad")
         # domicilio_nuevo_egresado = self.title_case(egresado, "domicilio")
