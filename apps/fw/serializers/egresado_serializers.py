@@ -79,6 +79,7 @@ class OrganizacionSerializer(serializers.ModelSerializer):
             "id",
             "organizacion",
             "tipo",
+            "empleados",
         )
 
 
