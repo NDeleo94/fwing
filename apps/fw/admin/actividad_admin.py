@@ -15,6 +15,8 @@ class ActividadResources(resources.ModelResource):
             "organizacion",
             "ciudad",
             "puesto",
+            "modalidad",
+            "seniority",
             "inicio",
             "fin",
             # "estado",
@@ -32,7 +34,8 @@ class ActividadAdmin(ActividadImportExportAdmin):
         "usuario",
         "organizacion",
         "puesto",
-        "ciudad",
+        "modalidad",
+        "seniority",
         "estado",
     )
 
@@ -40,7 +43,6 @@ class ActividadAdmin(ActividadImportExportAdmin):
         "-estado",
         "organizacion",
         "puesto",
-        "ciudad",
         "usuario",
     ]
 

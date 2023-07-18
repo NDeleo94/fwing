@@ -72,4 +72,6 @@ class ActividadUpdateSerializer(serializers.ModelSerializer):
             "organizacion",
             "puesto",
             "ciudad",
+            "modalidad",
+            "seniority",
         )

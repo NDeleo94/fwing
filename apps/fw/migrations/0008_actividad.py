@@ -45,6 +45,30 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
+                    "modalidad",
+                    models.IntegerField(
+                        blank=True,
+                        choices=[(1, "Presencial"), (2, "Hibrido"), (3, "Remoto")],
+                        null=True,
+                    ),
+                ),
+                (
+                    "seniority",
+                    models.IntegerField(
+                        blank=True,
+                        choices=[
+                            (1, "Trainee"),
+                            (2, "Junior"),
+                            (3, "Semi-Senior"),
+                            (4, "Senior"),
+                            (5, "Director"),
+                            (6, "Vice Presidente"),
+                            (7, "Jefe"),
+                        ],
+                        null=True,
+                    ),
+                ),
+                (
                     "usuario",
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,

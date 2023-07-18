@@ -82,6 +82,8 @@ class ActividadUpdateAPIView(
             "organizacion": organizacion.id,
             "puesto": puesto.id,
             "ciudad": ciudad.id if ciudad else None,
+            "modalidad": data["modalidad"],
+            "seniority": data["seniority"],
         }
         return data_transformed
 
