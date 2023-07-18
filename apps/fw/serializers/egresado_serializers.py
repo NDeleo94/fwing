@@ -57,6 +57,7 @@ class EgresoSerializer(serializers.ModelSerializer):
             "id",
             "ciclo_egreso",
             "matricula",
+            "postgrado",
             "carrera",
         )
 
@@ -91,6 +92,8 @@ class ActividadSerializer(serializers.ModelSerializer):
             "id",
             "inicio",
             "fin",
+            "modalidad",
+            "seniority",
             "organizacion",
             "puesto",
         )
