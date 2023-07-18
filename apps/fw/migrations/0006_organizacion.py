@@ -34,6 +34,25 @@ class Migration(migrations.Migration):
                     "descripcion",
                     models.TextField(blank=True, max_length=255, null=True),
                 ),
+                (
+                    "empleados",
+                    models.IntegerField(
+                        blank=True,
+                        choices=[
+                            (1, "1 Empleado"),
+                            (2, "1-10 Empleados"),
+                            (3, "11-50 Empleados"),
+                            (4, "51-200 Empleados"),
+                            (5, "201-500 Empleados"),
+                            (6, "501-1000 Empleados"),
+                            (7, "1001-5000 Empleados"),
+                            (8, "5001-10000 Empleados"),
+                            (9, "10001+ Empleados"),
+                        ],
+                        null=True,
+                        verbose_name="Cantidad de empleados",
+                    ),
+                ),
                 ("estado", models.BooleanField(default=True)),
                 ("email", models.EmailField(blank=True, max_length=254, null=True)),
                 (

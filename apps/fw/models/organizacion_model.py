@@ -6,6 +6,18 @@ TIPO = (
     ("i", "Independiente"),
 )
 
+EMPLEADOS = (
+    (1, "1 Empleado"),
+    (2, "1-10 Empleados"),
+    (3, "11-50 Empleados"),
+    (4, "51-200 Empleados"),
+    (5, "201-500 Empleados"),
+    (6, "501-1000 Empleados"),
+    (7, "1001-5000 Empleados"),
+    (8, "5001-10000 Empleados"),
+    (9, "10001+ Empleados"),
+)
+
 
 class Organizacion(models.Model):
     id = models.AutoField(primary_key=True)
@@ -17,6 +29,12 @@ class Organizacion(models.Model):
         choices=TIPO,
         blank=True,
         help_text="Organizacion pública, privada o trabajo independiente",
+    )
+    empleados = models.IntegerField(
+        "Cantidad de empleados",
+        choices=EMPLEADOS,
+        blank=True,
+        null=True,
     )
     descripcion = models.TextField(max_length=255, blank=True, null=True)
     estado = models.BooleanField(default=True)
