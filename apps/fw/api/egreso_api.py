@@ -86,6 +86,7 @@ class EgresoUpdateAPIView(
             "usuario": data["usuario"],
             "ciclo_egreso": data["ciclo_egreso"],
             "matricula": data["matricula"],
+            "postgrado": data["postgrado"],
         }
 
         return data_transformed

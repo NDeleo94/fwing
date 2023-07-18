@@ -19,8 +19,20 @@ class Egreso(models.Model):
         null=False,
     )
 
-    ciclo_egreso = models.DateField("Año de Egreso", blank=False, null=False)
-    matricula = models.CharField("Matricula", max_length=50, blank=True, null=True)
+    ciclo_egreso = models.DateField(
+        "Año de Egreso",
+        blank=False,
+        null=False,
+    )
+    matricula = models.CharField(
+        "Matricula",
+        max_length=50,
+        blank=True,
+        null=True,
+    )
+    postgrado = models.BooleanField(
+        default=False,
+    )
     estado = models.BooleanField(
         default=True,
     )

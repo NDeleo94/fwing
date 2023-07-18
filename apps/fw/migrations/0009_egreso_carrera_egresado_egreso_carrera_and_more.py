@@ -35,6 +35,7 @@ class Migration(migrations.Migration):
                         blank=True, max_length=50, null=True, verbose_name="Matricula"
                     ),
                 ),
+                ("postgrado", models.BooleanField(default=False)),
                 ("estado", models.BooleanField(default=True)),
             ],
             options={

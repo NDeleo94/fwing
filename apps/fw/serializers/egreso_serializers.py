@@ -82,4 +82,5 @@ class EgresoUpdateSerializer(serializers.ModelSerializer):
             "ciclo_egreso",
             "usuario",
             "carrera",
+            "postgrado",
         )
