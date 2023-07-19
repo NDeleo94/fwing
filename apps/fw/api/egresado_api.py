@@ -43,20 +43,21 @@ class EgresadoUpdateAPIView(
             "carrera": data["carrera"],
             "ciclo_egreso": data["ciclo_egreso"],
         }
-        serializer = EgresadoUpdateSerializer(data=data_egreso)
+        serializer = EgresoUpdateSerializer(data=data_egreso)
         serializer.is_valid(raise_exception=True)
         serializer.save()
 
     def create_privacidad(self, egresado):
-        data_privacidad = {
-            "usuario": egresado.id,
-        }
-        serializer = PrivacidadSerializer(data=data_privacidad)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
+        Privacidad.objects.create(usuario=egresado)
+        # data_privacidad = {
+        #     "usuario": egresado.id,
+        # }
+        # serializer = PrivacidadSerializer(data=data_privacidad)
+        # serializer.is_valid(raise_exception=True)
+        # serializer.save()
 
     def set_origin(self, egresado):
-        egresado.origin = 3
+        egresado.origen = 3
         egresado.save()
 
     def check_or_transform_data(self, data):
@@ -71,8 +72,8 @@ class EgresadoUpdateAPIView(
             "email": data["email"],
             "fecha_nac": data["fecha_nac"],
             "nacionalidad": data["nacionalidad"],
-            "ciudad_natal": ciudad_natal.id,
-            "ciudad_actual": ciudad_actual.id,
+            "ciudad_natal": ciudad_natal.id if ciudad_natal else None,
+            "ciudad_actual": ciudad_actual.id if ciudad_actual else None,
             "sexo": data["sexo"],
         }
 
