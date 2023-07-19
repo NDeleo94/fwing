@@ -5,6 +5,7 @@ from apps.fw.models.egreso_model import Egreso
 from apps.fw.models.carrera_model import Carrera
 from apps.fw.models.facultad_model import Facultad
 from apps.fw.models.universidad_model import Universidad
+from apps.fw.models.ciudad_model import Ciudad
 from apps.fw.models.actividad_model import Actividad
 from apps.fw.models.organizacion_model import Organizacion
 from apps.fw.models.puesto_model import Puesto
@@ -13,6 +14,15 @@ from apps.fw.models.privacidad_model import Privacidad
 
 
 # Serializers base para lista de egresos
+class CiudadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ciudad
+        fields = (
+            "id",
+            "ciudad",
+        )
+
+
 class UniversidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Universidad
@@ -121,6 +131,8 @@ class PrivacidadSerializer(serializers.ModelSerializer):
 
 # Serializer de solo lectura Egresado
 class EgresadoReadOnlySerializer(serializers.ModelSerializer):
+    ciudad_natal = CiudadSerializer()
+    ciudad_actual = CiudadSerializer()
     egresos = serializers.SerializerMethodField(method_name="get_egresos")
     historial = serializers.SerializerMethodField(method_name="get_historial")
     imagen = serializers.SerializerMethodField(method_name="get_profile_picture")
