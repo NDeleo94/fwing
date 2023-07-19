@@ -110,6 +110,16 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
+    origen = models.IntegerField(
+        "Subido desde",
+        choices=(
+            (1, "ARCHIVO"),
+            (2, "SIU"),
+            (3, "FW"),
+        ),
+        blank=True,
+        null=True,
+    )
     is_active = models.BooleanField(
         "active",
         default=True,
@@ -127,7 +137,10 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
     objects = FwUserManager()
 
     USERNAME_FIELD = "dni"
-    REQUIRED_FIELDS = []
+    REQUIRED_FIELDS = [
+        "apellidos",
+        "nombres",
+    ]
 
     class Meta:
         verbose_name = "Usuario"
