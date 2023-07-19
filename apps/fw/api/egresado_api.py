@@ -1,6 +1,8 @@
 from rest_framework import viewsets, mixins
 
 from apps.fw.serializers.egresado_serializers import *
+from apps.fw.serializers.egreso_serializers import *
+from apps.fw.serializers.ciudad_serializers import *
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -19,7 +21,49 @@ class EgresadoUpdateAPIView(
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def get_separated_data(self, data):
+    def get_or_create_ciudad(self, data):
+        if not data:
+            ciudad = None
+        elif type(data) is str:
+            data_cased = data.title()
+            data_ciudad = {
+                "ciudad": data_cased,
+            }
+            serializer = CiudadUpdateSerializer(data=data_ciudad)
+            serializer.is_valid(raise_exception=True)
+            ciudad = serializer.save()
+        else:
+            ciudad = Ciudad.objects.get(id=data)
+
+        return ciudad
+
+    def create_egreso(self, egresado, data):
+        data_egreso = {
+            "usuario": egresado.id,
+            "carrera": data["carrera"],
+            "ciclo_egreso": data["ciclo_egreso"],
+        }
+        serializer = EgresadoUpdateSerializer(data=data_egreso)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+    def create_privacidad(self, egresado):
+        data_privacidad = {
+            "usuario": egresado.id,
+        }
+        serializer = PrivacidadSerializer(data=data_privacidad)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+    def set_origin(self, egresado):
+        egresado.origin = 3
+        egresado.save()
+
+    def check_or_transform_data(self, data):
+        ciudad_natal = self.get_or_create_ciudad(data=data["ciudad_natal"])
+
+        ciudad_actual = self.get_or_create_ciudad(data=data["ciudad_actual"])
+
         egresado = {
             "dni": data["dni"],
             "nombres": data["nombres"],
@@ -27,22 +71,25 @@ class EgresadoUpdateAPIView(
             "email": data["email"],
             "fecha_nac": data["fecha_nac"],
             "nacionalidad": data["nacionalidad"],
-            "ciudad_natal": data["ciudad_natal"],
-            "ciudad_actual": data["ciudad_actual"],
+            "ciudad_natal": ciudad_natal.id,
+            "ciudad_actual": ciudad_actual.id,
             "sexo": data["sexo"],
         }
 
-        egreso = {
-            "carrera": data["carrera"],
-            "ciclo_egreso": data["ciclo_egreso"],
-        }
-        return egresado, egreso
+        return egresado
 
     def create(self, request, *args, **kwargs):
-        egresado, egreso = self.get_separated_data(request.data)
-        serializer = self.get_serializer(data=egresado)
+        data_egresado = self.check_or_transform_data(request.data)
+        serializer = self.get_serializer(data=data_egresado)
         serializer.is_valid(raise_exception=True)
-        # self.perform_create(serializer)
+        egresado = serializer.save()
+
+        self.create_egreso(egresado=egresado, data=request.data)
+
+        self.create_privacidad(egresado=egresado)
+
+        self.set_origin(egresado=egresado)
+
         headers = self.get_success_headers(serializer.data)
         return Response(
             serializer.data,
