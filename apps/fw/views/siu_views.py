@@ -40,7 +40,7 @@ class EgresadosSIU(APIView):
         encoded_credentials = self.get_credentials()
 
         response = requests.get(
-            config("SIU_FACET_URL"),
+            url=config("SIU_FACET_URL"),
             headers={"Authorization": f"Basic {encoded_credentials}"},
         ).json()
 
