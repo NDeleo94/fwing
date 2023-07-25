@@ -1,6 +1,6 @@
 from django.shortcuts import render
 
-import requests
+import requests, base64
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
@@ -15,6 +15,8 @@ from apps.fw.serializers.egresado_serializers import EgresadoUpdateSerializer
 from apps.fw.serializers.egreso_serializers import EgresoUpdateSerializer
 from apps.fw.serializers.privacidad_serializers import PrivacidadSerializer
 
+from decouple import config
+
 
 class EgresadosSIU(APIView):
     def title_case(self, objeto, atributo):
@@ -24,8 +26,24 @@ class EgresadosSIU(APIView):
             else objeto.get(atributo)
         )
 
+    def get_credentials(self):
+        user = config("SIU_FACET_USER")
+        password = config("SIU_FACET_PASSWORD")
+
+        credentials = f"{user}:{password}"
+
+        encoded_credentials = base64.b64encode(credentials.encode()).decode()
+
+        return encoded_credentials
+
     def get_egresados(self):
-        response = requests.get("https://guarani.unt.edu.ar/rest/ws_facet.php").json()
+        encoded_credentials = self.get_credentials()
+
+        response = requests.get(
+            config("SIU_FACET_URL"),
+            headers={"Authorization": f"Basic {encoded_credentials}"},
+        ).json()
+
         egresados = response.get("data")
         result = [egresado["post"] for egresado in egresados]
         return result
