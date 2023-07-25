@@ -55,6 +55,7 @@ class CarreraSerializer(serializers.ModelSerializer):
             "id",
             "carrera",
             "facultad",
+            "following",
         )
 
 
