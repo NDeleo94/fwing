@@ -123,6 +123,15 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
+                    "origen",
+                    models.IntegerField(
+                        blank=True,
+                        choices=[(1, "ARCHIVO"), (2, "SIU"), (3, "FW")],
+                        verbose_name="Subido desde",
+                        null=True,
+                    ),
+                ),
+                (
                     "is_active",
                     models.BooleanField(
                         default=True,

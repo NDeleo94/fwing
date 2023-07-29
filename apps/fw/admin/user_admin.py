@@ -13,6 +13,10 @@ from apps.fw.models.carrera_model import Carrera
 from apps.fw.models.ciudad_model import Ciudad
 from apps.fw.models.privacidad_model import Privacidad
 
+from apps.fw.serializers.ciudad_serializers import *
+from apps.fw.serializers.egreso_serializers import *
+from apps.fw.serializers.privacidad_serializers import *
+
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
 from import_export.fields import Field
@@ -97,19 +101,20 @@ class FwUserResources(resources.ModelResource):
     # ciudad_natal = Field(attribute="ciudad_natal", column_name="LOCALIDAD")
     # ciudad_actual = Field(attribute="ciudad_actual", column_name="LOCALIDAD")
     # domicilio = Field(attribute="domicilio", column_name="DOMICILIO")
-    carrera = Field(attribute="carrera", column_name="CARRERA")
-    ciclo_egreso = Field(attribute="ciclo_egreso", column_name="EGRESO")
+    # carrera = Field(attribute="carrera", column_name="CARRERA")
+    # ciclo_egreso = Field(attribute="ciclo_egreso", column_name="EGRESO")
 
     ciudad_natal = Field(
-        column_name="LOCALIDAD",
+        column_name="LOCALIDAD NATAL",
         attribute="ciudad_natal",
         widget=ForeignKeyWidget(Ciudad, field="ciudad"),
     )
     ciudad_actual = Field(
-        column_name="LOCALIDAD",
+        column_name="LOCALIDAD ACTUAL",
         attribute="ciudad_actual",
         widget=ForeignKeyWidget(Ciudad, field="ciudad"),
     )
+    origen = Field(attribute="origen", column_name="ORIGEN")
 
     class Meta:
         model = FwUser
@@ -123,12 +128,12 @@ class FwUserResources(resources.ModelResource):
             "nacionalidad",
             "ciudad_natal",
             "ciudad_actual",
-            "domicilio",
+            # "domicilio",
             "sexo",
+            "origen",
         )
 
-    def before_import_row(self, row, **kwargs):
-        print(1)
+    def row_to_title_case(self, row):
         try:
             # for key, value in row.items():
             #     if isinstance(value, str):
@@ -139,19 +144,45 @@ class FwUserResources(resources.ModelResource):
         except Exception as e:
             print(e)
 
+    def get_or_create_ciudad(self, row, key):
         try:
-            ciudad = Ciudad.objects.filter(ciudad__icontains=row["LOCALIDAD"]).first()
-            if ciudad:
-                row["LOCALIDAD"] = ciudad
+            if not row[key]:
+                row[key] = None
             else:
-                row["LOCALIDAD"] = None
+                ciudad = Ciudad.objects.filter(ciudad__icontains=row[key]).first()
+                if ciudad:
+                    row[key] = ciudad
+                else:
+                    data_cased = row[key].title()
+                    data_ciudad = {
+                        "ciudad": data_cased,
+                    }
+                    serializer = CiudadUpdateSerializer(data=data_ciudad)
+                    serializer.is_valid(raise_exception=True)
+                    ciudad = serializer.save()
+                    row[key] = ciudad
+
         except Exception as e:
             print(e)
 
         return row
 
+    def before_import_row(self, row, **kwargs):
+        self.row_to_title_case(row=row)
+
+        self.get_or_create_ciudad(
+            row=row,
+            key="LOCALIDAD NATAL",
+        )
+
+        self.get_or_create_ciudad(
+            row=row,
+            key="LOCALIDAD ACTUAL",
+        )
+
+        return row
+
     def skip_row(self, instance, original, row, import_validation_errors=None):
-        print(2)
         return (
             True
             if FwUser.objects.filter(
@@ -160,24 +191,56 @@ class FwUserResources(resources.ModelResource):
             else False
         )
 
-    def after_import_row(self, row, row_result, row_number=None, **kwargs):
-        print(3)
-        dni = row["DNI"]
-        carrera_id = row["CARRERA"]
+    def set_origin(self, usuario, row):
+        try:
+            origen = row["ORIGEN"]
+            usuario.origen = origen if origen else 1
+            usuario.save()
 
-        egreso = row["EGRESO"]
+        except Exception as e:
+            print(e)
+
+    def create_privacidad(self, usuario):
+        try:
+            data_privacidad = {
+                "usuario": usuario.id,
+            }
+            serializer = PrivacidadSerializer(data=data_privacidad)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
+        except Exception as e:
+            print(e)
+
+    def set_egreso(self, usuario, row):
+        try:
+            carrera_id = row["CARRERA"]
+            egreso = row["EGRESO"]
+
+            data_egreso = {
+                "ciclo_egreso": egreso,
+                "usuario": usuario.id,
+                "carrera": carrera_id,
+            }
+            serializer = EgresoUpdateSerializer(data=data_egreso)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+
+        except Exception as e:
+            print(e)
+
+    def after_import_row(self, row, row_result, row_number=None, **kwargs):
+        dni = row["DNI"]
 
         try:
             usuario = FwUser.objects.filter(dni=dni).first()
-            carrera = Carrera.objects.filter(id=carrera_id).first()
 
-            Privacidad.objects.create(usuario=usuario)
+            self.set_origin(usuario=usuario, row=row)
 
-            Egreso.objects.create(
-                usuario=usuario,
-                carrera=carrera,
-                ciclo_egreso=egreso,
-            )
+            self.create_privacidad(usuario=usuario)
+
+            self.set_egreso(usuario=usuario, row=row)
+
         except Exception as e:
             print(e)
 
@@ -206,6 +269,7 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
         "is_active",
         "sexo",
     )
+    readonly_fields = ("origen",)
     fieldsets = (
         # (None, {"fields": ("email", "password")}),
         (
@@ -223,6 +287,7 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
                     "domicilio",
                     "certificado",
                     "sexo",
+                    "origen",
                     "password",
                 )
             },
@@ -266,6 +331,7 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
                     "domicilio",
                     "certificado",
                     "sexo",
+                    "origen",
                 ),
             },
         ),

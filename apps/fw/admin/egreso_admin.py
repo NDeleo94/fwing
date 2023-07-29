@@ -15,6 +15,7 @@ class EgresoResources(resources.ModelResource):
             "carrera",
             "ciclo_egreso",
             "matricula",
+            "postgrado",
             # "estado",
         )
 
@@ -29,11 +30,13 @@ class EgresoAdmin(EgresoImportExportAdmin):
     list_display = (
         "usuario",
         "ciclo_egreso",
+        "postgrado",
         "estado",
     )
 
     ordering = [
         "-estado",
+        "-postgrado",
         "ciclo_egreso",
         "usuario",
     ]

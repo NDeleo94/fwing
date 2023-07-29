@@ -13,6 +13,7 @@ class OrganizacionResources(resources.ModelResource):
             "id",
             "organizacion",
             "tipo",
+            "empleados",
             "descripcion",
             "email",
             "web",
@@ -31,12 +32,14 @@ class OrganizacionAdmin(OrganizacionImportExportAdmin):
         "id",
         "organizacion",
         "tipo",
+        "empleados",
         "estado",
     )
 
     ordering = [
         "-estado",
         "-tipo",
+        "-empleados",
         "organizacion",
         "id",
     ]
@@ -48,6 +51,7 @@ class OrganizacionAdmin(OrganizacionImportExportAdmin):
                 "fields": (
                     "organizacion",
                     "tipo",
+                    "empleados",
                     "descripcion",
                 )
             },
