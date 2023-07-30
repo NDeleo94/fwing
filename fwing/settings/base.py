@@ -43,6 +43,7 @@ THIRD_APPS = [
     "rest_framework.authtoken",
     "corsheaders",
     "import_export",
+    "ckeditor",
 ]
 
 INSTALLED_APPS = BASE_APPS + LOCAL_APPS + THIRD_APPS
