@@ -18,4 +18,12 @@ class OrganizacionReadOnlySerializer(serializers.ModelSerializer):
 class OrganizacionUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Organizacion
-        fields = ("organizacion",)
+        fields = (
+            "id",
+            "organizacion",
+            "tipo",
+            "empleados",
+            "descripcion",
+            "email",
+            "web",
+        )
