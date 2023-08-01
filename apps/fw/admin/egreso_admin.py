@@ -15,6 +15,7 @@ class EgresoResources(resources.ModelResource):
             "carrera",
             "ciclo_egreso",
             "matricula",
+            "following",
             "postgrado",
             # "estado",
         )

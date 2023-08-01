@@ -68,6 +68,8 @@ class EgresoReadOnlySerializer(serializers.ModelSerializer):
             "id",
             "ciclo_egreso",
             "matricula",
+            "following",
+            "postgrado",
             "usuario",
             "carrera",
         )
@@ -82,5 +84,6 @@ class EgresoUpdateSerializer(serializers.ModelSerializer):
             "ciclo_egreso",
             "usuario",
             "carrera",
+            "following",
             "postgrado",
         )

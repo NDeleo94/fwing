@@ -30,6 +30,9 @@ class Egreso(models.Model):
         blank=True,
         null=True,
     )
+    following = models.BooleanField(
+        default=False,
+    )
     postgrado = models.BooleanField(
         default=False,
     )
