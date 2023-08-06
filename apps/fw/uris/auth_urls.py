@@ -28,4 +28,9 @@ urlAuth = [
         ChangePassword.as_view(),
         name="change_password",
     ),
+    path(
+        "api/reset-password/",
+        ResetPassword.as_view(),
+        name="reset_password",
+    ),
 ]

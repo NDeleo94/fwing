@@ -171,3 +171,25 @@ class ChangePassword(APIView):
             user.save()
             return Response({"success": "Password changed successfully"})
         return Response({"error": "Invalid old password"}, status=400)
+
+
+class ResetPassword(APIView):
+    def post(self, request):
+        # Check data
+        serializer = ResetPasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Get data
+        email = serializer.validated_data.get("email")
+
+        # Get user
+        user = FwUser.objects.filter(email=email).first()
+
+        if user:
+            # Create token to user
+            token, _ = Token.objects.get_or_create(user=user)
+
+            # Send email
+            print(token)
+            return Response({"success": "Email sent successfully"})
+        return Response({"error": "Invalid email"}, status=400)
