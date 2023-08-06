@@ -23,4 +23,9 @@ urlAuth = [
         NewPassword.as_view(),
         name="new_password",
     ),
+    path(
+        "api/change-password/",
+        ChangePassword.as_view(),
+        name="change_password",
+    ),
 ]

@@ -138,3 +138,36 @@ class NewPassword(APIView):
         user.set_password(new_password)
         user.save()
         return Response({"success": "Password changed successfully"})
+
+
+class ChangePassword(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        # Check data
+        serializer = ChangePasswordSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Get data
+        token = get_authorization_header(request).split()
+        token = token[1].decode()
+
+        old_password = serializer.validated_data.get("old_password")
+        new_password = serializer.validated_data.get("new_password")
+
+        # Get user from token
+        try:
+            user = Token.objects.get(key=token).user
+        except Token.DoesNotExist:
+            return Response(
+                {"error": "Invalid authentication token"},
+                status=401,
+            )
+
+        # Change password
+        if user.check_password(old_password):
+            user.set_password(new_password)
+            user.save()
+            return Response({"success": "Password changed successfully"})
+        return Response({"error": "Invalid old password"}, status=400)
