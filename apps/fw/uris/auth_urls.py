@@ -33,4 +33,9 @@ urlAuth = [
         ResetPassword.as_view(),
         name="reset_password",
     ),
+    path(
+        "api/change-email/",
+        ChangeEmail.as_view(),
+        name="change_email",
+    ),
 ]

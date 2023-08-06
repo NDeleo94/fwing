@@ -193,3 +193,36 @@ class ResetPassword(APIView):
             print(token)
             return Response({"success": "Email sent successfully"})
         return Response({"error": "Invalid email"}, status=400)
+
+
+class ChangeEmail(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        # Check data
+        serializer = ChangeEmailSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        # Get data
+        token = get_authorization_header(request).split()
+        token = token[1].decode()
+
+        old_email = serializer.validated_data.get("old_email")
+        new_email = serializer.validated_data.get("new_email")
+
+        # Get user from token
+        try:
+            user = Token.objects.get(key=token).user
+        except Token.DoesNotExist:
+            return Response(
+                {"error": "Invalid authentication token"},
+                status=401,
+            )
+
+        # Change password
+        if user.email == old_email:
+            user.email = new_email
+            user.save()
+            return Response({"success": "Email changed successfully"})
+        return Response({"error": "Invalid old email"}, status=400)
