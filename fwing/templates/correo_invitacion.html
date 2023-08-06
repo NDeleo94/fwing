@@ -1,7 +1,17 @@
 <html>
   <head> </head>
   <body>
-    <h1>Hola desde following mandando correos</h1>
-    <p>Este mensaje se envia desde following</p>
+    <h1>Hola, {{ nombres }}! Te damos la bienvenida a FollowING!</h1>
+    <h3>FollowING es un sistema de seguimiento de egresados</h3>
+    <p>Te invitamos a que ingreses al sistema a través del siguiente link</p>
+    <a href="{{ frontend_url }}">FollowING</a>
+    <p>
+      Si recibiste este mail en tu correo de Google, entonces puedes ingresar al
+      sistema utilizando la autenticacion de Google. También puedes generar una
+      nueva contraseña con el link de "Generar nueva contraseña" que se muestra
+      mas abajo.
+    </p>
+    <hr />
+    <a href="{{ reset_url }}">Generar nueva contraseña</a>
   </body>
 </html>
