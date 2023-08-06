@@ -9,3 +9,4 @@ from apps.fw.models.egreso_model import *
 from apps.fw.models.imagen_model import *
 from apps.fw.models.privacidad_model import *
 from apps.fw.models.ciudad_model import *
+from apps.fw.models.email_model import *

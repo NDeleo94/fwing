@@ -8,3 +8,4 @@ django-import-export==3.2.0
 Pillow==9.0.1
 requests==2.25.1
 google-auth==2.19.1
+django-ckeditor==6.7.0
