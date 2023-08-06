@@ -1,14 +1,74 @@
 from django.conf import settings
-from django.shortcuts import render
-from django.template.loader import get_template
-from django.shortcuts import get_object_or_404
+from django.shortcuts import render, get_object_or_404
+from django.template.loader import get_template, render_to_string
+from django.utils.html import strip_tags
 from django.core.mail import EmailMultiAlternatives
-
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
 from apps.fw.models.user_model import FwUser
 from apps.fw.models.email_model import Email
+
+from decouple import config
+
+
+def send_invitation_email(user, token):
+    frontend_url = config("FRONTEND_URL")
+
+    # Replace the placeholders in the email template with actual values
+    email_subject = "Bienvenido a FollowING"
+    email_template = "correo_invitacion.html"
+    context = {
+        "nombres": user.nombres,
+        "frontend_url": f"{frontend_url}/login",
+        "reset_url": f"{frontend_url}/reset-password/{token}",
+    }
+    email_body_html = render_to_string(email_template, context)
+    email_body_text = strip_tags(email_body_html)
+
+    # Send the email with both HTML and plain text versions
+    msg = EmailMultiAlternatives(
+        subject=email_subject,
+        body=email_body_text,
+        from_email=config("EMAIL_HOST_USER"),
+        to=[user.email],
+    )
+    msg.attach_alternative(
+        content=email_body_html,
+        mimetype="text/html",
+    )
+    sended = msg.send()
+
+    return sended
+
+
+def send_forget_password_email(user, token):
+    frontend_url = config("FRONTEND_URL")
+
+    # Replace the placeholders in the email template with actual values
+    email_subject = "Nueva contraseña FollowING"
+    email_template = "correo_forget_password.html"
+    context = {
+        "nombres": user.nombres,
+        "reset_url": f"{frontend_url}/reset-password/{token}",
+    }
+    email_body_html = render_to_string(email_template, context)
+    email_body_text = strip_tags(email_body_html)
+
+    # Send the email with both HTML and plain text versions
+    msg = EmailMultiAlternatives(
+        subject=email_subject,
+        body=email_body_text,
+        from_email=config("EMAIL_HOST_USER"),
+        to=[user.email],
+    )
+    msg.attach_alternative(
+        content=email_body_html,
+        mimetype="text/html",
+    )
+    sended = msg.send()
+
+    return sended
 
 
 class EmailView(APIView):
@@ -18,7 +78,7 @@ class EmailView(APIView):
         content = template.render()
 
         email = EmailMultiAlternatives(
-            "Correo de prueba",
+            "Bienvenido a FollowING",
             "FollowING",
             settings.EMAIL_HOST_USER,
             [destinatary],
