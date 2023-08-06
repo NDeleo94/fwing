@@ -14,6 +14,8 @@ from apps.fw.serializers.egresado_serializers import EgresadoLoginSerializer
 from apps.fw.serializers.imagen_serializers import ImagenSerializer
 from apps.fw.serializers.auth_serializers import *
 
+from apps.fw.views.email_views import *
+
 from google.auth import jwt
 
 
@@ -190,8 +192,10 @@ class ResetPassword(APIView):
             token, _ = Token.objects.get_or_create(user=user)
 
             # Send email
-            print(token)
-            return Response({"success": "Email sent successfully"})
+            sended = send_forget_password_email(user=user, token=token)
+            if sended:
+                return Response({"success": "Email sent successfully"})
+            return Response("Error al enviar email")
         return Response({"error": "Invalid email"}, status=400)
 
 
