@@ -18,4 +18,24 @@ urlAuth = [
         LogoutView.as_view(),
         name="logout",
     ),
+    path(
+        "api/new-password/",
+        NewPassword.as_view(),
+        name="new_password",
+    ),
+    path(
+        "api/change-password/",
+        ChangePassword.as_view(),
+        name="change_password",
+    ),
+    path(
+        "api/reset-password/",
+        ResetPassword.as_view(),
+        name="reset_password",
+    ),
+    path(
+        "api/change-email/",
+        ChangeEmail.as_view(),
+        name="change_email",
+    ),
 ]

@@ -14,15 +14,6 @@ from apps.fw.models.privacidad_model import Privacidad
 
 
 # Serializers base para lista de egresos
-class CiudadSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Ciudad
-        fields = (
-            "id",
-            "ciudad",
-        )
-
-
 class UniversidadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Universidad
@@ -75,6 +66,15 @@ class EgresoSerializer(serializers.ModelSerializer):
 
 
 # Serializers base para lista de actividades
+class CiudadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ciudad
+        fields = (
+            "id",
+            "ciudad",
+        )
+
+
 class PuestoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Puesto
@@ -98,6 +98,7 @@ class OrganizacionSerializer(serializers.ModelSerializer):
 class ActividadSerializer(serializers.ModelSerializer):
     organizacion = OrganizacionSerializer()
     puesto = PuestoSerializer()
+    ciudad = CiudadSerializer()
 
     class Meta:
         model = Actividad
@@ -109,6 +110,7 @@ class ActividadSerializer(serializers.ModelSerializer):
             "seniority",
             "organizacion",
             "puesto",
+            "ciudad",
         )
 
 
