@@ -120,12 +120,6 @@ class FwUser(AbstractBaseUser, PermissionsMixin):
         blank=True,
         null=True,
     )
-    linkedin_id = models.CharField(
-        "LinkedIn ID",
-        max_length=20,
-        blank=True,
-        null=True,
-    )
     is_active = models.BooleanField(
         "active",
         default=True,
