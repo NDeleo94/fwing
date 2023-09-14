@@ -11,7 +11,7 @@ class LinkedInView(APIView):
     def post(self, request):
         url_access_token = "https://www.linkedin.com/oauth/v2/accessToken"
 
-        url_data = "https://api.linkedin.com/v2/me"
+        url_data = "https://api.linkedin.com/v2/me?projection=(id,firstName,lastName,positions)"
 
         user_id = request.data.get("id")
         code = request.data.get("code")
