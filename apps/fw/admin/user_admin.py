@@ -288,7 +288,7 @@ class UserAdmin(BaseUserAdmin, ImportExportModelAdmin):
                     "certificado",
                     "sexo",
                     "origen",
-                    "linkedin_id",
+                    # "linkedin_id",
                     "password",
                 )
             },
