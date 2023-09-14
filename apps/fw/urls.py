@@ -16,6 +16,8 @@ from apps.fw.uris.image_urls import urlImage
 from apps.fw.uris.email_urls import urlEmail
 from apps.fw.uris.ciudad_urls import urlCiudad
 from apps.fw.uris.linkedin_urls import urlLinkedin
+from apps.fw.uris.mapamundi_urls import urlMapaMundi
+
 
 urls = urlTitulo
 
@@ -35,4 +37,5 @@ urlpatterns = (
     + urlPrivacidad
     + urlCiudad
     + urlLinkedin
+    + urlMapaMundi
 )
