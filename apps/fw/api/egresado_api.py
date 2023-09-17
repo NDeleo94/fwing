@@ -4,6 +4,8 @@ from apps.fw.serializers.egresado_serializers import *
 from apps.fw.serializers.egreso_serializers import *
 from apps.fw.serializers.ciudad_serializers import *
 
+from apps.fw.utils.ciudad_utils import get_or_create_ciudad
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -20,22 +22,6 @@ class EgresadoUpdateAPIView(
     serializer_class = EgresadoUpdateSerializer
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
-
-    def get_or_create_ciudad(self, data):
-        if not data:
-            ciudad = None
-        elif type(data) is str:
-            data_cased = data.title()
-            data_ciudad = {
-                "ciudad": data_cased,
-            }
-            serializer = CiudadUpdateSerializer(data=data_ciudad)
-            serializer.is_valid(raise_exception=True)
-            ciudad = serializer.save()
-        else:
-            ciudad = Ciudad.objects.get(id=data)
-
-        return ciudad
 
     def create_egreso(self, egresado, data):
         data_egreso = {
@@ -61,9 +47,9 @@ class EgresadoUpdateAPIView(
         egresado.save()
 
     def check_or_transform_data(self, data):
-        ciudad_natal = self.get_or_create_ciudad(data=data["ciudad_natal"])
+        ciudad_natal = get_or_create_ciudad(data=data["ciudad_natal"])
 
-        ciudad_actual = self.get_or_create_ciudad(data=data["ciudad_actual"])
+        ciudad_actual = get_or_create_ciudad(data=data["ciudad_actual"])
 
         egresado = {
             "dni": data["dni"],
