@@ -38,6 +38,8 @@ class CiudadSerializer(serializers.ModelSerializer):
         fields = (
             "id",
             "ciudad",
+            "lat",
+            "long",
         )
 
 
