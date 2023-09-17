@@ -1,6 +1,6 @@
 from apps.fw.utils.organizacion_utils import get_or_create_organizacion
 from apps.fw.utils.puesto_utils import get_or_create_puesto
-from apps.fw.utils.ciudad_utils import get_or_create_ciudad
+from apps.fw.utils.ciudad_utils import get_or_create_ciudad, add_coordinates
 
 
 def check_or_transform_data(data):
@@ -10,7 +10,8 @@ def check_or_transform_data(data):
 
     ciudad = get_or_create_ciudad(data=data["ciudad"])
 
-    # Devolver actividad completo
+    add_coordinates(ciudad=ciudad)
+
     data_transformed = {
         "inicio": data["inicio"],
         "fin": data["fin"],
