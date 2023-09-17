@@ -12,6 +12,8 @@ class CiudadResources(resources.ModelResource):
         fields = (
             "id",
             "ciudad",
+            "lat",
+            "long",
             # "estado",
         )
 
