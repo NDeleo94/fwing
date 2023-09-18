@@ -1,4 +1,4 @@
-from apps.fw.models import Organizacion
+from apps.fw.models.organizacion_model import Organizacion
 
 from apps.fw.serializers.organizacion_serializers import *
 
