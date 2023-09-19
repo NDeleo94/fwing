@@ -2,6 +2,8 @@ from rest_framework import viewsets, mixins
 
 from apps.fw.serializers.privacidad_serializers import *
 
+from apps.fw.utils.privacidad_utils import check_privacity
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -30,8 +32,8 @@ class PrivacidadUpdateAPIView(
 
     def create(self, request, *args, **kwargs):
         data = request.data
-        # Checkear privacidad
-        privacidad = self.check_privacity(request.data["usuario"])
+
+        privacidad = check_privacity(request.data["usuario"])
 
         if privacidad:
             serializer = self.get_serializer(privacidad, data=data)
