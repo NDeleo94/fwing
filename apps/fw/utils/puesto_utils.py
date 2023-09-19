@@ -1,4 +1,4 @@
-from apps.fw.models import Puesto
+from apps.fw.models.puesto_model import Puesto
 
 from apps.fw.serializers.puesto_serializers import *
 

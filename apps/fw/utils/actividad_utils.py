@@ -10,7 +10,8 @@ def check_or_transform_data(data):
 
     ciudad = get_or_create_ciudad(data=data["ciudad"])
 
-    add_coordinates(ciudad=ciudad)
+    if ciudad:
+        add_coordinates(ciudad=ciudad)
 
     data_transformed = {
         "inicio": data["inicio"],

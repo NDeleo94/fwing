@@ -8,46 +8,21 @@ from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication, get_authorization_header
 from apps.fw.models.user_model import FwUser
-from apps.fw.models.imagen_model import Imagen
 
 from apps.fw.serializers.egresado_serializers import EgresadoLoginSerializer
-from apps.fw.serializers.imagen_serializers import ImagenSerializer
 from apps.fw.serializers.auth_serializers import *
 
 from apps.fw.views.email_views import *
 
-from google.auth import jwt
+from apps.fw.utils.google_utils import get_google_property
+from apps.fw.utils.auth_utils import check_and_get_user
 
 
 class LoginGoogleView(APIView):
-    def get_google_property(self, token, property):
-        try:
-            decoded_token = jwt.decode(token, verify=False)
-            google_email = decoded_token.get(property)
-            return google_email
-        except jwt.exceptions.DecodeError as e:
-            print(f"Error decoding Google token: {e}")
-            return None
-
-    def set_google_profile_picture(self, usuario, token):
-        imagen = Imagen.objects.filter(usuario=usuario).first()
-        if imagen:
-            imagen.url = self.get_google_property(token, "picture")
-            imagen.file = None
-            imagen.save()
-        else:
-            data_imagen = {
-                "usuario": usuario.id,
-                "file": None,
-                "url": self.get_google_property(token, "picture"),
-            }
-            serializer = ImagenSerializer(data=data_imagen)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-
     def post(self, request):
         token = request.data
-        google_email = self.get_google_property(token, "email")
+        google_email = get_google_property(token, "email")
+
         if google_email:
             user = FwUser.objects.filter(email=google_email).first()
 
@@ -76,33 +51,32 @@ class LoginView(APIView):
         username = request.data.get("username")
         password = request.data.get("password")
 
-        if username and password:
-            if "@" in username:
-                user_finded = FwUser.objects.filter(email=username).first()
-                if user_finded:
-                    username = user_finded.dni
-                else:
-                    return Response({"error": "Invalid credentials"}, status=400)
+        username = check_and_get_user(
+            username=username,
+            password=password,
+        )
 
-            user = authenticate(username=username, password=password)
+        if not username:
+            return Response({"error": "Invalid credentials"}, status=400)
 
-            if user:
-                user.last_login = timezone.now()
-                user.save()
-                # Generate or retrieve the token for the user
-                token, _ = Token.objects.get_or_create(user=user)
-                user_serializer = EgresadoLoginSerializer(user)
+        user = authenticate(username=username, password=password)
 
-                return Response(
-                    {
-                        "token": token.key,
-                        "user": user_serializer.data,
-                    }
-                )
-            else:
-                return Response({"error": "Invalid credentials"}, status=400)
-        else:
+        if not user:
             return Response({"error": "Missing username or password"}, status=400)
+
+        if user:
+            user.last_login = timezone.now()
+            user.save()
+            # Generate or retrieve the token for the user
+            token, _ = Token.objects.get_or_create(user=user)
+            user_serializer = EgresadoLoginSerializer(user)
+
+            return Response(
+                {
+                    "token": token.key,
+                    "user": user_serializer.data,
+                }
+            )
 
 
 class LogoutView(APIView):

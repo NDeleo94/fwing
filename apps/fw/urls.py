@@ -17,7 +17,7 @@ from apps.fw.uris.email_urls import urlEmail
 from apps.fw.uris.ciudad_urls import urlCiudad
 from apps.fw.uris.linkedin_urls import urlLinkedin
 from apps.fw.uris.mapamundi_urls import urlMapaMundi
-
+from apps.fw.uris.test_urls import urlTest
 
 urls = urlTitulo
 
@@ -38,4 +38,5 @@ urlpatterns = (
     + urlCiudad
     + urlLinkedin
     + urlMapaMundi
+    + urlTest
 )
