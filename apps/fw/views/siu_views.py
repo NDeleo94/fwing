@@ -38,11 +38,17 @@ class EgresadosSIU(APIView):
 
     def get_egresados(self):
         encoded_credentials = self.get_credentials()
+        try:
+            response = requests.get(
+                url=config("SIU_FACET_URL"),
+                headers={"Authorization": f"Basic {encoded_credentials}"},
+            ).json()
 
-        response = requests.get(
-            url=config("SIU_FACET_URL"),
-            headers={"Authorization": f"Basic {encoded_credentials}"},
-        ).json()
+        except requests.exceptions.RequestException as e:
+            return Response({"error": f"Network Error: {e}"})
+
+        except Exception as e:
+            return Response({"error": f"An unexpected error occurred: {str(e)}"})
 
         egresados = response.get("data")
         result = [egresado["post"] for egresado in egresados]
