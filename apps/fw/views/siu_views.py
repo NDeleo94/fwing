@@ -38,14 +38,11 @@ class EgresadosSIU(APIView):
 
     def get_egresados(self):
         encoded_credentials = self.get_credentials()
-        try:
-            response = requests.get(
-                url=config("SIU_FACET_URL"),
-                headers={"Authorization": f"Basic {encoded_credentials}"},
-            ).json()
 
-        except Exception as e:
-            return False
+        response = requests.get(
+            url=config("SIU_FACET_URL"),
+            headers={"Authorization": f"Basic {encoded_credentials}"},
+        ).json()
 
         egresados = response.get("data")
         result = [egresado["post"] for egresado in egresados]
@@ -138,10 +135,10 @@ class EgresadosSIU(APIView):
         self.set_origin(usuario=nuevo_egresado)
 
     def post(self, request):
-        egresados = self.get_egresados()
-
-        if not egresados:
-            return Response({"error": f"An unexpected error occurred"})
+        try:
+            egresados = self.get_egresados()
+        except Exception as e:
+            return {"error": f"An unexpected error occurred: {str(e)}"}
 
         contador_nuevos_egresados = 0
 
