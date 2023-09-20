@@ -44,11 +44,8 @@ class EgresadosSIU(APIView):
                 headers={"Authorization": f"Basic {encoded_credentials}"},
             ).json()
 
-        except requests.exceptions.RequestException as e:
-            return Response({"error": f"Network Error: {e}"})
-
         except Exception as e:
-            return Response({"error": f"An unexpected error occurred: {str(e)}"})
+            return False
 
         egresados = response.get("data")
         result = [egresado["post"] for egresado in egresados]
@@ -142,6 +139,10 @@ class EgresadosSIU(APIView):
 
     def post(self, request):
         egresados = self.get_egresados()
+
+        if not egresados:
+            return Response({"error": f"An unexpected error occurred"})
+
         contador_nuevos_egresados = 0
 
         for egresado in egresados:
