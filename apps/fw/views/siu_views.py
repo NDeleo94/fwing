@@ -138,7 +138,7 @@ class EgresadosSIU(APIView):
         try:
             egresados = self.get_egresados()
         except Exception as e:
-            return {"error": f"An unexpected error occurred: {str(e)}"}
+            return Response({"error": f"An unexpected error occurred: {str(e)}"})
 
         contador_nuevos_egresados = 0
 
