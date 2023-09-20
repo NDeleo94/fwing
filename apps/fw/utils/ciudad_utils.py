@@ -8,16 +8,23 @@ from decouple import config
 
 
 def get_data_from_bing(ciudad):
-    urlBase = config("BING_MAPS_URL")
-    key = config("BING_MAPS_KEY")
+    try:
+        urlBase = config("BING_MAPS_URL")
+        key = config("BING_MAPS_KEY")
 
-    url = f"{urlBase}/{ciudad}?o=json&key={key}"
+        url = f"{urlBase}/{ciudad}?o=json&key={key}"
 
-    response = requests.get(
-        url=url,
-    ).json()
+        response = requests.get(
+            url=url,
+        ).json()
 
-    return response
+        return response
+
+    except requests.exceptions.RequestException as e:
+        print({"error": f"Network Error: {e}"})
+
+    except Exception as e:
+        print({"error": f"An unexpected error occurred: {str(e)}"})
 
 
 def check_data(data):
