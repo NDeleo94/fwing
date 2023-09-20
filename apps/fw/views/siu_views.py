@@ -15,6 +15,8 @@ from apps.fw.serializers.egresado_serializers import EgresadoUpdateSerializer
 from apps.fw.serializers.egreso_serializers import EgresoUpdateSerializer
 from apps.fw.serializers.privacidad_serializers import PrivacidadSerializer
 
+from apps.fw.utils.siu_utils import register_update
+
 from decouple import config
 
 
@@ -161,6 +163,10 @@ class EgresadosSIU(APIView):
                     )
                     contador_nuevos_egresados += 1
 
+        register_update(
+            cantidad=contador_nuevos_egresados,
+            origen=request.data.get("origen"),
+        )
         return Response(
             {"message": f"Se agregaron {contador_nuevos_egresados}"}, status=200
         )
