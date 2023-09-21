@@ -11,6 +11,7 @@ class CiudadView(APIView):
 
         contador_ok = 0
         contador_fail = 0
+        ex = "No exception"
         ciudades = fetch_ciudades()
         for ciudad in ciudades:
             if not ciudad.lat or not ciudad.long:
@@ -18,6 +19,7 @@ class CiudadView(APIView):
                     add_coordinates(ciudad=ciudad)
                     contador_ok += 1
                 except Exception as e:
+                    ex = str(e)
                     contador_fail += 1
 
         message = "Task done successfully"
@@ -26,6 +28,6 @@ class CiudadView(APIView):
                 "message": f"{message}",
                 "ok": f"updated {contador_ok} locations in {len(ciudades)} cities",
                 "error": f"{contador_fail} could not be added",
-                "exception": str(e),
+                "exception": ex,
             }
         )
