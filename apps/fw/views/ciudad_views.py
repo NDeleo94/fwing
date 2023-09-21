@@ -24,7 +24,7 @@ class CiudadView(APIView):
         return Response(
             {
                 "message": f"{message}",
-                "ok": f"{contador_ok} cities added",
+                "ok": f"updated {contador_ok} locations in {len(ciudades)} cities",
                 "error": f"{contador_fail} could not be added",
             }
         )
