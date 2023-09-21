@@ -9,7 +9,7 @@ class LogSIU(models.Model):
         null=False,
     )
     origen = models.IntegerField(
-        "Actualizado desde",
+        "Actualización",
         choices=(
             (1, "AUTO"),
             (2, "MANUAL"),
