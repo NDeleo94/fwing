@@ -1,6 +1,7 @@
 from django.urls import path
 
 from apps.fw.api.ciudad_api import *
+from apps.fw.views.ciudad_views import CiudadView
 
 urlCiudad = [
     path(
@@ -27,5 +28,10 @@ urlCiudad = [
         "api/eliminar/ciudades/<int:pk>/",
         CiudadUpdateAPIView.as_view({"delete": "destroy"}),
         name="ciudad_delete",
+    ),
+    path(
+        "api/ciudades/uplocation/",
+        CiudadView.as_view(),
+        name="locations",
     ),
 ]

@@ -1,0 +1,23 @@
+from rest_framework.views import APIView
+
+from rest_framework.response import Response
+
+from apps.fw.utils.ciudad_utils import add_coordinates, fetch_ciudades
+
+
+class CiudadView(APIView):
+    def post(self, request):
+        func = request.data.get("funcion")
+
+        contador = 0
+        ciudades = fetch_ciudades()
+        for ciudad in ciudades:
+            if not ciudad.lat or not ciudad.long:
+                try:
+                    add_coordinates(ciudad=ciudad)
+                    contador += 1
+                except Exception as e:
+                    print(e)
+
+        message = "Task done successfully"
+        return Response({"message": f"{message}, {contador} cities added"})
