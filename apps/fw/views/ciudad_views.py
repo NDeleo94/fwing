@@ -9,15 +9,22 @@ class CiudadView(APIView):
     def post(self, request):
         func = request.data.get("funcion")
 
-        contador = 0
+        contador_ok = 0
+        contador_fail = 0
         ciudades = fetch_ciudades()
         for ciudad in ciudades:
             if not ciudad.lat or not ciudad.long:
                 try:
                     add_coordinates(ciudad=ciudad)
-                    contador += 1
+                    contador_ok += 1
                 except Exception as e:
-                    print(e)
+                    contador_fail += 1
 
         message = "Task done successfully"
-        return Response({"message": f"{message}, {contador} cities added"})
+        return Response(
+            {
+                "message": f"{message}",
+                "ok": f"{contador_ok} cities added",
+                "error": f"{contador_fail} could not be added",
+            }
+        )
