@@ -11,7 +11,10 @@ def check_or_transform_data(data):
     ciudad = get_or_create_ciudad(data=data["ciudad"])
 
     if ciudad:
-        add_coordinates(ciudad=ciudad)
+        try:
+            add_coordinates(ciudad=ciudad)
+        except Exception as e:
+            print({"error": f"An unexpected error occurred: {str(e)}"})
 
     data_transformed = {
         "inicio": data["inicio"],

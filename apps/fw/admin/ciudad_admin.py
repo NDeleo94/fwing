@@ -24,7 +24,7 @@ class CiudadImportExportAdmin(ImportExportModelAdmin):
 
 
 @admin.register(Ciudad)
-class UniversidadAdmin(CiudadImportExportAdmin):
+class CiudadAdmin(CiudadImportExportAdmin):
     list_display = (
         "id",
         "ciudad",

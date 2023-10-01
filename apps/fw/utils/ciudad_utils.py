@@ -72,3 +72,7 @@ def get_or_create_ciudad(data):
         ciudad = Ciudad.objects.get(id=data)
 
     return ciudad
+
+
+def fetch_ciudades():
+    return Ciudad.objects.all()
