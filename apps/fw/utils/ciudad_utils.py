@@ -20,7 +20,7 @@ def get_data_from_bing(ciudad):
     return response
 
 
-def check_data(data):
+def check_data_from_bing(data):
     results = data.get("resourceSets")[0].get("estimatedTotal")
 
     return results
@@ -48,7 +48,7 @@ def set_coordinates(ciudad, coordenadas):
 def add_coordinates(ciudad):
     data = get_data_from_bing(ciudad=ciudad.ciudad)
 
-    if check_data(data=data):
+    if check_data_from_bing(data=data):
         coordenadas = get_coordinates(data=data)
 
         set_coordinates(
@@ -57,19 +57,34 @@ def add_coordinates(ciudad):
         )
 
 
-def get_or_create_ciudad(data):
+def create_ciudad(data):
+    data_cased = data.title()
+    data_ciudad = {
+        "ciudad": data_cased,
+    }
+    serializer = CiudadUpdateSerializer(data=data_ciudad)
+    serializer.is_valid(raise_exception=True)
+    ciudad = serializer.save()
+    return ciudad
+
+
+def get_ciudad(data):
     if not data:
         ciudad = None
     elif type(data) is str:
-        data_cased = data.title()
-        data_ciudad = {
-            "ciudad": data_cased,
-        }
-        serializer = CiudadUpdateSerializer(data=data_ciudad)
-        serializer.is_valid(raise_exception=True)
-        ciudad = serializer.save()
+        ciudad = Ciudad.objects.filter(ciudad__icontains=data).first()
     else:
         ciudad = Ciudad.objects.get(id=data)
+
+    return ciudad
+
+
+def get_or_create_ciudad(data):
+    ciudad = get_ciudad(data=data)
+
+    if not ciudad:
+        ciudad = create_ciudad(data=data)
+        add_coordinates(ciudad=ciudad)
 
     return ciudad
 
