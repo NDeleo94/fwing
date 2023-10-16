@@ -17,7 +17,7 @@ def create_facultad(data, universidad_id):
 
 
 def get_facultad(data):
-    if not data:
+    if not data or type(data) is str:
         facultad = None
     else:
         facultad = Facultad.objects.get(id=data)

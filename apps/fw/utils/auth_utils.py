@@ -12,5 +12,7 @@ def check_and_get_user(username, password):
             return user_finded.dni
         else:
             return False
-    else:
+    elif type(username) is int:
         return username
+    else:
+        return False

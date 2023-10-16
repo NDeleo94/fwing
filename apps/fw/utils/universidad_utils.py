@@ -16,7 +16,7 @@ def create_universidad(data):
 
 
 def get_universidad(data):
-    if not data:
+    if not data or type(data) is str:
         universidad = None
     else:
         universidad = Universidad.objects.get(id=data)

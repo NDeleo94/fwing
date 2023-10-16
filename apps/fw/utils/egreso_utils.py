@@ -7,14 +7,14 @@ from apps.fw.utils.carrera_utils import get_or_create_carrera
 
 def check_or_transform_data(data):
     universidad = get_or_create_universidad(
-        data=data["universidad"],
+        data=data.get("universidad"),
     )
     facultad = get_or_create_facultad(
-        data=data["facultad"],
+        data=data.get("facultad"),
         universidad_id=universidad.id,
     )
     carrera = get_or_create_carrera(
-        data=data["carrera"],
+        data=data.get("carrera"),
         facultad_id=facultad.id,
     )
 
@@ -22,10 +22,10 @@ def check_or_transform_data(data):
         "universidad": universidad.id,
         "facultad": facultad.id,
         "carrera": carrera.id,
-        "usuario": data["usuario"],
-        "ciclo_egreso": data["ciclo_egreso"],
-        "matricula": data["matricula"],
-        "postgrado": data["postgrado"],
+        "usuario": data.get("usuario"),
+        "ciclo_egreso": data.get("ciclo_egreso"),
+        "matricula": data.get("matricula"),
+        "postgrado": data.get("postgrado"),
     }
 
     return data_transformed

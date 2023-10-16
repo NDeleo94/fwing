@@ -36,7 +36,7 @@ def create_carrera(data, facultad_id):
 
 
 def get_carrera(data):
-    if not data:
+    if not data or type(data) is str:
         carrera = None
     else:
         carrera = Carrera.objects.get(id=data)
