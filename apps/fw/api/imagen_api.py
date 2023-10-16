@@ -28,7 +28,7 @@ class ImagenUpdateAPIView(
         # Checkear imagen
         data = check_or_transform_data(request.data)
         # Checkear foto de perfil
-        imagen = check_profile_picture(request.data["usuario"])
+        imagen = check_profile_picture(request.data.get("usuario"))
 
         if imagen:
             serializer = self.get_serializer(imagen, data=data)

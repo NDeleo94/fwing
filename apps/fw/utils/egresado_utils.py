@@ -14,7 +14,7 @@ def create_egresado(json_egresado):
     apellidos_egresado = title_case(json_egresado, "apellido")
     nombres_egresado = title_case(json_egresado, "nombres")
     email_egresado = json_egresado.get("email")
-    fecha_nac_egresado = title_case(json_egresado, "fecha_nacimiento")
+    fecha_nac_egresado = json_egresado.get("fecha_nacimiento")
     nacionalidad_egresado = title_case(json_egresado, "nacionalidad")
     sexo_egresado = title_case(json_egresado, "sexo")
 
@@ -43,6 +43,26 @@ def create_egresado(json_egresado):
     return egresado
 
 
+def check_or_transform_data(data):
+    ciudad_natal = get_or_create_ciudad(data=data.get("ciudad_natal"))
+
+    ciudad_actual = get_or_create_ciudad(data=data.get("ciudad_actual"))
+
+    egresado = {
+        "dni": data.get("dni"),
+        "nombres": data.get("nombres").title(),
+        "apellidos": data.get("apellidos").title(),
+        "email": data.get("email"),
+        "fecha_nac": data.get("fecha_nac"),
+        "nacionalidad": data.get("nacionalidad").title(),
+        "ciudad_natal": ciudad_natal.id if ciudad_natal else None,
+        "ciudad_actual": ciudad_actual.id if ciudad_actual else None,
+        "sexo": data.get("sexo").title(),
+    }
+
+    return egresado
+
+
 def egresado_exists(dni):
     return FwUser.objects.filter(dni=dni).exists()
 
@@ -66,9 +86,9 @@ def crear_nuevo_egresado(json_egresado):
     egresado = create_egresado(json_egresado=json_egresado)
 
     create_egreso(
-        carrera=get_carrera_following(json_egresado.get("carrera")),
+        carrera_id=get_carrera_following(json_egresado.get("carrera")).id,
         usuario=egresado,
-        json_egresado=json_egresado,
+        ciclo_egreso=json_egresado.get("fecha_egreso"),
     )
 
     create_privacidad(usuario=egresado)
