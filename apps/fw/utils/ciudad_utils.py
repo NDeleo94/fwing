@@ -91,3 +91,12 @@ def get_or_create_ciudad(data):
 
 def fetch_ciudades():
     return Ciudad.objects.all()
+
+
+def set_city_on_row(row, key):
+    try:
+        row[key] = get_or_create_ciudad(row[key])
+    except Exception as e:
+        print(e)
+
+    return row

@@ -96,3 +96,16 @@ def crear_nuevo_egresado(json_egresado):
     set_origin(usuario=egresado, origen=2)
 
     return egresado
+
+
+def check_and_set_origin(row):
+    try:
+        if not row["ORIGEN"]:
+            row["ORIGEN"] = 1
+
+    except Exception as e:
+        print(e)
+
+
+def get_egresado_by_dni(dni):
+    return FwUser.objects.filter(dni=dni).first()
