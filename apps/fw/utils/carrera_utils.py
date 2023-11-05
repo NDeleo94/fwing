@@ -54,3 +54,30 @@ def get_or_create_carrera(data, facultad_id):
         )
 
     return carrera
+
+
+def filter_carrera_query(queryset, filters):
+    filtered_queryset = queryset
+
+    estado = filters.get("estado")
+
+    carrera = filters.get("carrera")
+
+    offset = filters.get("skip")
+    limit = filters.get("limit")
+
+    if estado:
+        filtered_queryset = filtered_queryset.filter(estado=estado)
+    else:
+        filtered_queryset = filtered_queryset.filter(estado=True)
+
+    if carrera:
+        filtered_queryset = filtered_queryset.filter(carrera__icontains=carrera)
+
+    if offset:
+        filtered_queryset = filtered_queryset[int(offset) :]
+
+    if limit:
+        filtered_queryset = filtered_queryset[: int(limit)]
+
+    return filtered_queryset
