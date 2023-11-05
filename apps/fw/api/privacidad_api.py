@@ -33,7 +33,7 @@ class PrivacidadUpdateAPIView(
     def create(self, request, *args, **kwargs):
         data = request.data
 
-        privacidad = check_privacity(request.data["usuario"])
+        privacidad = check_privacity(request.data.get("usuario"))
 
         if privacidad:
             serializer = self.get_serializer(privacidad, data=data)

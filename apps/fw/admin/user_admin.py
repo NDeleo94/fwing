@@ -9,13 +9,13 @@ from django.contrib.auth.models import Group
 from apps.fw.models.user_model import FwUser
 from apps.fw.models.egreso_model import Egreso
 from apps.fw.models.actividad_model import Actividad
-from apps.fw.models.carrera_model import Carrera
 from apps.fw.models.ciudad_model import Ciudad
-from apps.fw.models.privacidad_model import Privacidad
 
-from apps.fw.serializers.ciudad_serializers import *
-from apps.fw.serializers.egreso_serializers import *
-from apps.fw.serializers.privacidad_serializers import *
+from apps.fw.utils.general_utils import *
+from apps.fw.utils.ciudad_utils import set_city_on_row
+from apps.fw.utils.egresado_utils import *
+from apps.fw.utils.egreso_utils import *
+from apps.fw.utils.privacidad_utils import *
 
 from import_export import resources
 from import_export.admin import ImportExportModelAdmin
@@ -98,11 +98,6 @@ class FwUserResources(resources.ModelResource):
     fecha_nac = Field(attribute="fecha_nac", column_name="FECHA_NAC")
     nacionalidad = Field(attribute="nacionalidad", column_name="NACIONALIDAD")
     sexo = Field(attribute="sexo", column_name="SEXO")
-    # ciudad_natal = Field(attribute="ciudad_natal", column_name="LOCALIDAD")
-    # ciudad_actual = Field(attribute="ciudad_actual", column_name="LOCALIDAD")
-    # domicilio = Field(attribute="domicilio", column_name="DOMICILIO")
-    # carrera = Field(attribute="carrera", column_name="CARRERA")
-    # ciclo_egreso = Field(attribute="ciclo_egreso", column_name="EGRESO")
 
     ciudad_natal = Field(
         column_name="LOCALIDAD NATAL",
@@ -128,54 +123,21 @@ class FwUserResources(resources.ModelResource):
             "nacionalidad",
             "ciudad_natal",
             "ciudad_actual",
-            # "domicilio",
             "sexo",
             "origen",
         )
 
-    def row_to_title_case(self, row):
-        try:
-            # for key, value in row.items():
-            #     if isinstance(value, str):
-            #         row[key] = value.title()
-            row["NOMBRES"] = row["NOMBRES"].title()
-            row["APELLIDOS"] = row["APELLIDOS"].title()
-            row["NACIONALIDAD"] = row["NACIONALIDAD"].title()
-        except Exception as e:
-            print(e)
-
-    def get_or_create_ciudad(self, row, key):
-        try:
-            if not row[key]:
-                row[key] = None
-            else:
-                ciudad = Ciudad.objects.filter(ciudad__icontains=row[key]).first()
-                if ciudad:
-                    row[key] = ciudad
-                else:
-                    data_cased = row[key].title()
-                    data_ciudad = {
-                        "ciudad": data_cased,
-                    }
-                    serializer = CiudadUpdateSerializer(data=data_ciudad)
-                    serializer.is_valid(raise_exception=True)
-                    ciudad = serializer.save()
-                    row[key] = ciudad
-
-        except Exception as e:
-            print(e)
-
-        return row
-
     def before_import_row(self, row, **kwargs):
-        self.row_to_title_case(row=row)
+        check_and_set_origin(row)
 
-        self.get_or_create_ciudad(
+        row_to_title_case(row=row)
+
+        set_city_on_row(
             row=row,
             key="LOCALIDAD NATAL",
         )
 
-        self.get_or_create_ciudad(
+        set_city_on_row(
             row=row,
             key="LOCALIDAD ACTUAL",
         )
@@ -183,63 +145,20 @@ class FwUserResources(resources.ModelResource):
         return row
 
     def skip_row(self, instance, original, row, import_validation_errors=None):
-        return (
-            True
-            if FwUser.objects.filter(
-                dni=instance.dni,
-            ).exists()
-            else False
-        )
-
-    def set_origin(self, usuario, row):
-        try:
-            origen = row["ORIGEN"]
-            usuario.origen = origen if origen else 1
-            usuario.save()
-
-        except Exception as e:
-            print(e)
-
-    def create_privacidad(self, usuario):
-        try:
-            data_privacidad = {
-                "usuario": usuario.id,
-            }
-            serializer = PrivacidadSerializer(data=data_privacidad)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-
-        except Exception as e:
-            print(e)
-
-    def set_egreso(self, usuario, row):
-        try:
-            carrera_id = row["CARRERA"]
-            egreso = row["EGRESO"]
-
-            data_egreso = {
-                "ciclo_egreso": egreso,
-                "usuario": usuario.id,
-                "carrera": carrera_id,
-            }
-            serializer = EgresoUpdateSerializer(data=data_egreso)
-            serializer.is_valid(raise_exception=True)
-            serializer.save()
-
-        except Exception as e:
-            print(e)
+        return egresado_exists(dni=instance.dni)
 
     def after_import_row(self, row, row_result, row_number=None, **kwargs):
-        dni = row["DNI"]
-
         try:
-            usuario = FwUser.objects.filter(dni=dni).first()
+            usuario = get_egresado_by_dni(dni=row["DNI"])
 
-            self.set_origin(usuario=usuario, row=row)
+            create_privacidad(usuario=usuario)
 
-            self.create_privacidad(usuario=usuario)
-
-            self.set_egreso(usuario=usuario, row=row)
+            if row["CARRERA"] and row["EGRESO"]:
+                create_egreso(
+                    carrera_id=row["CARRERA"],
+                    usuario=usuario,
+                    ciclo_egreso=row["EGRESO"],
+                )
 
         except Exception as e:
             print(e)

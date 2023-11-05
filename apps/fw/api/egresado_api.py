@@ -4,7 +4,7 @@ from apps.fw.serializers.egresado_serializers import *
 from apps.fw.serializers.egreso_serializers import *
 from apps.fw.serializers.ciudad_serializers import *
 
-from apps.fw.utils.ciudad_utils import get_or_create_ciudad
+from apps.fw.utils.egresado_utils import *
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -23,59 +23,21 @@ class EgresadoUpdateAPIView(
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
-    def create_egreso(self, egresado, data):
-        data_egreso = {
-            "usuario": egresado.id,
-            "carrera": data["carrera"],
-            "ciclo_egreso": data["ciclo_egreso"],
-        }
-        serializer = EgresoUpdateSerializer(data=data_egreso)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-
-    def create_privacidad(self, egresado):
-        Privacidad.objects.create(usuario=egresado)
-        # data_privacidad = {
-        #     "usuario": egresado.id,
-        # }
-        # serializer = PrivacidadSerializer(data=data_privacidad)
-        # serializer.is_valid(raise_exception=True)
-        # serializer.save()
-
-    def set_origin(self, egresado):
-        egresado.origen = 3
-        egresado.save()
-
-    def check_or_transform_data(self, data):
-        ciudad_natal = get_or_create_ciudad(data=data["ciudad_natal"])
-
-        ciudad_actual = get_or_create_ciudad(data=data["ciudad_actual"])
-
-        egresado = {
-            "dni": data["dni"],
-            "nombres": data["nombres"],
-            "apellidos": data["apellidos"],
-            "email": data["email"],
-            "fecha_nac": data["fecha_nac"],
-            "nacionalidad": data["nacionalidad"],
-            "ciudad_natal": ciudad_natal.id if ciudad_natal else None,
-            "ciudad_actual": ciudad_actual.id if ciudad_actual else None,
-            "sexo": data["sexo"],
-        }
-
-        return egresado
-
     def create(self, request, *args, **kwargs):
-        data_egresado = self.check_or_transform_data(request.data)
+        data_egresado = check_or_transform_data(request.data)
         serializer = self.get_serializer(data=data_egresado)
         serializer.is_valid(raise_exception=True)
         egresado = serializer.save()
 
-        self.create_egreso(egresado=egresado, data=request.data)
+        create_egreso(
+            carrera_id=request.data.get("carrera"),
+            usuario=egresado,
+            ciclo_egreso=request.data.get("ciclo_egreso"),
+        )
 
-        self.create_privacidad(egresado=egresado)
+        create_privacidad(usuario=egresado)
 
-        self.set_origin(egresado=egresado)
+        set_origin(usuario=egresado, origen=3)
 
         headers = self.get_success_headers(serializer.data)
         return Response(
@@ -87,7 +49,7 @@ class EgresadoUpdateAPIView(
     def update(self, request, *args, **kwargs):
         partial = kwargs.pop("partial", False)
         instance = self.get_object()
-        data = self.check_or_transform_data(request.data)
+        data = check_or_transform_data(request.data)
         serializer = self.get_serializer(instance, data=data, partial=partial)
         serializer.is_valid(raise_exception=True)
         self.perform_update(serializer)
