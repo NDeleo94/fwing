@@ -31,3 +31,33 @@ def get_or_create_universidad(data):
         universidad = create_universidad(data=data)
 
     return universidad
+
+
+def filter_universidad_query(queryset, filters):
+    filtered_queryset = queryset
+
+    estado = filters.get("estado")
+
+    universidad = filters.get("universidad")
+    acronimo = filters.get("acronimo")
+
+    offset = filters.get("skip")
+    limit = filters.get("limit")
+
+    if estado:
+        filtered_queryset = filtered_queryset.filter(estado=estado)
+    else:
+        filtered_queryset = filtered_queryset.filter(estado=True)
+
+    if universidad:
+        filtered_queryset = filtered_queryset.filter(universidad__icontains=universidad)
+    if acronimo:
+        filtered_queryset = filtered_queryset.filter(acronimo__icontains=acronimo)
+
+    if offset:
+        filtered_queryset = filtered_queryset[int(offset) :]
+
+    if limit:
+        filtered_queryset = filtered_queryset[: int(limit)]
+
+    return filtered_queryset
