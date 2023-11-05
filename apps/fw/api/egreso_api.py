@@ -61,7 +61,7 @@ class EgresoUpdateAPIView(
 class EgresoReadOnlyAPIView(
     viewsets.ReadOnlyModelViewSet,
 ):
-    queryset = Egreso.objects.filter(estado=True).order_by(
+    queryset = Egreso.objects.all().order_by(
         "carrera",
         "ciclo_egreso",
     )

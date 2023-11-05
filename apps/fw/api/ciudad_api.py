@@ -33,7 +33,7 @@ class CiudadUpdateAPIView(
 
 class CiudadReadOnlyAPIView(viewsets.ReadOnlyModelViewSet):
     serializer_class = CiudadReadOnlySerializer
-    queryset = serializer_class.Meta.model.objects.filter(estado=True).order_by(
+    queryset = serializer_class.Meta.model.objects.all().order_by(
         "ciudad",
     )
 
