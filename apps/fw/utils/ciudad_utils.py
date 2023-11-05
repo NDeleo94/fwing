@@ -100,3 +100,22 @@ def set_city_on_row(row, key):
         print(e)
 
     return row
+
+
+def filter_query(queryset, filters):
+    filtered_queryset = queryset
+
+    ciudad = filters.get("ciudad")
+    offset = filters.get("skip")
+    limit = filters.get("limit")
+
+    if ciudad:
+        filtered_queryset = filtered_queryset.filter(ciudad__icontains=ciudad)
+
+    if offset:
+        filtered_queryset = filtered_queryset[int(offset) :]
+
+    if limit:
+        filtered_queryset = filtered_queryset[: int(limit)]
+
+    return filtered_queryset
