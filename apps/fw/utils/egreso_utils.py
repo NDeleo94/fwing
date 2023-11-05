@@ -41,3 +41,35 @@ def create_egreso(carrera_id, usuario, ciclo_egreso):
     serializer.is_valid(raise_exception=True)
     egreso = serializer.save()
     return egreso
+
+
+def filter_egreso_query(queryset, filters):
+    filtered_queryset = queryset
+
+    estado = filters.get("estado")
+
+    ciclo_egreso = filters.get("ciclo_egreso")
+    matricula = filters.get("matricula")
+
+    offset = filters.get("skip")
+    limit = filters.get("limit")
+
+    if estado:
+        filtered_queryset = filtered_queryset.filter(estado=estado)
+    else:
+        filtered_queryset = filtered_queryset.filter(estado=True)
+
+    if ciclo_egreso:
+        filtered_queryset = filtered_queryset.filter(
+            ciclo_egreso__icontains=ciclo_egreso
+        )
+    if matricula:
+        filtered_queryset = filtered_queryset.filter(matricula__icontains=matricula)
+
+    if offset:
+        filtered_queryset = filtered_queryset[int(offset) :]
+
+    if limit:
+        filtered_queryset = filtered_queryset[: int(limit)]
+
+    return filtered_queryset

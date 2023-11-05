@@ -2,7 +2,7 @@ from rest_framework import viewsets, mixins
 
 from apps.fw.serializers.egreso_serializers import *
 
-from apps.fw.utils.egreso_utils import check_or_transform_data
+from apps.fw.utils.egreso_utils import *
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -66,6 +66,13 @@ class EgresoReadOnlyAPIView(
         "ciclo_egreso",
     )
     serializer_class = EgresoReadOnlySerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        filters = self.request.query_params
+
+        return filter_egreso_query(queryset=queryset, filters=filters)
 
 
 class EgresoAPIView(viewsets.ModelViewSet):
