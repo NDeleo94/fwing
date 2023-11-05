@@ -102,12 +102,20 @@ def set_city_on_row(row, key):
     return row
 
 
-def filter_query(queryset, filters):
+def filter_ciudad_query(queryset, filters):
     filtered_queryset = queryset
 
+    estado = filters.get("estado")
+
     ciudad = filters.get("ciudad")
+
     offset = filters.get("skip")
     limit = filters.get("limit")
+
+    if estado:
+        filtered_queryset = filtered_queryset.filter(is_active=estado)
+    else:
+        filtered_queryset = filtered_queryset.filter(is_active=True)
 
     if ciudad:
         filtered_queryset = filtered_queryset.filter(ciudad__icontains=ciudad)

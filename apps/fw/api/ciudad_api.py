@@ -2,7 +2,7 @@ from rest_framework import viewsets, mixins
 
 from apps.fw.serializers.ciudad_serializers import *
 
-from apps.fw.utils.ciudad_utils import filter_query
+from apps.fw.utils.ciudad_utils import filter_ciudad_query
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -42,7 +42,7 @@ class CiudadReadOnlyAPIView(viewsets.ReadOnlyModelViewSet):
 
         filters = self.request.query_params
 
-        return filter_query(queryset=queryset, filters=filters)
+        return filter_ciudad_query(queryset=queryset, filters=filters)
 
 
 class CiudadAPIView(viewsets.ModelViewSet):
