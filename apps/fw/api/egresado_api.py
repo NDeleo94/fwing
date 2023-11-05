@@ -74,11 +74,18 @@ class EgresadoUpdateAPIView(
 class EgresadoReadOnlyAPIView(
     viewsets.ReadOnlyModelViewSet,
 ):
-    queryset = FwUser.objects.filter(is_active=True).order_by(
+    queryset = FwUser.objects.all().order_by(
         "apellidos",
         "nombres",
     )
     serializer_class = EgresadoReadOnlySerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        filters = self.request.query_params
+
+        return filter_egresado_query(queryset=queryset, filters=filters)
 
 
 class EgresadoViewSet(

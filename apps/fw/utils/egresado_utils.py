@@ -1,3 +1,4 @@
+from django.db.models import Q
 from apps.fw.models.user_model import FwUser
 
 from apps.fw.serializers.egresado_serializers import EgresadoUpdateSerializer
@@ -109,3 +110,50 @@ def check_and_set_origin(row):
 
 def get_egresado_by_dni(dni):
     return FwUser.objects.filter(dni=dni).first()
+
+
+def filter_egresado_query(queryset, filters):
+    filtered_queryset = queryset
+
+    estado = filters.get("estado")
+
+    dni = filters.get("dni")
+    apellidos = filters.get("apellidos")
+    nombres = filters.get("nombres")
+    email = filters.get("email")
+    nacionalidad = filters.get("nacionalidad")
+    fecha_nac = filters.get("fecha_nac")
+    sexo = filters.get("sexo")
+
+    offset = filters.get("skip")
+    limit = filters.get("limit")
+
+    if estado:
+        filtered_queryset = filtered_queryset.filter(is_active=estado)
+    else:
+        filtered_queryset = filtered_queryset.filter(is_active=True)
+
+    if dni:
+        filtered_queryset = filtered_queryset.filter(dni__icontains=dni)
+    if apellidos:
+        filtered_queryset = filtered_queryset.filter(apellidos__icontains=apellidos)
+    if nombres:
+        filtered_queryset = filtered_queryset.filter(nombres__icontains=nombres)
+    if email:
+        filtered_queryset = filtered_queryset.filter(email__icontains=email)
+    if nacionalidad:
+        filtered_queryset = filtered_queryset.filter(
+            nacionalidad__icontains=nacionalidad
+        )
+    if fecha_nac:
+        filtered_queryset = filtered_queryset.filter(fecha_nac__icontains=fecha_nac)
+    if sexo:
+        filtered_queryset = filtered_queryset.filter(sexo__icontains=sexo)
+
+    if offset:
+        filtered_queryset = filtered_queryset[int(offset) :]
+
+    if limit:
+        filtered_queryset = filtered_queryset[: int(limit)]
+
+    return filtered_queryset
