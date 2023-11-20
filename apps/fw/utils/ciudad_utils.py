@@ -113,9 +113,9 @@ def filter_ciudad_query(queryset, filters):
     limit = filters.get("limit")
 
     if estado:
-        filtered_queryset = filtered_queryset.filter(is_active=estado)
+        filtered_queryset = filtered_queryset.filter(estado=estado)
     else:
-        filtered_queryset = filtered_queryset.filter(is_active=True)
+        filtered_queryset = filtered_queryset.filter(estado=True)
 
     if ciudad:
         filtered_queryset = filtered_queryset.filter(ciudad__icontains=ciudad)
