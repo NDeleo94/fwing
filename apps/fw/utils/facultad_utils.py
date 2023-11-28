@@ -35,3 +35,33 @@ def get_or_create_facultad(data, universidad_id):
         )
 
     return facultad
+
+
+def filter_facultad_query(queryset, filters):
+    filtered_queryset = queryset
+
+    estado = filters.get("estado")
+
+    facultad = filters.get("facultad")
+    acronimo = filters.get("acronimo")
+
+    offset = filters.get("skip")
+    limit = filters.get("limit")
+
+    if estado:
+        filtered_queryset = filtered_queryset.filter(estado=estado)
+    else:
+        filtered_queryset = filtered_queryset.filter(estado=True)
+
+    if facultad:
+        filtered_queryset = filtered_queryset.filter(facultad__icontains=facultad)
+    if acronimo:
+        filtered_queryset = filtered_queryset.filter(acronimo__icontains=acronimo)
+
+    if offset:
+        filtered_queryset = filtered_queryset[int(offset) :]
+
+    if limit:
+        filtered_queryset = filtered_queryset[: int(limit)]
+
+    return filtered_queryset

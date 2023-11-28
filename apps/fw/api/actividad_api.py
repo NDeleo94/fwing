@@ -2,7 +2,7 @@ from rest_framework import viewsets, mixins
 
 from apps.fw.serializers.actividad_serializers import *
 
-from apps.fw.utils.actividad_utils import check_or_transform_data
+from apps.fw.utils.actividad_utils import *
 
 from rest_framework import status
 from rest_framework.response import Response
@@ -60,10 +60,17 @@ class ActividadUpdateAPIView(
 
 class ActividadReadOnlyAPIView(viewsets.ReadOnlyModelViewSet):
     serializer_class = ActividadReadOnlySerializer
-    queryset = serializer_class.Meta.model.objects.filter(estado=True).order_by(
+    queryset = serializer_class.Meta.model.objects.all().order_by(
         "inicio",
         "fin",
     )
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        filters = self.request.query_params
+
+        return filter_actividad_query(queryset=queryset, filters=filters)
 
 
 class ActividadAPIView(viewsets.ModelViewSet):

@@ -2,6 +2,8 @@ from rest_framework import viewsets, mixins
 
 from apps.fw.serializers.facultad_serializers import *
 
+from apps.fw.utils.facultad_utils import filter_facultad_query
+
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
@@ -31,10 +33,17 @@ class FacultadUpdateAPIView(
 
 class FacultadReadOnlyAPIView(viewsets.ReadOnlyModelViewSet):
     serializer_class = FacultadReadOnlySerializer
-    queryset = serializer_class.Meta.model.objects.filter(estado=True).order_by(
+    queryset = serializer_class.Meta.model.objects.all().order_by(
         "facultad",
         "universidad",
     )
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+
+        filters = self.request.query_params
+
+        return filter_facultad_query(queryset=queryset, filters=filters)
 
 
 class FacultadAPIView(viewsets.ModelViewSet):
